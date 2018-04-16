@@ -8,7 +8,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
-import com.vessel.gather.module.me.MeSettingFragment;
+import com.vessel.gather.module.me.SettingFragment;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
@@ -42,7 +42,7 @@ public class ContainerActivity extends MySupportActivity {
         }
         switch (pageIndex) {
             case PAGE_SETTING:
-                targetFragment = MeSettingFragment.newInstance();
+                targetFragment = SettingFragment.newInstance();
                 break;
         }
         loadRootFragment(R.id.fl_content, targetFragment);

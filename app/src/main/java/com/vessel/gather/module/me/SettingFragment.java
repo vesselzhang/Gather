@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -32,7 +31,7 @@ import butterknife.OnClick;
  * @date 2017/11/29
  */
 
-public class MeSettingFragment extends MySupportFragment<SettingPresenter> implements SettingContract.View {
+public class SettingFragment extends MySupportFragment<SettingPresenter> implements SettingContract.View {
     @BindView(R.id.tv_title)
     TextView mTitleTV;
     @BindView(R.id.userinfo_avatar)
@@ -50,8 +49,12 @@ public class MeSettingFragment extends MySupportFragment<SettingPresenter> imple
 
     private UserInfoResponse userInfo;
 
-    public static MeSettingFragment newInstance() {
-        return new MeSettingFragment();
+    public static SettingFragment newInstance() {
+        Bundle args = new Bundle();
+
+        SettingFragment fragment = new SettingFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -109,7 +112,7 @@ public class MeSettingFragment extends MySupportFragment<SettingPresenter> imple
 //                mPresenter.setSignature(pickRealString(mSignatureTV.getText().toString()));
 //                break;
             case R.id.userinfo_safe_layout:
-                ARouter.getInstance().build("/app/safe").navigation();
+                start(SafeFragment.newInstance());
                 break;
             case R.id.iv_left:
                 killMyself();

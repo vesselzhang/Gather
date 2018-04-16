@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.base.delegate.AppLifecycles;
+import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.vessel.gather.BuildConfig;
 
 import me.yokeyword.fragmentation.Fragmentation;
@@ -23,6 +24,7 @@ public class MyAppLifecycle implements AppLifecycles {
 //        initLeakCanary(application);
         initFragmentation();
         initARouter(application);
+        RxPaparazzo.register(application);
     }
 
     @Override

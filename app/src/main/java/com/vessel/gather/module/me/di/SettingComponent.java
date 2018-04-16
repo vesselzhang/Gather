@@ -2,7 +2,7 @@ package com.vessel.gather.module.me.di;
 
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.di.scope.ActivityScope;
-import com.vessel.gather.module.me.MeSettingFragment;
+import com.vessel.gather.module.me.SettingFragment;
 
 import dagger.Component;
 
@@ -14,5 +14,5 @@ import dagger.Component;
 @ActivityScope
 @Component(modules = SettingModule.class, dependencies = AppComponent.class)
 public interface SettingComponent {
-    void inject(MeSettingFragment activity);
+    void inject(SettingFragment activity);
 }

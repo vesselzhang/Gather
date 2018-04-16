@@ -1,5 +1,7 @@
 package com.vessel.gather.module.me;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.DataHelper;
 import com.jess.arms.utils.DeviceUtils;
+import com.jess.arms.utils.PermissionUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
@@ -185,6 +189,18 @@ public class MeTabFragment extends MySupportFragment {
             case R.id.me_about:
                 break;
             case R.id.me_contact:
+                PermissionUtil.callPhone(new PermissionUtil.RequestPermission() {
+                    @Override
+                    public void onRequestPermissionSuccess() {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13182716780"));
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onRequestPermissionFailure() {
+                        ArmsUtils.makeText(getActivity(), "权限被拒绝");
+                    }
+                }, new RxPermissions(getActivity()), mAppComponent.rxErrorHandler());
                 break;
             case R.id.me_logout_layout:
                 ARouter.getInstance().build("/app/login").navigation();
