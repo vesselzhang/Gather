@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/def_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/view_titlebar"
+        layout="@layout/layout_titlebar" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="20dp">
+
+        <EditText
+            android:id="@+id/suggest_content"
+            android:layout_width="match_parent"
+            android:layout_height="300px"
+            android:background="#FFFFFF"
+            android:gravity="top"
+            android:hint="请输入您的宝贵建议"
+            android:textColor="#AAAAAA"
+            android:textSize="13sp" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/suggest_image_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_square_round_stroke_grey"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_pictrue" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="23dp"
+        android:text="联系方式"
+        android:textSize="26px" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="6dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:hint="如需得到反馈，请留下联系方式"
+        android:maxLines="1"
+        android:padding="15sp"
+        android:textColor="#AAAAAA"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/suggest_submit"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_round_green"
+        android:gravity="center"
+        android:text="提交建议"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
+</com.zhy.autolayout.AutoLinearLayout>
