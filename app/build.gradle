@@ -71,4 +71,19 @@ dependencies {
     testImplementation rootProject.ext.dependencies["canary-release"]
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]
+
+    // tool
+    implementation 'me.jessyan:arms:2.2.3'
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    implementation rootProject.ext.dependencies["retrofit-url-manager"]
+    implementation "com.github.ywp0919:AddressPickerLib:1.0.1"
+    implementation 'com.github.CHAOHUILI:AddressPicker:v1.1.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.32'
+
+    // layout
+    implementation rootProject.ext.dependencies["fragmentation"]
+    implementation rootProject.ext.dependencies["fragmentation-core"]
+    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+    implementation rootProject.ext.dependencies["FlycoSystemBar_Lib"]
 }
