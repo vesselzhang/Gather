@@ -82,6 +82,10 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.32'
     implementation rootProject.ext.dependencies["arouter"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    implementation("com.github.miguelbcr:RxPaparazzo:0.5.2-2.x") {
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+    }
 
     // layout
     implementation rootProject.ext.dependencies["fragmentation"]

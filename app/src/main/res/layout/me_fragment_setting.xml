@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/def_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/view_titlebar"
+        layout="@layout/layout_titlebar" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#FFFFFF" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/userinfo_avatar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的头像"
+            android:textColor="#353535"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_weight="1" />
+
+        <com.vessel.gather.widght.RoundImage
+            android:id="@+id/userinfo_avatar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:src="@drawable/icon_next" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="#FFFFFF" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/userinfo_nickname_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的昵称"
+            android:textColor="#353535"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/userinfo_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Monica" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:src="@drawable/icon_next" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="#FFFFFF" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/userinfo_safe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号与安全"
+            android:textColor="#353535"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_next" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="#FFFFFF" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地区设置"
+            android:textColor="#353535"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="成都"
+            android:textColor="#333333"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:src="@drawable/icon_next" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="#FFFFFF" />
+
+    <Button
+        android:id="@+id/userinfo_logout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_round_green"
+        android:gravity="center"
+        android:text="退出当前账户"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
+</com.zhy.autolayout.AutoLinearLayout>

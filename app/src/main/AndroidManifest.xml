@@ -3,6 +3,7 @@
     package="com.vessel.gather">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="com.jess.arms.base.BaseApplication"
@@ -22,6 +23,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".module.ContainerActivity" />
         <activity android:name=".module.cart.PayActivity" />
         <activity android:name=".module.login.LoginActivity" />
         <activity android:name=".module.login.PasswordActivity" />

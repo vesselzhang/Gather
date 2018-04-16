@@ -1,4 +1,4 @@
-package com.vessel.gather.app.data.entity;
+package com.vessel.gather.event;
 
 /**
  * @author vesselzhang

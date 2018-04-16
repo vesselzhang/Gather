@@ -10,7 +10,7 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.DataHelper;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.app.constant.SPConstant;
-import com.vessel.gather.app.data.entity.Event;
+import com.vessel.gather.event.Event;
 import com.vessel.gather.app.data.entity.VariableResponse;
 
 import org.simple.eventbus.EventBus;
@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
-import static com.vessel.gather.app.data.entity.Event.EVENT_USERINFO;
+import static com.vessel.gather.event.Event.EVENT_USERINFO;
 
 /**
  * @author vesselzhang

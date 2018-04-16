@@ -6,13 +6,8 @@ package com.vessel.gather.app.constant;
  */
 
 public class Constants {
-    public static final int REQUEST_FivePage = 0x0001;
-    public static final int REQUEST_Sign     = 0x0002;
+    public static final String PAGE = "PAGE";
+    public static final String PAGE_SETTING = PAGE + "_Setting";
 
-    public static final String KEY_COOPERATION = "cooperation";
-    public static final String KEY_PREVIEW = "preview";
-    public static final String KEY_JOBORDER = "jobOrder";
-    public static final String KEY_CARID = "carId";
-    public static final String KEY_FROMDRAFT = "draft";
-    public static final String KEY_APP_TOKEN = "app_token";
+
 }

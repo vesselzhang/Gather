@@ -17,6 +17,7 @@ import com.jess.arms.utils.DeviceUtils;
 import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
+import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.data.api.service.CommonService;
 import com.vessel.gather.app.data.entity.UserInfoResponse;
@@ -189,7 +190,9 @@ public class MeTabFragment extends MySupportFragment {
                 ARouter.getInstance().build("/app/login").navigation();
                 break;
             case R.id.me_login_layout:
-                ARouter.getInstance().build("/app/me").navigation();
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_SETTING)
+                        .navigation();
                 break;
         }
     }
