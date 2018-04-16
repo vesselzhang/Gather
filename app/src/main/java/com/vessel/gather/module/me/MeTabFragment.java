@@ -171,6 +171,9 @@ public class MeTabFragment extends MySupportFragment {
                     ARouter.getInstance().build("/app/login").navigation();
                     return;
                 }
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_ADDRESS)
+                        .navigation();
                 break;
             case R.id.me_notepad:
                 if (TextUtils.isEmpty(token)) {
