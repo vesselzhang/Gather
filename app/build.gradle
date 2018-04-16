@@ -80,6 +80,8 @@ dependencies {
     implementation "com.github.ywp0919:AddressPickerLib:1.0.1"
     implementation 'com.github.CHAOHUILI:AddressPicker:v1.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.32'
+    implementation rootProject.ext.dependencies["arouter"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 
     // layout
     implementation rootProject.ext.dependencies["fragmentation"]

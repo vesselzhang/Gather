@@ -2,13 +2,17 @@ package com.vessel.gather.module;
 
 import android.os.Bundle;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jess.arms.di.component.AppComponent;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
+import com.vessel.gather.module.bbs.BbsTabFragment;
+import com.vessel.gather.module.cart.CartTabFragment;
 import com.vessel.gather.module.home.HomeTabFragment;
+import com.vessel.gather.module.me.MeTabFragment;
 import com.vessel.gather.widght.TabEntity;
 
 import java.util.ArrayList;
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 
+@Route(path = "/app/main")
 public class MainActivity extends MySupportActivity {
 
     @BindView(R.id.tl_bottom_bar)
@@ -43,15 +48,15 @@ public class MainActivity extends MySupportActivity {
         ISupportFragment homeFragment = findFragment(HomeTabFragment.class);
         if (homeFragment == null) {
             mFragments[0] = HomeTabFragment.newInstance();
-            mFragments[1] = HomeTabFragment.newInstance();
-            mFragments[2] = HomeTabFragment.newInstance();
-            mFragments[3] = HomeTabFragment.newInstance();
+            mFragments[1] = BbsTabFragment.newInstance();
+            mFragments[2] = CartTabFragment.newInstance();
+            mFragments[3] = MeTabFragment.newInstance();
             loadMultipleRootFragment(R.id.fl_content, 0, mFragments);
         } else {
             mFragments[0] = findFragment(HomeTabFragment.class);
-            mFragments[1] = findFragment(HomeTabFragment.class);
-            mFragments[2] = findFragment(HomeTabFragment.class);
-            mFragments[3] = findFragment(HomeTabFragment.class);
+            mFragments[1] = findFragment(BbsTabFragment.class);
+            mFragments[2] = findFragment(CartTabFragment.class);
+            mFragments[3] = findFragment(MeTabFragment.class);
         }
     }
 
@@ -65,7 +70,6 @@ public class MainActivity extends MySupportActivity {
         mBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-//                Timber.e("position = " + position);
                 showHideFragment(mFragments[position]);
             }
 

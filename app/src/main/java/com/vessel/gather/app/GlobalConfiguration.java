@@ -8,6 +8,7 @@ import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.GlobalConfigModule;
 import com.jess.arms.integration.ConfigModule;
 import com.jess.arms.utils.DataHelper;
+import com.vessel.gather.BuildConfig;
 import com.vessel.gather.app.config.applyOptions.MyGlobalHttpHandler;
 import com.vessel.gather.app.config.applyOptions.MyGsonConfiguration;
 import com.vessel.gather.app.config.applyOptions.MyResponseErrorListener;
@@ -28,7 +29,7 @@ public class GlobalConfiguration implements ConfigModule {
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         //使用builder可以为框架配置一些配置信息
         builder
-                .baseurl("http://192.168.101.27:8081/")
+                .baseurl(BuildConfig.APP_DOMAIN)
 //                .retrofitConfiguration(new MyRetrofitConfiguration())
                 .rxCacheConfiguration(new MyRxCacheConfiguration())
                 .globalHttpHandler(new MyGlobalHttpHandler(context))

@@ -6,4 +6,5 @@ package com.vessel.gather.app.data.entity;
  */
 
 public class Event {
+    public static final String EVENT_USERINFO = "event_user_info";
 }
