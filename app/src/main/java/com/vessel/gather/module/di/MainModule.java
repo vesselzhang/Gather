@@ -1,0 +1,37 @@
+package com.vessel.gather.module.di;
+
+import com.jess.arms.di.scope.ActivityScope;
+
+import dagger.Module;
+import dagger.Provides;
+
+/**
+ * @author vesselzhang
+ * @date 2017/11/25
+ */
+
+@Module
+public class MainModule {
+    private MainContract.View view;
+
+    /**
+     * 构建MainModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
+     *
+     * @param view
+     */
+    public MainModule(MainContract.View view) {
+        this.view = view;
+    }
+
+    @ActivityScope
+    @Provides
+    MainContract.View provideView() {
+        return this.view;
+    }
+
+    @ActivityScope
+    @Provides
+    MainContract.Model provideModel(MainModel model) {
+        return model;
+    }
+}

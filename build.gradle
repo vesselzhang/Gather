@@ -1,18 +1,17 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: 'config.gradle' //这里表示引用config.gradle文件
+apply from: "config.gradle"
 
 buildscript {
-
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
+        //Gradle Android Maven plugin
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        //Gradle Bintray Plugin
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
 
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
@@ -20,9 +19,14 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://jitpack.io" }//rxcahche 需要 jitpack 仓库
-        maven { url "https://maven.google.com" }//Support-library 需要 Google 仓库
-        maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+    }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
     }
 }
 

@@ -12,4 +12,7 @@ public class Constants {
     public static final String PAGE_SUGGEST = PAGE + "_Suggest";
 
 
+    public static final String TAG = "TAG";
+    public static final String TAG_BANNERS_REFRESH = TAG + "_Banners_Refresh";
+
 }

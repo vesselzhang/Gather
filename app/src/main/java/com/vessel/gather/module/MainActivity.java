@@ -1,36 +1,55 @@
 package com.vessel.gather.module;
 
+import android.Manifest;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
+import com.jess.arms.utils.PermissionUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
 import com.vessel.gather.module.bbs.BbsTabFragment;
 import com.vessel.gather.module.cart.CartTabFragment;
+import com.vessel.gather.module.di.DaggerMainComponent;
+import com.vessel.gather.module.di.MainContract;
+import com.vessel.gather.module.di.MainModule;
+import com.vessel.gather.module.di.MainPresenter;
 import com.vessel.gather.module.home.HomeTabFragment;
 import com.vessel.gather.module.me.MeTabFragment;
 import com.vessel.gather.widght.TabEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 
 @Route(path = "/app/main")
-public class MainActivity extends MySupportActivity {
+public class MainActivity extends MySupportActivity<MainPresenter> implements MainContract.View {
 
     @BindView(R.id.tl_bottom_bar)
     CommonTabLayout mBottomBar;
 
+    private long time = 0;
     private ISupportFragment[] mFragments = new ISupportFragment[4];
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent
+                .builder()
+                .appComponent(appComponent)
+                .mainModule(new MainModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -40,8 +59,31 @@ public class MainActivity extends MySupportActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PermissionUtil.requestPermission(
+                    new PermissionUtil.RequestPermission() {
+                        @Override
+                        public void onRequestPermissionSuccess() {
+
+                        }
+
+                        @Override
+                        public void onRequestPermissionFailure(List<String> list) {
+
+                        }
+
+                        @Override
+                        public void onRequestPermissionFailureWithAskNeverAgain(List<String> list) {
+
+                        }
+                    },
+                    new RxPermissions(this), ArmsUtils.obtainAppComponentFromContext(this).rxErrorHandler(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE);
+        }
         initFragmentation();
         initBottomBar();
+
+        mPresenter.getIndexInfo();
     }
 
     private void initFragmentation() {
@@ -78,5 +120,47 @@ public class MainActivity extends MySupportActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - time > 1000) {
+                Toast.makeText(this, "再按一次返回桌面", Toast.LENGTH_SHORT).show();
+                time = System.currentTimeMillis();
+            } else {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void launchActivity(Intent intent) {
+
+    }
+
+    @Override
+    public void killMyself() {
+
     }
 }

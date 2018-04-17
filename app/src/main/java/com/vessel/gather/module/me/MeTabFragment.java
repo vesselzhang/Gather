@@ -28,6 +28,8 @@ import com.vessel.gather.app.data.entity.UserInfoResponse;
 import com.vessel.gather.app.utils.HttpResultFunc;
 import com.vessel.gather.widght.RoundImage;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observer;
@@ -203,8 +205,13 @@ public class MeTabFragment extends MySupportFragment {
                     }
 
                     @Override
-                    public void onRequestPermissionFailure() {
+                    public void onRequestPermissionFailure(List<String> list) {
                         ArmsUtils.makeText(getActivity(), "权限被拒绝");
+                    }
+
+                    @Override
+                    public void onRequestPermissionFailureWithAskNeverAgain(List<String> list) {
+
                     }
                 }, new RxPermissions(getActivity()), mAppComponent.rxErrorHandler());
                 break;

@@ -2,8 +2,16 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    useLibrary 'org.apache.http.legacy'
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
-        applicationId "com.vessel.decoration"
+        applicationId "com.vessel.gather"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -16,29 +24,13 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
-        ndk {
-            // 设置支持的SO库架构
-            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
-
         buildConfigField "String", "APP_DOMAIN", "\"http://120.78.63.213/\""
     }
 
     aaptOptions { cruncherEnabled = false }
 
-
-    signingConfigs {
-        release {
-            keyAlias 'juji'
-            keyPassword 'juji2017'
-            storeFile file('../juji.jks')
-            storePassword 'juji2017'
-        }
-    }
-
     buildTypes {
         debug {
-            //这两个变量是自定义的,自己也可以自定义字段,他会默认配置到BuildConfig中,app中可以根据这些字段执行一些操作
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
             minifyEnabled false
@@ -47,15 +39,17 @@ android {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
-            minifyEnabled false
-            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "ResourceType"
+        abortOnError false
     }
 }
 
@@ -63,8 +57,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
-    implementation rootProject.ext.dependencies["support-vector-drawable"]
 
     // test
     testImplementation rootProject.ext.dependencies["junit"]
@@ -73,19 +65,18 @@ dependencies {
     releaseImplementation rootProject.ext.dependencies["canary-release"]
 
     // tool
-    implementation 'me.jessyan:arms:2.2.3'
-    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    implementation 'me.jessyan:arms:2.4.1'
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+    }
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
     implementation "com.github.ywp0919:AddressPickerLib:1.0.1"
     implementation 'com.github.CHAOHUILI:AddressPicker:v1.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.32'
     implementation rootProject.ext.dependencies["arouter"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
-    implementation("com.github.miguelbcr:RxPaparazzo:0.5.2-2.x") {
-        exclude module: 'okhttp'
-        exclude module: 'okio'
-    }
+    implementation "com.github.miguelbcr:RxPaparazzo:0.6.0-2.x"
 
     // layout
     implementation rootProject.ext.dependencies["fragmentation"]

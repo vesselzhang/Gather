@@ -21,7 +21,7 @@
         app:tl_tab_space_equal="true"
         app:tl_textSelectColor="@color/base_color"
         app:tl_textUnselectColor="#87888A"
-        app:tl_textsize="22px"
+        app:tl_textsize="11sp"
         app:tl_underline_color="#DDDDDD"
         app:tl_underline_gravity="TOP"
         app:tl_underline_height="1px" />

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
+import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.data.entity.IndexResponse;
 import com.vessel.gather.widght.AutoScrollViewPager;
 import com.vessel.gather.widght.BaseViewPagerAdapter;
@@ -36,7 +37,6 @@ public class HomeTabFragment extends MySupportFragment {
     @BindView(R.id.view_pager)
     AutoScrollViewPager mViewPager;
     private ArrayList<Province> provinces = new ArrayList<>();
-    public static final String BANNERS_REFRESH = "banners_refresh";
     private BaseViewPagerAdapter<String> mBaseViewPagerAdapter;
     private List<String> imageUrls = new ArrayList<>();
     private List<IndexResponse.BannersBean> banners = new ArrayList<>();
@@ -106,7 +106,7 @@ public class HomeTabFragment extends MySupportFragment {
 
     }
 
-    @Subscriber(tag = BANNERS_REFRESH)
+    @Subscriber(tag = Constants.TAG_BANNERS_REFRESH)
     public void onRefresh(IndexResponse indexResponse) {
         banners.clear();
         banners.addAll(indexResponse.getBanners());
