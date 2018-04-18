@@ -29,9 +29,15 @@ public class AddressResponse implements Serializable {
          */
 
         private int addressId;
+        private int userId;
         private String name;
         private String phone;
         private String detailed;
+        private String region;
+        private String street;
+        private String postcode;
+        private String createTime;
+        private String updateTime;
         private int isDefault;
 
         public int getAddressId() {
@@ -72,6 +78,54 @@ public class AddressResponse implements Serializable {
 
         public void setIsDefault(int isDefault) {
             this.isDefault = isDefault;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public String getRegion() {
+            return region;
+        }
+
+        public void setRegion(String region) {
+            this.region = region;
+        }
+
+        public String getStreet() {
+            return street;
+        }
+
+        public void setStreet(String street) {
+            this.street = street;
+        }
+
+        public String getPostcode() {
+            return postcode;
+        }
+
+        public void setPostcode(String postcode) {
+            this.postcode = postcode;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(String updateTime) {
+            this.updateTime = updateTime;
         }
     }
 }

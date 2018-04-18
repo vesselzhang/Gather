@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 
@@ -51,11 +52,17 @@ public class SafeFragment extends MySupportFragment {
 
     }
 
-    @OnClick({R.id.iv_left})
+    @OnClick({R.id.iv_left, R.id.safe_update_phone, R.id.safe_reset_password})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
                 pop();
+                break;
+            case R.id.safe_update_phone:
+                ArmsUtils.makeText(getActivity(), "页面未设计");
+                break;
+            case R.id.safe_reset_password:
+                ArmsUtils.makeText(getActivity(), "页面未设计");
                 break;
         }
     }

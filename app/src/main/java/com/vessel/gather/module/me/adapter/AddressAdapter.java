@@ -55,7 +55,7 @@ public class AddressAdapter extends DefaultAdapter<AddressResponse.Address> {
             Observable.just(data).subscribe(address -> {
                 mName.setText(address.getName());
                 mPhone.setText(address.getPhone());
-                mDetailed.setText(address.getDetailed());
+                mDetailed.setText(address.getRegion() + " " +  address.getStreet() + " " + address.getDetailed());
                 mDefault.setChecked(address.getIsDefault() == 1);
                 mDefault.setOnCheckedChangeListener((compoundButton, b) -> {
                     if (b) {

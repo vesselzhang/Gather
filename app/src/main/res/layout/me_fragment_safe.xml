@@ -16,6 +16,7 @@
         android:background="#FFFFFF" />
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/safe_update_phone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FFFFFF"
@@ -57,6 +58,7 @@
         android:background="#FFFFFF" />
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/safe_reset_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FFFFFF"

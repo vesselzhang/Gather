@@ -55,6 +55,10 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
     }
 
     public void submit(String phone, String code, String password, String repeat) {
+        if (TextUtils.isEmpty(phone)) {
+            mRootView.showMessage("电话不可为空");
+            return;
+        }
         if (TextUtils.isEmpty(code)) {
             mRootView.showMessage("验证码不可为空");
             return;

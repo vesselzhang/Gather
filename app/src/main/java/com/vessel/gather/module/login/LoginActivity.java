@@ -62,7 +62,7 @@ public class LoginActivity extends MySupportActivity<LoginPresenter> implements 
         mLeftTV.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.iv_left, R.id.login_register, R.id.login_submit})
+    @OnClick({R.id.iv_left, R.id.login_register, R.id.login_submit, R.id.login_reset_password})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
@@ -73,6 +73,9 @@ public class LoginActivity extends MySupportActivity<LoginPresenter> implements 
                 break;
             case R.id.login_submit:
                 mPresenter.login(accountET.getText().toString(), passwordET.getText().toString());
+                break;
+            case R.id.login_reset_password:
+                showMessage("页面未设计");
                 break;
         }
     }

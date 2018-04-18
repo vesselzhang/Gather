@@ -37,7 +37,7 @@ public class AddressEditPresenter extends BasePresenter<AddressEditContract.Mode
         this.mAppManager = appManager;
     }
 
-    public void saveAddress(int addressId, String name, String phone, String address) {
+    public void saveAddress(int addressId, String name, String phone, String region, String street, String postcode, String detailed) {
         if (TextUtils.isEmpty(name)) {
             mRootView.showMessage("请输入联系人");
             return;
@@ -46,7 +46,11 @@ public class AddressEditPresenter extends BasePresenter<AddressEditContract.Mode
             mRootView.showMessage("请输入电话");
             return;
         }
-        if (TextUtils.isEmpty(address)) {
+        if (TextUtils.isEmpty(region)) {
+            mRootView.showMessage("请填写省市区");
+            return;
+        }
+        if (TextUtils.isEmpty(detailed)) {
             mRootView.showMessage("请输入地址");
             return;
         }
@@ -58,7 +62,12 @@ public class AddressEditPresenter extends BasePresenter<AddressEditContract.Mode
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("phone", phone);
-        map.put("detailed", address);
+        map.put("region", region);
+        map.put("detailed", detailed);
+        map.put("street", street);
+        if (!TextUtils.isEmpty(postcode)) {
+            map.put("postcode", postcode);
+        }
         if (addressId != -1) {
             map.put("addressId", addressId);
         }

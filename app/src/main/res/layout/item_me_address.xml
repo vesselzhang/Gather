@@ -46,6 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="四川省 成都市 双流区 中和街道 高新区 柏林三路领馆国际城 15栋三单元20楼3号" />
     </com.zhy.autolayout.AutoLinearLayout>
 

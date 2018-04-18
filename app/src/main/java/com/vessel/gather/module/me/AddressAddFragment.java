@@ -2,7 +2,6 @@ package com.vessel.gather.module.me;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,10 +36,17 @@ public class AddressAddFragment extends MySupportFragment<AddressEditPresenter> 
     EditText nameET;
     @BindView(R.id.address_edit_phone)
     EditText phoneET;
+    @BindView(R.id.address_edit_region)
+    TextView regionET;
+    @BindView(R.id.address_edit_street)
+    TextView streetET;
+    @BindView(R.id.address_edit_postcode)
+    EditText postCodeET;
     @BindView(R.id.address_edit_address)
-    TextView addressET;
+    EditText addressET;
 
     private AddressResponse.Address address;
+    private PopupWindow popupWindow;
 
     public static AddressAddFragment newInstance(AddressResponse.Address address) {
         Bundle args = new Bundle();
@@ -73,6 +79,9 @@ public class AddressAddFragment extends MySupportFragment<AddressEditPresenter> 
             mTitleTV.setText("收货地址编辑");
             nameET.setText(address.getName());
             phoneET.setText(address.getPhone());
+            regionET.setText(address.getRegion());
+            streetET.setText(address.getStreet());
+            postCodeET.setText(address.getPostcode());
             addressET.setText(address.getDetailed());
         } else {
             mTitleTV.setText("新增收货地址");
@@ -94,7 +103,9 @@ public class AddressAddFragment extends MySupportFragment<AddressEditPresenter> 
                 showAddressPickerPop();
                 break;
             case R.id.address_edit_submit:
-                Log.d("zhz", "lkdsf");
+                mPresenter.saveAddress((address == null ? -1 : address.getAddressId()), nameET.getText().toString(),
+                        phoneET.getText().toString(), regionET.getText().toString(), streetET.getText().toString(),
+                        postCodeET.getText().toString(), addressET.getText().toString());
                 break;
         }
     }
@@ -104,17 +115,27 @@ public class AddressAddFragment extends MySupportFragment<AddressEditPresenter> 
      */
     private void showAddressPickerPop() {
         View parent = ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
-        final PopupWindow popupWindow = new PopupWindow(getActivity());
+        popupWindow = new PopupWindow(getActivity());
         View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.widght_address_picker, null, false);
         AddressPickerView addressView = rootView.findViewById(R.id.apvAddress);
         addressView.setOnAddressPickerSure((address, provinceCode, cityCode, districtCode) -> {
-            addressET.setText(address);
+            regionET.setText(address);
             popupWindow.dismiss();
         });
         popupWindow.setContentView(rootView);
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        if (popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss();
+            popupWindow = null;
+            return true;
+        }
+        return super.onBackPressedSupport();
     }
 
     @Override
