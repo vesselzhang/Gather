@@ -103,7 +103,11 @@ public interface CommonService {
 
     @FormUrlEncoded
     @POST(Api.saveNotepad)
-    Observable<CommonResponse<Void>> saveNotepad(@Field("content") String content);
+    Observable<CommonResponse<Void>> saveNotepad(@Field("title") String title, @Field("time") String time, @Field("content") String content);
+
+    @FormUrlEncoded
+    @POST(Api.deleteNotepad)
+    Observable<CommonResponse<Void>> deleteNotepad(@Field("notepadId") String nodepadId);
 
 
     //收藏

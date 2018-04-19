@@ -182,6 +182,9 @@ public class MeTabFragment extends MySupportFragment {
                     ARouter.getInstance().build("/app/login").navigation();
                     return;
                 }
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_MEMO)
+                        .navigation();
                 break;
             case R.id.me_share:
                 break;

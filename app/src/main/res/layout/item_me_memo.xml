@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="17dp"
+        android:paddingTop="17dp">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item_memo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="装修大师"
+                android:textColor="#353535"
+                android:textSize="13sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/item_memo_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018/01/22" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <TextView
+            android:id="@+id/item_memo_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:text="四川省 成都市 双流区 中和街道 高新区 柏林三路领馆国际城 15栋三单元20楼3号" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/def_bg" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center_vertical|right">
+
+        <TextView
+            android:id="@+id/item_memo_delete"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:background="@drawable/bg_round_stroke_grey"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="#AAAAAA"
+            android:textSize="11sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

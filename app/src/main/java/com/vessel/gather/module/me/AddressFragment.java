@@ -15,16 +15,21 @@ import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.data.entity.AddressResponse;
 import com.vessel.gather.app.utils.RecycleViewDivider;
+import com.vessel.gather.event.Event;
 import com.vessel.gather.module.me.adapter.AddressAdapter;
 import com.vessel.gather.module.me.di.AddressContract;
 import com.vessel.gather.module.me.di.AddressModule;
 import com.vessel.gather.module.me.di.AddressPresenter;
 import com.vessel.gather.module.me.di.DaggerAddressComponent;
 
+import org.simple.eventbus.Subscriber;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.vessel.gather.event.Event.EVENT_ADDRESS_UPDATE;
 
 /**
  * @author vesselzhang
@@ -72,12 +77,8 @@ public class AddressFragment extends MySupportFragment<AddressPresenter> impleme
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL
                 , 20, getResources().getColor(R.color.def_bg)));
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.getAddressList();
+        updateList(null);
     }
 
     @Override
@@ -92,7 +93,7 @@ public class AddressFragment extends MySupportFragment<AddressPresenter> impleme
                 start(AddressAddFragment.newInstance(null));
                 break;
             case R.id.iv_left:
-                getActivity().finish();
+                killMyself();
                 break;
         }
     }
@@ -119,11 +120,18 @@ public class AddressFragment extends MySupportFragment<AddressPresenter> impleme
 
     @Override
     public void killMyself() {
-        pop();
+        if (getActivity() != null) {
+            getActivity().finish();
+        }
     }
 
     @Override
     public void jumpToEdit(AddressResponse.Address address) {
         start(AddressAddFragment.newInstance(address));
+    }
+
+    @Subscriber(tag = EVENT_ADDRESS_UPDATE)
+    void updateList(Event event) {
+        mPresenter.getAddressList();
     }
 }

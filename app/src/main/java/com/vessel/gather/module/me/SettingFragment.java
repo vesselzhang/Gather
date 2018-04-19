@@ -178,7 +178,9 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
 
     @Override
     public void killMyself() {
-        getActivity().finish();
+        if (getActivity() != null) {
+            getActivity().finish();
+        }
     }
 
     private String pickRealString(String str) {

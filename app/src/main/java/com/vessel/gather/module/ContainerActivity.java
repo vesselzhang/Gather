@@ -9,6 +9,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
 import com.vessel.gather.module.me.AddressFragment;
+import com.vessel.gather.module.me.MemoFragment;
 import com.vessel.gather.module.me.SettingFragment;
 import com.vessel.gather.module.me.SuggestFragment;
 
@@ -16,6 +17,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
 
 import static com.vessel.gather.app.constant.Constants.PAGE;
 import static com.vessel.gather.app.constant.Constants.PAGE_ADDRESS;
+import static com.vessel.gather.app.constant.Constants.PAGE_MEMO;
 import static com.vessel.gather.app.constant.Constants.PAGE_SETTING;
 import static com.vessel.gather.app.constant.Constants.PAGE_SUGGEST;
 
@@ -53,6 +55,9 @@ public class ContainerActivity extends MySupportActivity {
                 break;
             case PAGE_SUGGEST:
                 targetFragment = SuggestFragment.newInstance();
+                break;
+            case PAGE_MEMO:
+                targetFragment = MemoFragment.newInstance();
                 break;
         }
         loadRootFragment(R.id.fl_content, targetFragment);

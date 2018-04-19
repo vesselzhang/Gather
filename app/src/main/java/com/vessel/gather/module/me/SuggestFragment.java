@@ -34,12 +34,12 @@ public class SuggestFragment extends MySupportFragment<SuggestPresenter> impleme
 
     public static SuggestFragment newInstance() {
         Bundle args = new Bundle();
-        
+
         SuggestFragment fragment = new SuggestFragment();
         fragment.setArguments(args);
         return fragment;
     }
-    
+
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
         DaggerSuggestComponent
@@ -99,6 +99,8 @@ public class SuggestFragment extends MySupportFragment<SuggestPresenter> impleme
 
     @Override
     public void killMyself() {
-        getActivity().finish();
+        if (getActivity() != null) {
+            getActivity().finish();
+        }
     }
 }

@@ -31,6 +31,7 @@ public interface Api {
     String removeAddress              = info + "removeAddress";
     String queryNotepad               = info + "queryNotepad";
     String saveNotepad                = info + "saveNotepad";
+    String deleteNotepad              = info + "deleteNotepad";
     String collectOrCancel            = info + "collectOrCancel";
     String collectList                = info + "collectList";
     String authorityApply             = info + "authorityApply";

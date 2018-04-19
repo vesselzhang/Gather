@@ -8,6 +8,9 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.app.utils.CommonUtils;
+import com.vessel.gather.event.Event;
+
+import org.simple.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +19,8 @@ import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
+
+import static com.vessel.gather.event.Event.EVENT_ADDRESS_UPDATE;
 
 /**
  * @author vesselzhang
@@ -77,6 +82,7 @@ public class AddressEditPresenter extends BasePresenter<AddressEditContract.Mode
                         new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
                             @Override
                             public void onNext(Boolean aBoolean) {
+                                EventBus.getDefault().post(new Event(), EVENT_ADDRESS_UPDATE);
                                 mRootView.showMessage("保存成功");
                                 mRootView.killMyself();
                             }
