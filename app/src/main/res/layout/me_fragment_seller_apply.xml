@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/def_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/view_titlebar"
+        layout="@layout/layout_titlebar" />
+
+    <com.jess.arms.widget.autolayout.AutoScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓         名"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/et_seller_apply_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入姓名"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性         别"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp"
+                    android:visibility="invisible" />
+
+                <EditText
+                    android:id="@+id/et_seller_apply_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入性别"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/et_seller_apply_id_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入身份证号码"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="证件地址"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/et_seller_apply_id_card_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入身份证证件地址"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务城市"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/et_seller_apply_service_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入服务城市"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="店铺地址"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp"
+                    android:visibility="invisible" />
+
+                <EditText
+                    android:id="@+id/et_seller_apply_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入店铺地址"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商家类型"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/et_seller_apply_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20px"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="统  一  码"
+                    android:textColor="#353535"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FF6000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:hint="请输入营业执照社会统一码"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:textColor="#AAAAAA"
+                    android:textSize="15sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:text="*为必填项目"
+                android:textColor="#FF6000"
+                android:textSize="10sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:background="#FFFFFF" />
+
+            <Button
+                android:id="@+id/et_seller_apply_submit"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_round_green"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.jess.arms.widget.autolayout.AutoScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

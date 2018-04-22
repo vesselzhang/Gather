@@ -12,7 +12,6 @@
         layout="@layout/layout_titlebar" />
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/userinfo_avatar_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20px"
@@ -24,93 +23,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的头像"
+            android:text="姓         名"
             android:textColor="#353535"
             android:textSize="15sp" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_weight="1" />
-
-        <com.vessel.gather.widght.RoundImage
-            android:id="@+id/userinfo_avatar"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_centerInParent="true" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="7dp"
-            android:src="@drawable/icon_next" />
-    </com.zhy.autolayout.AutoLinearLayout>
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/userinfo_nickname_layout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20px"
-        android:background="#FFFFFF"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的昵称"
-            android:textColor="#353535"
+            android:text="*"
+            android:textColor="#FF6000"
             android:textSize="15sp" />
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/userinfo_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Monica" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="7dp"
-            android:src="@drawable/icon_next" />
-    </com.zhy.autolayout.AutoLinearLayout>
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/userinfo_safe_layout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20px"
-        android:background="#FFFFFF"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="账号与安全"
-            android:textColor="#353535"
+        <EditText
+            android:id="@+id/et_worker_apply_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="请输入姓名"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#AAAAAA"
             android:textSize="15sp" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/icon_next" />
     </com.zhy.autolayout.AutoLinearLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -125,33 +58,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="地区设置"
+            android:text="性         别"
             android:textColor="#353535"
             android:textSize="15sp" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="成都"
-            android:textColor="#333333"
-            android:textSize="13sp" />
+            android:text="*"
+            android:textColor="#FF6000"
+            android:textSize="15sp"
+            android:visibility="invisible" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="7dp"
-            android:src="@drawable/icon_next" />
+        <EditText
+            android:id="@+id/et_worker_apply_sex"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="请输入性别"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#AAAAAA"
+            android:textSize="15sp" />
     </com.zhy.autolayout.AutoLinearLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/userinfo_seller_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20px"
@@ -163,24 +94,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商家入驻"
+            android:text="身份证号"
             android:textColor="#353535"
             android:textSize="15sp" />
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_weight="1" />
-
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/icon_next" />
+            android:text="*"
+            android:textColor="#FF6000"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_worker_apply_id_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="请输入身份证号码"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#AAAAAA"
+            android:textSize="15sp" />
     </com.zhy.autolayout.AutoLinearLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/userinfo_worker_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20px"
@@ -192,21 +130,107 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="技工入驻"
+            android:text="证件地址"
             android:textColor="#353535"
             android:textSize="15sp" />
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_weight="1" />
-
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/icon_next" />
+            android:text="*"
+            android:textColor="#FF6000"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_worker_apply_id_card_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="请输入身份证证件地址"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#AAAAAA"
+            android:textSize="15sp" />
     </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20px"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务城市"
+            android:textColor="#353535"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#FF6000"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_worker_apply_service_city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="请输入服务城市"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#AAAAAA"
+            android:textSize="15sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20px"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="技工类型"
+            android:textColor="#353535"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#FF6000"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_worker_apply_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="请输入"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#AAAAAA"
+            android:textSize="15sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:text="*为必填项目"
+        android:textColor="#FF6000"
+        android:textSize="10sp" />
 
     <Space
         android:layout_width="match_parent"
@@ -214,7 +238,7 @@
         android:background="#FFFFFF" />
 
     <Button
-        android:id="@+id/userinfo_logout"
+        android:id="@+id/et_worker_apply_submit"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginLeft="15dp"
@@ -222,7 +246,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/bg_round_green"
         android:gravity="center"
-        android:text="退出当前账户"
+        android:text="完成"
         android:textColor="#FFFFFF"
         android:textSize="15sp" />
 </com.zhy.autolayout.AutoLinearLayout>

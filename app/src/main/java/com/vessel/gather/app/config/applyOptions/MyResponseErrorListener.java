@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ParseException;
 import android.text.TextUtils;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParseException;
 import com.jess.arms.utils.ArmsUtils;
@@ -45,6 +46,9 @@ public class MyResponseErrorListener implements ResponseErrorListener {
             msg = "数据解析错误";
         } else if (t instanceof ServiceException) {
             msg = ((ServiceException) t).getMsg();
+            if (((ServiceException) t).getCode() == -2) {
+                ARouter.getInstance().build("/app/login").navigation();
+            }
         }
         if (!TextUtils.isEmpty(msg))
             ArmsUtils.makeText(context, msg);
