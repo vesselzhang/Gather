@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.addresspicker.huichao.addresspickerlibrary.CityPickerDialog;
 import com.addresspicker.huichao.addresspickerlibrary.InitAreaTask;
 import com.addresspicker.huichao.addresspickerlibrary.address.Province;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.vessel.gather.R;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author vesselzhang
@@ -55,8 +57,7 @@ public class HomeTabFragment extends MySupportFragment {
 
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.home_fragment, container, false);
     }
 
     @Override
@@ -90,7 +91,7 @@ public class HomeTabFragment extends MySupportFragment {
 
     private void showAddressDialog() {
         new CityPickerDialog(getActivity(), provinces,
-                null, null, null, (CityPickerDialog.onCityPickedListener) (selectProvince, selectCity, selectCounty) -> {
+                null, null, null, (selectProvince, selectCity, selectCounty) -> {
             StringBuilder address = new StringBuilder();
             address.append(
                     selectProvince != null ? selectProvince
@@ -137,32 +138,29 @@ public class HomeTabFragment extends MySupportFragment {
         }
     };
 
-//    @OnClick({R.id.layout_shangjia, R.id.layout_shifu, R.id.ll_search
-//            , R.id.tuijianshangjia, R.id.tuijianshifu, R.id.location})
-//    void onClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.tuijianshangjia:
-//            case R.id.layout_shangjia:
-//                Intent shopIntent = new Intent(getActivity(), ShopListActivity.class);
-//                ArmsUtils.startActivity(shopIntent);
-//                break;
-//            case R.id.layout_shifu:
-//                Intent shifuIntent = new Intent(getActivity(), ArtisanListActivity.class);
-//                shifuIntent.putExtra("title", "精湛技工");
-//                ArmsUtils.startActivity(shifuIntent);
-//                break;
-//            case R.id.tuijianshifu:
-//                Intent artisanIntent = new Intent(getActivity(), ArtisanListActivity.class);
-//                artisanIntent.putExtra("title", "推荐师傅");
-//                ArmsUtils.startActivity(artisanIntent);
-//                break;
-//            case R.id.location:
-//                showAddressDialog();
-//                break;
-//            case R.id.ll_search:
+    @OnClick({R.id.layout_shangjia, R.id.layout_shifu, R.id.ll_search
+            , R.id.tuijianshangjia, R.id.tuijianshifu, R.id.location})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tuijianshangjia:
+            case R.id.layout_shangjia:
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_SELLER_LIST)
+                        .navigation();
+                break;
+            case R.id.layout_shifu:
+            case R.id.tuijianshifu:
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_WORKER_LIST)
+                        .navigation();
+                break;
+            case R.id.location:
+                showAddressDialog();
+                break;
+            case R.id.ll_search:
 //                Intent searchIntent = new Intent(getActivity(), SearchActivity.class);
 //                ArmsUtils.startActivity(searchIntent);
-//                break;
-//        }
-//    }
+                break;
+        }
+    }
 }

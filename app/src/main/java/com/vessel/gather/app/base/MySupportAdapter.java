@@ -8,10 +8,6 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Jimq
- * @date 2017/12/3
- */
 public abstract class MySupportAdapter<T> extends BaseAdapter {
 
     protected List<T> mList = new ArrayList<>();

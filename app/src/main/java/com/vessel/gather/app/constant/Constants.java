@@ -7,10 +7,14 @@ package com.vessel.gather.app.constant;
 
 public class Constants {
     public static final String PAGE = "PAGE";
+    //Me
     public static final String PAGE_SETTING = PAGE + "_Setting";
     public static final String PAGE_ADDRESS = PAGE + "_Address";
     public static final String PAGE_SUGGEST = PAGE + "_Suggest";
     public static final String PAGE_MEMO    = PAGE + "_Memo";
+    //Home
+    public static final String PAGE_SELLER_LIST = PAGE + "_Seller_list";
+    public static final String PAGE_WORKER_LIST = PAGE + "_Worker_list";
 
 
     public static final String TAG = "TAG";

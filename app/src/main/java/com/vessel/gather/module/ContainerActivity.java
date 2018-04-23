@@ -8,6 +8,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
+import com.vessel.gather.module.home.SellerListFragment;
 import com.vessel.gather.module.me.AddressFragment;
 import com.vessel.gather.module.me.MemoFragment;
 import com.vessel.gather.module.me.SettingFragment;
@@ -20,6 +21,8 @@ import static com.vessel.gather.app.constant.Constants.PAGE_ADDRESS;
 import static com.vessel.gather.app.constant.Constants.PAGE_MEMO;
 import static com.vessel.gather.app.constant.Constants.PAGE_SETTING;
 import static com.vessel.gather.app.constant.Constants.PAGE_SUGGEST;
+import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_LIST;
+import static com.vessel.gather.app.constant.Constants.PAGE_WORKER_LIST;
 
 /**
  * @author vesselzhang
@@ -57,6 +60,12 @@ public class ContainerActivity extends MySupportActivity {
                 targetFragment = SuggestFragment.newInstance();
                 break;
             case PAGE_MEMO:
+                targetFragment = MemoFragment.newInstance();
+                break;
+            case PAGE_SELLER_LIST:
+                targetFragment = SellerListFragment.newInstance();
+                break;
+            case PAGE_WORKER_LIST:
                 targetFragment = MemoFragment.newInstance();
                 break;
         }
