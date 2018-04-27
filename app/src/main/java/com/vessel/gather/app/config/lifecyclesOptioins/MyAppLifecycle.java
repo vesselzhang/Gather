@@ -2,10 +2,12 @@ package com.vessel.gather.app.config.lifecyclesOptioins;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
+import com.tencent.smtt.sdk.QbSdk;
 import com.vessel.gather.BuildConfig;
 
 import me.yokeyword.fragmentation.Fragmentation;
@@ -22,9 +24,20 @@ public class MyAppLifecycle implements AppLifecycles {
     public void onCreate(Application application) {
         initTimber();
 //        initLeakCanary(application);
-        initFragmentation();
+//        initFragmentation();
         initARouter(application);
         RxPaparazzo.register(application);
+        QbSdk.initX5Environment(application, new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+                Log.d("app", " onViewInitFinished is " + b);
+            }
+        });
     }
 
     @Override

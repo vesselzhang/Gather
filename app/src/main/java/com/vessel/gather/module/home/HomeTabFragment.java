@@ -38,6 +38,7 @@ public class HomeTabFragment extends MySupportFragment {
     TextView cityTV;
     @BindView(R.id.view_pager)
     AutoScrollViewPager mViewPager;
+
     private ArrayList<Province> provinces = new ArrayList<>();
     private BaseViewPagerAdapter<String> mBaseViewPagerAdapter;
     private List<String> imageUrls = new ArrayList<>();
@@ -119,23 +120,7 @@ public class HomeTabFragment extends MySupportFragment {
 
     BaseViewPagerAdapter.OnAutoViewPagerItemClickListener listener = (position, o) -> {
         int type = banners.get(position).getLinkType();
-        //0-无 1-外站链接 2-商家 3-商品
-        switch (type) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-//                Intent shopIntent = new Intent(getActivity(), ShopActivity.class);
-//                shopIntent.putExtra("shopId", banners.get(position).getShopId());
-//                getActivity().startActivity(shopIntent);
-                break;
-            case 3:
-//                Intent goodsIntent = new Intent(getActivity(), GoodsDetailActivity.class);
-//                goodsIntent.putExtra("info", banners.get(position).getProductId());
-//                startActivity(goodsIntent);
-                break;
-        }
+        ARouter.getInstance().build("/app/web").navigation();
     };
 
     @OnClick({R.id.layout_shangjia, R.id.layout_shifu, R.id.ll_search

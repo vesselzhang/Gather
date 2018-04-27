@@ -24,6 +24,9 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+
+        ndk { abiFilters "armeabi" }
+
         buildConfigField "String", "APP_DOMAIN", "\"http://120.78.63.213/\""
     }
 

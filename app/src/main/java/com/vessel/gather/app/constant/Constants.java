@@ -6,6 +6,8 @@ package com.vessel.gather.app.constant;
  */
 
 public class Constants {
+    public static final String WEBSITE = "WEBSITE";
+
     public static final String PAGE = "PAGE";
     //Me
     public static final String PAGE_SETTING = PAGE + "_Setting";

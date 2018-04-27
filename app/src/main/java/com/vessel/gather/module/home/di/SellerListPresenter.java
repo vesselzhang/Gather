@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
@@ -43,6 +44,8 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
     private List<TypeListResponse.TypesBean> mPopList = new ArrayList<>();
     private int index = 1;
     private int mTypeId = -1;
+
+    private PopupWindow popupWindow;
 
     @Inject
     public SellerListPresenter(SellerListContract.Model model, SellerListContract.View rootView) {
@@ -101,6 +104,11 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
     }
 
     public void showPop(View view) {
+        if (popupWindow != null) {
+            popupWindow.dismiss();
+            popupWindow = null;
+            return;
+        }
         if (mPopAdapter == null) {
             mPopAdapter = new SellerTypeAdapter(mAppManager.getCurrentActivity());
         }
@@ -110,7 +118,7 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
         mLv.setAdapter(mPopAdapter);
         mPopAdapter.setList(mPopList);
         //自适应大小
-        PopupWindow popupWindow = new PopupWindow();
+        popupWindow = new PopupWindow();
         popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(contentView);
@@ -140,14 +148,7 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        if (mShopList.size() > i) {
-//            Intent intent = new Intent(mApplication, ShopActivity.class);
-//            intent.putExtra("shopId", mShopList.get(i).getShopId());
-//            ArmsUtils.startActivity(intent);
-//        } else {
-//            mRootView.showMessage("模拟的假数据，不可点击");
-//        }
-        mRootView.showMessage("跳转H5界面");
+        ARouter.getInstance().build("/app/web").navigation();
     }
 
     @Override

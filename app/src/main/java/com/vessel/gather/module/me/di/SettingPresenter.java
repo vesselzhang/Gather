@@ -93,39 +93,6 @@ public class SettingPresenter extends BasePresenter<SettingContract.Model, Setti
                 .show();
     }
 
-    public void setSex() {
-        CharSequence[] items = {"男", "女"};
-        new AlertDialog.Builder(mAppManager.getCurrentActivity())
-                .setTitle("选择性别")
-                .setItems(items, (dialog, which) -> {
-                    if (which == 0) {
-                        uploadSex(0);
-                    } else {
-                        uploadSex(1);
-                    }
-                })
-                .create().show();
-    }
-
-    public void setSignature(String original) {
-        EditText et = new EditText(mAppManager.getCurrentActivity());
-        et.setText(original);
-        et.setSingleLine(true);
-        new AlertDialog.Builder(mAppManager.getCurrentActivity())
-                .setTitle("更新个性签名")
-                .setView(et)
-                .setPositiveButton("确定", (dialog, which) -> {
-                    String input = et.getText().toString();
-                    if (input.equals("")) {
-                        mRootView.showMessage("签名不能为空！");
-                    } else {
-                        uploadSignature(input);
-                    }
-                })
-                .setNegativeButton("取消", null)
-                .show();
-    }
-
     private void uploadFile(File file) {
         mModel.uploadFile(file).flatMap(variableResponse -> {
             avatarUri = variableResponse.getUrl();
@@ -154,36 +121,6 @@ public class SettingPresenter extends BasePresenter<SettingContract.Model, Setti
                             @Override
                             public void onNext(Boolean aBoolean) {
                                 mRootView.updateNickName(nickName);
-                            }
-                        }
-                );
-    }
-
-    private void uploadSex(int sex) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("sex", sex);
-        mModel.updateInfo(map)
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(
-                        new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
-                            @Override
-                            public void onNext(Boolean aBoolean) {
-                                mRootView.updateSex(sex);
-                            }
-                        }
-                );
-    }
-
-    private void uploadSignature(String signature) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("signature", signature);
-        mModel.updateInfo(map)
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(
-                        new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
-                            @Override
-                            public void onNext(Boolean aBoolean) {
-                                mRootView.uploadSignature(signature);
                             }
                         }
                 );

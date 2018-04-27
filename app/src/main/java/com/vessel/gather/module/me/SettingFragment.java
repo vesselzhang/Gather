@@ -38,14 +38,6 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
     RoundImage mAvatarRV;
     @BindView(R.id.userinfo_nickname)
     TextView mNickNameTV;
-//    @BindView(R.id.userinfo_sex)
-//    TextView mSexTV;
-//    @BindView(R.id.userinfo_signature)
-//    TextView mSignatureTV;
-//    @BindView(R.id.userinfo_apply_business)
-//    View mApplyBusiness;
-//    @BindView(R.id.userinfo_apply_worker)
-//    View mApplyWorker;
 
     private UserInfoResponse userInfo;
 
@@ -85,10 +77,6 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
                 .load(BuildConfig.APP_DOMAIN + userInfo.getIcon())
                 .into(mAvatarRV);
         if (!TextUtils.isEmpty(userInfo.getNickname())) mNickNameTV.setText(userInfo.getNickname());
-//        if (userInfo.getSex() == 0 || userInfo.getSex() == 1) mSexTV.setText(userInfo.getSex() == 1 ? "女" : "男");
-//        if (!TextUtils.isEmpty(userInfo.getSignature())) mSignatureTV.setText(userInfo.getSignature());
-//        mApplyBusiness.setVisibility(userInfo.getIsMerchant() == 1 ? View.GONE : View.VISIBLE);
-//        mApplyWorker.setVisibility(userInfo.getIsArtisan() == 1 ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -106,12 +94,6 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
             case R.id.userinfo_nickname_layout:
                 mPresenter.setNickName(pickRealString(mNickNameTV.getText().toString()));
                 break;
-//            case R.id.userinfo_sex_layout:
-//                mPresenter.setSex();
-//                break;
-//            case R.id.userinfo_signature_layout:
-//                mPresenter.setSignature(pickRealString(mSignatureTV.getText().toString()));
-//                break;
             case R.id.userinfo_safe_layout:
                 start(SafeFragment.newInstance());
                 break;
@@ -122,16 +104,6 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
                 DataHelper.clearShareprefrence(getActivity());
                 killMyself();
                 break;
-//            case R.id.userinfo_apply_business:
-//                ARouter.getInstance().build("/app/apply")
-//                        .withSerializable(TYPE, TYPE_APPLY_BUSINESS)
-//                        .navigation();
-//                break;
-//            case R.id.userinfo_apply_worker:
-//                ARouter.getInstance().build("/app/apply")
-//                        .withSerializable(TYPE, TYPE_APPLY_WORKER)
-//                        .navigation();
-//                break;
             case R.id.userinfo_seller_layout:
                 start(SellerApplyFragment.newInstance());
                 break;
@@ -149,18 +121,8 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
     }
 
     @Override
-    public void updateSex(int sex) {
-//        mSexTV.setText(sex == 1 ? "女" : "男");
-    }
-
-    @Override
     public void updateNickName(String nickName) {
         mNickNameTV.setText(nickName);
-    }
-
-    @Override
-    public void uploadSignature(String signature) {
-//        mSignatureTV.setText(signature);
     }
 
     @Override
@@ -197,5 +159,4 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
             return str;
         }
     }
-
 }
