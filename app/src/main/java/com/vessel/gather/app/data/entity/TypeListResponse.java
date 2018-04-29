@@ -23,10 +23,18 @@ public class TypeListResponse implements Serializable {
         /**
          * typeId : 1
          * typeName : 设计师
+         * parentType : 0
+         * createTime : 2018-01-13 15:22:17
+         * updateTime : 2018-01-13 15:22:17
+         * serial : 9
          */
 
         private int typeId;
         private String typeName;
+        private int parentType;
+        private String createTime;
+        private String updateTime;
+        private int serial;
 
         public int getTypeId() {
             return typeId;
@@ -42,6 +50,38 @@ public class TypeListResponse implements Serializable {
 
         public void setTypeName(String typeName) {
             this.typeName = typeName;
+        }
+
+        public int getParentType() {
+            return parentType;
+        }
+
+        public void setParentType(int parentType) {
+            this.parentType = parentType;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(String updateTime) {
+            this.updateTime = updateTime;
+        }
+
+        public int getSerial() {
+            return serial;
+        }
+
+        public void setSerial(int serial) {
+            this.serial = serial;
         }
     }
 }

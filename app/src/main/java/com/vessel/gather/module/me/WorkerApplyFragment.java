@@ -5,15 +5,30 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
+import com.vessel.gather.app.data.api.service.CommonService;
+import com.vessel.gather.app.data.entity.TypeListResponse;
+import com.vessel.gather.app.utils.HttpResultFunc;
+import com.vessel.gather.app.utils.HttpResultVoidFunc;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 /**
  * @author vesselzhang
@@ -25,17 +40,22 @@ public class WorkerApplyFragment extends MySupportFragment {
     @BindView(R.id.tv_title)
     TextView mTitleTV;
     @BindView(R.id.et_worker_apply_name)
-    TextView tvName;
+    EditText etName;
     @BindView(R.id.et_worker_apply_sex)
-    TextView tvSex;
+    EditText etSex;
     @BindView(R.id.et_worker_apply_id_card)
-    TextView tvIdCard;
+    EditText etIdCard;
     @BindView(R.id.et_worker_apply_id_card_address)
-    TextView tvIdCardAddress;
+    EditText etIdCardAddress;
     @BindView(R.id.et_worker_apply_service_city)
-    TextView tvServiceCity;
+    EditText etServiceCity;
     @BindView(R.id.et_worker_apply_type)
-    TextView tvType;
+    Spinner spType;
+
+
+    private AppComponent appComponent;
+    private List<TypeListResponse.TypesBean> typesBeanList = new ArrayList<>();
+    private List<String> types = new ArrayList<>();
 
     public static WorkerApplyFragment newInstance() {
         Bundle args = new Bundle();
@@ -47,7 +67,7 @@ public class WorkerApplyFragment extends MySupportFragment {
 
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
-
+        this.appComponent = appComponent;
     }
 
     @Override
@@ -58,6 +78,28 @@ public class WorkerApplyFragment extends MySupportFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         mTitleTV.setText("师傅入驻");
+        appComponent.repositoryManager().obtainRetrofitService(CommonService.class)
+                .queryTypeList(0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultFunc<>())
+                .subscribe(new ErrorHandleSubscriber<TypeListResponse>(appComponent.rxErrorHandler()) {
+                    @Override
+                    public void onNext(TypeListResponse typeListResponse) {
+                        if (typeListResponse.getTypes().size() > 0) {
+                            typesBeanList.clear();
+                            types.clear();
+                            typesBeanList.addAll(typeListResponse.getTypes());
+                            for (TypeListResponse.TypesBean typesBean : typesBeanList) {
+                                types.add(typesBean.getTypeName());
+                            }
+                        }
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, types);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+                        spType.setAdapter(adapter);
+                    }
+                });
     }
 
     @Override
@@ -72,26 +114,39 @@ public class WorkerApplyFragment extends MySupportFragment {
                 pop();
                 break;
             case R.id.et_worker_apply_submit:
-                if (TextUtils.isEmpty(tvName.getText().toString())) {
+                if (TextUtils.isEmpty(etName.getText().toString())) {
                     ArmsUtils.makeText(getActivity(), "姓名必填");
                     return;
                 }
-                if (TextUtils.isEmpty(tvIdCard.getText().toString())) {
+                if (TextUtils.isEmpty(etIdCard.getText().toString())) {
                     ArmsUtils.makeText(getActivity(), "身份证号必填");
                     return;
                 }
-                if (TextUtils.isEmpty(tvIdCardAddress.getText().toString())) {
+                if (TextUtils.isEmpty(etIdCardAddress.getText().toString())) {
                     ArmsUtils.makeText(getActivity(), "身份证证件地址必填");
                     return;
                 }
-                if (TextUtils.isEmpty(tvServiceCity.getText().toString())) {
+                if (TextUtils.isEmpty(etServiceCity.getText().toString())) {
                     ArmsUtils.makeText(getActivity(), "服务城市必填");
                     return;
                 }
-                if (TextUtils.isEmpty(tvType.getText().toString())) {
-                    ArmsUtils.makeText(getActivity(), "类型必填");
-                    return;
-                }
+                Map<String, Object> map = new HashMap<>();
+                map.put("type", 0);
+//                map.put("typeId", type);
+                map.put("name", etName.getText().toString());
+                map.put("idNumber", etIdCard.getText().toString());
+                appComponent.repositoryManager().obtainRetrofitService(CommonService.class)
+                        .authorityApply(map)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map(new HttpResultVoidFunc())
+                        .subscribe(new ErrorHandleSubscriber<Boolean>(appComponent.rxErrorHandler()) {
+                            @Override
+                            public void onNext(Boolean aBoolean) {
+                                ArmsUtils.makeText(getActivity(), "已提交申请");
+                                pop();
+                            }
+                        });
                 break;
         }
     }
