@@ -1,13 +1,21 @@
 package com.vessel.gather.module.cart.adapter;
 
 import android.view.View;
+import android.widget.CheckBox;
 
 import com.jess.arms.base.BaseHolder;
 import com.jess.arms.base.DefaultAdapter;
 import com.vessel.gather.R;
 import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
+import com.vessel.gather.event.Event;
+
+import org.simple.eventbus.EventBus;
 
 import java.util.List;
+
+import butterknife.BindView;
+
+import static com.vessel.gather.event.Event.EVENT_CART_UPDATE;
 
 public class CartAdapter extends DefaultAdapter<CartsBean> {
 
@@ -92,17 +100,37 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
 
     class MyTitle_ViewHolder extends BaseHolder<CartsBean> {
 
+        @BindView(R.id.cart_title_checkbox)
+        CheckBox checkBox;
+
         public MyTitle_ViewHolder(View itemView) {
             super(itemView);
         }
 
         @Override
         public void setData(CartsBean data, int position) {
-
+            boolean select = true;
+            for (CartsBean detail : data.getCartDetail()) {
+                if (!detail.isSelected()) {
+                    select = false;
+                    break;
+                }
+            }
+            checkBox.setOnCheckedChangeListener(null);
+            checkBox.setChecked(select);
+            checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
+                for (CartsBean detail : data.getCartDetail()) {
+                    detail.setSelected(b);
+                }
+                EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
+            });
         }
     }
 
     class MyContent_ViewHolder extends BaseHolder<CartsBean> {
+
+        @BindView(R.id.cart_detail_checkbox)
+        CheckBox checkBox;
 
         public MyContent_ViewHolder(View itemView) {
             super(itemView);
@@ -110,7 +138,12 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
 
         @Override
         public void setData(CartsBean data, int position) {
-
+            checkBox.setOnCheckedChangeListener(null);
+            checkBox.setChecked(data.isSelected());
+            checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
+                data.setSelected(b);
+                EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
+            });
         }
     }
 }

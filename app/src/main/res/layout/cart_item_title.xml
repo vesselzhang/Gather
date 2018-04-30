@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/def_bg"
     android:orientation="vertical"
     android:paddingLeft="15dp"
@@ -13,9 +13,10 @@
         android:gravity="center_vertical">
 
         <CheckBox
+            android:id="@+id/cart_title_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/ic_checkbox_normal"
+            android:button="@drawable/checkbox_style1"
             android:paddingLeft="10dp"
             android:text="油漆工"
             android:textSize="12sp" />
@@ -25,17 +26,5 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="7dp"
             android:src="@drawable/icon_next" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="编辑"
-            android:textColor="#AAAAAA"
-            android:textSize="12sp" />
     </com.zhy.autolayout.AutoLinearLayout>
 </com.zhy.autolayout.AutoLinearLayout>

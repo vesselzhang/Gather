@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -16,19 +18,27 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
+import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
 import com.vessel.gather.app.utils.RecycleViewDivider;
+import com.vessel.gather.event.Event;
 import com.vessel.gather.module.cart.adapter.CartAdapter;
 import com.vessel.gather.module.cart.di.CartContract;
 import com.vessel.gather.module.cart.di.CartModule;
 import com.vessel.gather.module.cart.di.CartPresenter;
 import com.vessel.gather.module.cart.di.DaggerCartComponent;
 
+import org.simple.eventbus.Subscriber;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class CartTabFragment extends MySupportFragment<CartPresenter> implements CartContract.View {
+import static com.vessel.gather.event.Event.EVENT_CART_UPDATE;
+
+public class CartTabFragment extends MySupportFragment<CartPresenter> implements CartContract.View, CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.tv_title)
     TextView mTitleTV;
@@ -38,9 +48,15 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
     CheckBox selectAll;
     @BindView(R.id.cart_cost)
     TextView cost;
+    @BindView(R.id.cart_pay)
+    Button submit;
 
     @Inject
     CartAdapter mAdapter;
+    @Inject
+    List<CartsBean> mList;
+
+    int count, money;
 
     public static CartTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -68,6 +84,7 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
     @Override
     public void initData(Bundle savedInstanceState) {
         mTitleTV.setText("购物车");
+        selectAll.setOnCheckedChangeListener(this);
         initRecycleView();
 
 
@@ -88,7 +105,9 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
 
     @OnClick(R.id.cart_pay)
     void OnClick() {
-        ARouter.getInstance().build("/app/order/pay").navigation();
+        if (count > 0) {
+            ARouter.getInstance().build("/app/order/pay").navigation();
+        }
     }
 
     @Override
@@ -114,5 +133,36 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
     @Override
     public void killMyself() {
 
+    }
+
+    @Subscriber(tag = EVENT_CART_UPDATE)
+    void updateList(Event event) {
+        count = 0;
+        money = 0;
+        for (CartsBean cartsBean : mList) {
+            if (cartsBean.isTitle()) {
+                for (CartsBean detail : cartsBean.getCartDetail()) {
+                    if (detail.isSelected()) {
+                        count++;
+                        money += detail.getNum() * detail.getPrice();
+                    }
+                }
+            }
+        }
+        cost.setText(money + "");
+        submit.setText("结算 " + count);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        for (CartsBean cartsBean : mList) {
+            for (CartsBean detail : cartsBean.getCartDetail()) {
+                detail.setSelected(b);
+            }
+            cartsBean.setSelected(b);
+        }
+        mAdapter.notifyDataSetChanged();
+        updateList(null);
     }
 }

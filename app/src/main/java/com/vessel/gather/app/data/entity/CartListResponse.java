@@ -1,6 +1,7 @@
 package com.vessel.gather.app.data.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartListResponse implements Serializable {
@@ -48,7 +49,8 @@ public class CartListResponse implements Serializable {
         private String productName;
         private String productPic;
         private boolean isTitle;
-        private List<CartsBean> cartDetail;
+        private boolean selected;
+        private List<CartsBean> cartDetail = new ArrayList<>();
 
         public long getCartId() {
             return cartId;
@@ -168,6 +170,14 @@ public class CartListResponse implements Serializable {
 
         public void setTitle(boolean title) {
             isTitle = title;
+        }
+
+        public boolean isSelected() {
+            return selected;
+        }
+
+        public void setSelected(boolean selected) {
+            this.selected = selected;
         }
 
         public List<CartsBean> getCartDetail() {

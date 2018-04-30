@@ -26,7 +26,7 @@
             android:id="@+id/cart_select_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/ic_checkbox_normal"
+            android:button="@drawable/checkbox_style1"
             android:paddingLeft="10dp"
             android:text="全选"
             android:textColor="#353535"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
-            android:text="546.00"
+            android:text="0.00"
             android:textColor="#FF6600"
             android:textSize="14sp" />
 
@@ -58,7 +58,7 @@
             android:layout_width="90dp"
             android:layout_height="match_parent"
             android:background="#FF6600"
-            android:text="结算0"
+            android:text="结算 0"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
     </com.zhy.autolayout.AutoLinearLayout>
