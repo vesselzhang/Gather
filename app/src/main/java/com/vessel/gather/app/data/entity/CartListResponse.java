@@ -15,7 +15,7 @@ public class CartListResponse implements Serializable {
         this.carts = carts;
     }
 
-    public static class CartsBean {
+    public static class CartsBean implements Serializable {
         /**
          * cartId : 543534
          * type : 1
@@ -47,6 +47,8 @@ public class CartListResponse implements Serializable {
         private long productId;
         private String productName;
         private String productPic;
+        private boolean isTitle;
+        private List<CartsBean> cartDetail;
 
         public long getCartId() {
             return cartId;
@@ -158,6 +160,22 @@ public class CartListResponse implements Serializable {
 
         public void setProductPic(String productPic) {
             this.productPic = productPic;
+        }
+
+        public boolean isTitle() {
+            return isTitle;
+        }
+
+        public void setTitle(boolean title) {
+            isTitle = title;
+        }
+
+        public List<CartsBean> getCartDetail() {
+            return cartDetail;
+        }
+
+        public void setCartDetail(List<CartsBean> cartDetail) {
+            this.cartDetail = cartDetail;
         }
     }
 }

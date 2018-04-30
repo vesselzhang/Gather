@@ -17,7 +17,6 @@ import com.jess.arms.utils.PermissionUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
-import com.vessel.gather.module.bbs.BbsTabFragment;
 import com.vessel.gather.module.cart.CartTabFragment;
 import com.vessel.gather.module.di.DaggerMainComponent;
 import com.vessel.gather.module.di.MainContract;
@@ -40,7 +39,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
     CommonTabLayout mBottomBar;
 
     private long time = 0;
-    private ISupportFragment[] mFragments = new ISupportFragment[4];
+    private ISupportFragment[] mFragments = new ISupportFragment[3];
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -90,22 +89,19 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
         ISupportFragment homeFragment = findFragment(HomeTabFragment.class);
         if (homeFragment == null) {
             mFragments[0] = HomeTabFragment.newInstance();
-            mFragments[1] = BbsTabFragment.newInstance();
-            mFragments[2] = CartTabFragment.newInstance();
-            mFragments[3] = MeTabFragment.newInstance();
+            mFragments[1] = CartTabFragment.newInstance();
+            mFragments[2] = MeTabFragment.newInstance();
             loadMultipleRootFragment(R.id.fl_content, 0, mFragments);
         } else {
             mFragments[0] = findFragment(HomeTabFragment.class);
-            mFragments[1] = findFragment(BbsTabFragment.class);
-            mFragments[2] = findFragment(CartTabFragment.class);
-            mFragments[3] = findFragment(MeTabFragment.class);
+            mFragments[1] = findFragment(CartTabFragment.class);
+            mFragments[2] = findFragment(MeTabFragment.class);
         }
     }
 
     private void initBottomBar() {
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         mTabEntities.add(new TabEntity("首页", R.drawable.bt_shouye_h, R.drawable.bt_shouye_n));
-        mTabEntities.add(new TabEntity("论坛", R.drawable.bt_xiaoxi_h, R.drawable.bt_xiaoxi_n));
         mTabEntities.add(new TabEntity("购物车", R.drawable.bt_gouwu_h, R.drawable.bt_gouwu_n));
         mTabEntities.add(new TabEntity("我的", R.drawable.bt_wode_h, R.drawable.bt_wode_n));
         mBottomBar.setTabData(mTabEntities);

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/def_bg"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:paddingTop="10dp">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:button="@drawable/ic_checkbox_normal"
+            android:paddingLeft="10dp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/ic_me_bg" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="撒开了的感觉哦玩儿里卡多肌肤来看我看森林狼队看看风景阿哥"
+                android:textColor="#353535"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="撒开了的感觉哦玩儿里卡多肌"
+                android:textColor="#AAAAAA"
+                android:textSize="10sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Y256"
+                android:textColor="#FF6600"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="X1"
+                android:textColor="#AAAAAA"
+                android:textSize="10sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>
