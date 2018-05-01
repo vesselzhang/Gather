@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/view_titlebar"
+        layout="@layout/layout_titlebar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/me_collect_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#e6e6e6"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#e5e5e5" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/btn_delete"
+                android:layout_width="80dp"
+                android:layout_height="33dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_round_stroke_green"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@color/base_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/select_all"
+                android:layout_width="80dp"
+                android:layout_height="33dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/btn_delete"
+                android:background="@drawable/bg_round_stroke_green"
+                android:gravity="center"
+                android:text="全选"
+                android:textColor="@color/base_color"
+                android:textSize="14sp" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>
