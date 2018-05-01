@@ -1,17 +1,32 @@
 package com.vessel.gather.module.me.di;
 
-import android.app.Application;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
+import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
+import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
+import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
+import com.vessel.gather.app.data.entity.VariableResponse;
+import com.vessel.gather.app.utils.progress.ProgressSubscriber;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * @author vesselzhang
@@ -20,17 +35,16 @@ import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 @ActivityScope
 public class SuggestPresenter extends BasePresenter<SuggestContract.Model, SuggestContract.View> {
-    private RxErrorHandler mErrorHandler;
-    private Application mApplication;
-    private AppManager mAppManager;
+    @Inject
+    RxErrorHandler mErrorHandler;
+    @Inject
+    AppManager mAppManager;
+
+    private String avatarUri;
 
     @Inject
-    public SuggestPresenter(SuggestContract.Model model, SuggestContract.View rootView
-            , RxErrorHandler handler, Application application, AppManager appManager) {
+    public SuggestPresenter(SuggestContract.Model model, SuggestContract.View rootView) {
         super(model, rootView);
-        this.mErrorHandler = handler;
-        this.mApplication = application;
-        this.mAppManager = appManager;
     }
 
     public void submit(String str) {
@@ -49,11 +63,73 @@ public class SuggestPresenter extends BasePresenter<SuggestContract.Model, Sugge
                 });
     }
 
+    private void uploadFile(File file) {
+        mModel.uploadFile(file).subscribe(
+                new ProgressSubscriber<VariableResponse>(mAppManager.getCurrentActivity(), mErrorHandler) {
+                    @Override
+                    public void onNext(VariableResponse variableResponse) {
+                        super.onNext(variableResponse);
+                        avatarUri = variableResponse.getUrl();
+                        mRootView.showImage(avatarUri);
+                    }
+                }
+        );
+    }
+
+    public void pickAvatar() {
+        CharSequence[] items = {"相册", "相机"};
+        new AlertDialog.Builder(mAppManager.getCurrentActivity())
+                .setTitle("选择图片来源")
+                .setItems(items, (dialog, which) -> {
+                    if (which == 0) {
+                        RxPaparazzo.single(mAppManager.getCurrentActivity())
+                                .usingGallery()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new AvatarPick());
+                    } else {
+                        RxPaparazzo.single(mAppManager.getCurrentActivity())
+                                .usingCamera()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new AvatarPick());
+                    }
+                })
+                .create().show();
+    }
+
+    private class AvatarPick implements Observer<Response<Activity, FileData>> {
+
+        @Override
+        public void onSubscribe(Disposable d) {
+
+        }
+
+        @Override
+        public void onNext(Response<Activity, FileData> activityFileDataResponse) {
+            if (activityFileDataResponse.resultCode() != RESULT_OK) {
+                mRootView.showMessage("您取消了获取图片");
+                return;
+            }
+
+            uploadFile(activityFileDataResponse.data().getFile());
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e("error", e.toString());
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         this.mErrorHandler = null;
         this.mAppManager = null;
-        this.mApplication = null;
     }
 }

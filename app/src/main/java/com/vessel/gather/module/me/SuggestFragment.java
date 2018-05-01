@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.module.me.di.DaggerSuggestComponent;
@@ -29,8 +32,14 @@ public class SuggestFragment extends MySupportFragment<SuggestPresenter> impleme
 
     @BindView(R.id.tv_title)
     TextView mTitleTV;
+    @BindView(R.id.suggest_image_default)
+    ImageView mDefaultImage;
+    @BindView(R.id.suggest_image)
+    ImageView mImage;
     @BindView(R.id.suggest_content)
     EditText content;
+    @BindView(R.id.suggest_phone)
+    EditText phone;
 
     public static SuggestFragment newInstance() {
         Bundle args = new Bundle();
@@ -71,6 +80,9 @@ public class SuggestFragment extends MySupportFragment<SuggestPresenter> impleme
             case R.id.iv_left:
                 getActivity().finish();
                 break;
+            case R.id.suggest_image_add:
+                mPresenter.pickAvatar();
+                break;
             case R.id.suggest_submit:
                 mPresenter.submit(content.getText().toString());
                 break;
@@ -102,5 +114,13 @@ public class SuggestFragment extends MySupportFragment<SuggestPresenter> impleme
         if (getActivity() != null) {
             getActivity().finish();
         }
+    }
+
+    @Override
+    public void showImage(String url) {
+        mDefaultImage.setVisibility(View.GONE);
+        Glide.with(getActivity())
+                .load(BuildConfig.APP_DOMAIN + url)
+                .into(mImage);
     }
 }

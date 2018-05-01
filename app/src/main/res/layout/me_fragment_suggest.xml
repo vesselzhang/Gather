@@ -31,18 +31,24 @@
             android:textColor="#AAAAAA"
             android:textSize="13sp" />
 
-        <com.zhy.autolayout.AutoLinearLayout
+        <com.zhy.autolayout.AutoRelativeLayout
             android:id="@+id/suggest_image_add"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/bg_square_round_stroke_grey"
-            android:gravity="center">
+            android:background="@drawable/bg_square_round_stroke_grey">
 
             <ImageView
+                android:id="@+id/suggest_image_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:background="@drawable/ic_pictrue" />
-        </com.zhy.autolayout.AutoLinearLayout>
+
+            <ImageView
+                android:id="@+id/suggest_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.zhy.autolayout.AutoRelativeLayout>
     </com.zhy.autolayout.AutoLinearLayout>
 
     <TextView
@@ -54,6 +60,7 @@
         android:textSize="26px" />
 
     <EditText
+        android:id="@+id/suggest_phone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="6dp"

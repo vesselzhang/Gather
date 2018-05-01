@@ -4,13 +4,19 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.vessel.gather.app.data.api.service.CommonService;
+import com.vessel.gather.app.data.entity.VariableResponse;
+import com.vessel.gather.app.utils.HttpResultFunc;
 import com.vessel.gather.app.utils.HttpResultVoidFunc;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * @author vesselzhang
@@ -32,6 +38,16 @@ public class SuggestModel extends BaseModel implements SuggestContract.Model {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpResultVoidFunc());
+    }
+
+    @Override
+    public Observable<VariableResponse> uploadFile(File file) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        return mRepositoryManager.obtainRetrofitService(CommonService.class)
+                .uploadFile(requestFile)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultFunc<>());
     }
 
     @Override
