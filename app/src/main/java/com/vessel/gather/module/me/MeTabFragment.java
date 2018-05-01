@@ -201,6 +201,9 @@ public class MeTabFragment extends MySupportFragment {
                         .navigation();
                 break;
             case R.id.me_about:
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_ABOUT)
+                        .navigation();
                 break;
             case R.id.me_contact:
                 PermissionUtil.callPhone(new PermissionUtil.RequestPermission() {

@@ -45,9 +45,45 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
 
             @Override
             public void onNext(List<CartsBean> cartsBeans) {
+//                mList.clear();
+//                mList.addAll(cartsBeans);
+//                mAdapter.notifyDataSetChanged();
+
+                List<CartsBean> newList = new ArrayList<>();
+                CartsBean title1 = new CartsBean();
+                title1.setTitle(true);
+                title1.setShopName("店铺名");
+
+                CartsBean title1Detail = new CartsBean();
+                title1Detail.setNum(1);
+                title1Detail.setPrice(40.5f);
+                title1Detail.setProductName("商品名");
+                title1.getCartDetail().add(title1Detail);
+
+                CartsBean title1Detail2 = new CartsBean();
+                title1Detail2.setNum(1);
+                title1Detail2.setPrice(40.5f);
+                title1Detail2.setProductName("商品名");
+                title1.getCartDetail().add(title1Detail2);
+                newList.add(title1);
+
+
+                CartsBean title2 = new CartsBean();
+                title2.setTitle(true);
+                title2.setShopName("店铺名");
+
+                CartsBean title2Detail = new CartsBean();
+                title2Detail.setNum(1);
+                title2Detail.setPrice(40.5f);
+                title2Detail.setProductName("商品名");
+                title2.getCartDetail().add(title2Detail);
+                newList.add(title2);
+
                 mList.clear();
-                mList.addAll(cartsBeans);
+                mList.addAll(newList);
                 mAdapter.notifyDataSetChanged();
+
+                EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
             }
 
             @Override

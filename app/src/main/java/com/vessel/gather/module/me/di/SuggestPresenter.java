@@ -70,7 +70,7 @@ public class SuggestPresenter extends BasePresenter<SuggestContract.Model, Sugge
                     public void onNext(VariableResponse variableResponse) {
                         super.onNext(variableResponse);
                         avatarUri = variableResponse.getUrl();
-                        mRootView.showImage(avatarUri);
+                        mRootView.showImage(file);
                     }
                 }
         );

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/view_titlebar"
+        layout="@layout/layout_titlebar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30px"
+        android:text="\n\n\n        聚集装潢信息服务没有前世，只为今生。\n\n\n        为了让居家装演的业主不再被忽悠、欺蒙、骗诈;让从事装潢服务的操作工人不再被欺诈、压迫、剥削。\n        聚集装潢信息服务平台，意在缩短业主与操作工人之间的距离，实现让业主与操作工人面对面的谈工论价。\n\n        为了让业主居家装潢购材选料时，省心、省力、省钱。\n        聚集装潢信息服务力图将各类各品牌装潢用材聚集于一平台。"
+        android:textSize="30px" />
+
+</com.zhy.autolayout.AutoLinearLayout>

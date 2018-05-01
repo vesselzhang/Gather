@@ -12,13 +12,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.module.me.di.DaggerSuggestComponent;
 import com.vessel.gather.module.me.di.SuggestContract;
 import com.vessel.gather.module.me.di.SuggestModule;
 import com.vessel.gather.module.me.di.SuggestPresenter;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -117,10 +118,10 @@ public class SuggestFragment extends MySupportFragment<SuggestPresenter> impleme
     }
 
     @Override
-    public void showImage(String url) {
+    public void showImage(File file) {
         mDefaultImage.setVisibility(View.GONE);
         Glide.with(getActivity())
-                .load(BuildConfig.APP_DOMAIN + url)
+                .load(file)
                 .into(mImage);
     }
 }
