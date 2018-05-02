@@ -94,6 +94,7 @@
                 </com.zhy.autolayout.AutoLinearLayout>
 
                 <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/layout_shangjia_apply"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -123,6 +124,7 @@
                 </com.zhy.autolayout.AutoLinearLayout>
 
                 <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/layout_shifu_apply"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -423,6 +425,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="30px"
                         android:background="#cccccc" /><!--4分之4-->
+
                     <com.zhy.autolayout.AutoLinearLayout
                         android:id="@+id/ll_bmqd"
                         android:layout_width="0px"

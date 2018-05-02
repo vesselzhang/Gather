@@ -75,7 +75,7 @@ public class LoginActivity extends MySupportActivity<LoginPresenter> implements 
                 mPresenter.login(accountET.getText().toString(), passwordET.getText().toString());
                 break;
             case R.id.login_reset_password:
-                showMessage("页面未设计");
+                ARouter.getInstance().build("/app/password").navigation();
                 break;
         }
     }

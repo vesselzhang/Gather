@@ -30,7 +30,7 @@ public class PasswordModel extends BaseModel implements PasswordContract.Model {
     @Override
     public Observable<Boolean> sendSms(String phone) {
         return mRepositoryManager.obtainRetrofitService(CommonService.class)
-                .sendSms(phone)
+                .sendSms(phone, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpResultVoidFunc());

@@ -17,6 +17,8 @@ public class Constants {
     public static final String PAGE_MEMO    = PAGE + "_Memo";
     public static final String PAGE_ABOUT    = PAGE + "_About";
     //Home
+    public static final String PAGE_SELLER_APPLY = PAGE + "_Seller_apply";
+    public static final String PAGE_WORKER_APPLY = PAGE + "_Worker_apply";
     public static final String PAGE_SELLER_LIST = PAGE + "_Seller_list";
     public static final String PAGE_WORKER_LIST = PAGE + "_Worker_list";
 

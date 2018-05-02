@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
@@ -62,7 +63,7 @@ public class SafeFragment extends MySupportFragment {
                 ArmsUtils.makeText(getActivity(), "页面未设计");
                 break;
             case R.id.safe_reset_password:
-                ArmsUtils.makeText(getActivity(), "页面未设计");
+                ARouter.getInstance().build("/app/password").navigation();
                 break;
         }
     }

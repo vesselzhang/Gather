@@ -27,7 +27,7 @@ android {
 
         ndk { abiFilters "armeabi" }
 
-        buildConfigField "String", "APP_DOMAIN", "\"http://120.78.63.213/\""
+        buildConfigField "String", "APP_DOMAIN", "\"http://111.231.100.235/\""
     }
 
     aaptOptions { cruncherEnabled = false }
@@ -42,9 +42,7 @@ android {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -80,6 +78,7 @@ dependencies {
     implementation rootProject.ext.dependencies["arouter"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     implementation "com.github.miguelbcr:RxPaparazzo:0.6.0-2.x"
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.2.0'
 
     // layout
     implementation rootProject.ext.dependencies["fragmentation"]

@@ -13,8 +13,10 @@ import com.vessel.gather.module.me.AboutFragment;
 import com.vessel.gather.module.me.AddressFragment;
 import com.vessel.gather.module.me.MemoFragment;
 import com.vessel.gather.module.me.OrderFragment;
+import com.vessel.gather.module.me.SellerApplyFragment;
 import com.vessel.gather.module.me.SettingFragment;
 import com.vessel.gather.module.me.SuggestFragment;
+import com.vessel.gather.module.me.WorkerApplyFragment;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
@@ -23,9 +25,11 @@ import static com.vessel.gather.app.constant.Constants.PAGE_ABOUT;
 import static com.vessel.gather.app.constant.Constants.PAGE_ADDRESS;
 import static com.vessel.gather.app.constant.Constants.PAGE_MEMO;
 import static com.vessel.gather.app.constant.Constants.PAGE_ORDER;
+import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_APPLY;
 import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_LIST;
 import static com.vessel.gather.app.constant.Constants.PAGE_SETTING;
 import static com.vessel.gather.app.constant.Constants.PAGE_SUGGEST;
+import static com.vessel.gather.app.constant.Constants.PAGE_WORKER_APPLY;
 import static com.vessel.gather.app.constant.Constants.PAGE_WORKER_LIST;
 
 /**
@@ -71,6 +75,12 @@ public class ContainerActivity extends MySupportActivity {
                 break;
             case PAGE_ABOUT:
                 targetFragment = AboutFragment.newInstance();
+                break;
+            case PAGE_SELLER_APPLY:
+                targetFragment = SellerApplyFragment.newInstance();
+                break;
+            case PAGE_WORKER_APPLY:
+                targetFragment = WorkerApplyFragment.newInstance();
                 break;
             case PAGE_SELLER_LIST:
                 targetFragment = SellerListFragment.newInstance();

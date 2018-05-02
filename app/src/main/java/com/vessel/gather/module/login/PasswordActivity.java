@@ -2,12 +2,12 @@ package com.vessel.gather.module.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
@@ -16,6 +16,8 @@ import com.vessel.gather.module.login.di.DaggerPasswordComponent;
 import com.vessel.gather.module.login.di.PasswordContract;
 import com.vessel.gather.module.login.di.PasswordModule;
 import com.vessel.gather.module.login.di.PasswordPresenter;
+
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,16 +31,21 @@ public class PasswordActivity extends MySupportActivity<PasswordPresenter> imple
 
     @BindView(R.id.tv_title)
     TextView mTitleTV;
+    @BindView(R.id.tv_right)
+    TextView mRightTV;
     @BindView(R.id.iv_left)
     View mLeftTV;
-    @BindView(R.id.password_code)
-    EditText code;
-    @BindView(R.id.password_password)
-    EditText password;
-    @BindView(R.id.password_repeat)
-    EditText repeat;
 
-    private String phone;
+    @BindView(R.id.et_phone)
+    EditText et_phone;
+    @BindView(R.id.et_code)
+    EditText et_code;
+    @BindView(R.id.et_password)
+    EditText et_password;
+    @BindView(R.id.et_password_repeat)
+    EditText et_password_repeat;
+
+    private String REGEX_MOBILE = "^((1[3,4,5,7,8,9]))\\d{9}$";
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -57,25 +64,33 @@ public class PasswordActivity extends MySupportActivity<PasswordPresenter> imple
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        mTitleTV.setText("修改密码");
-        phone = getIntent().getStringExtra("phone");
-        if (TextUtils.isEmpty(phone)) {
-            showMessage("错误的参数");
-            killMyself();
-            return;
-        }
-        mPresenter.sendSms(phone);
+        mTitleTV.setText("重置密码");
+        mLeftTV.setVisibility(View.VISIBLE);
+        mRightTV.setText("登录");
+        mRightTV.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.iv_left, R.id.tv_right, R.id.password_submit})
+    @OnClick({R.id.iv_left, R.id.tv_right, R.id.password_btn_sendmsg, R.id.password_btn_submit})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
                 killMyself();
                 break;
-            case R.id.password_submit:
-                mPresenter.submit(phone, code.getText().toString(),
-                        password.getText().toString(), repeat.getText().toString());
+            case R.id.tv_right:
+                ARouter.getInstance().build("/app/login").navigation();
+                killMyself();
+                break;
+            case R.id.password_btn_sendmsg:
+                String str = et_phone.getText().toString();
+                if (!Pattern.matches(REGEX_MOBILE, str)) {
+                    showMessage("请输入正确的手机号码");
+                    return;
+                }
+                mPresenter.sendSms(str);
+                break;
+            case R.id.password_btn_submit:
+                mPresenter.submit(et_phone.getText().toString(), et_code.getText().toString(),
+                        et_password.getText().toString(), et_password_repeat.getText().toString());
                 break;
         }
     }

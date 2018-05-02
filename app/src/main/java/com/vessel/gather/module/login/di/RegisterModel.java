@@ -30,7 +30,7 @@ public class RegisterModel extends BaseModel implements RegisterContract.Model {
     @Override
     public Observable<Boolean> sendSms(String phone) {
         return mRepositoryManager.obtainRetrofitService(CommonService.class)
-                .sendSms(phone)
+                .sendSms(phone, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpResultVoidFunc());

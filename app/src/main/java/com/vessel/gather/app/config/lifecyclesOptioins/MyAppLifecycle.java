@@ -7,6 +7,7 @@ import android.util.Log;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
+import com.tencent.bugly.Bugly;
 import com.tencent.smtt.sdk.QbSdk;
 import com.vessel.gather.BuildConfig;
 
@@ -38,6 +39,8 @@ public class MyAppLifecycle implements AppLifecycles {
                 Log.d("app", " onViewInitFinished is " + b);
             }
         });
+
+        Bugly.init(application, "9d51acb14d", BuildConfig.DEBUG);
     }
 
     @Override

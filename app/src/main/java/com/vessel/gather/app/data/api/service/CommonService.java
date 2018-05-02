@@ -39,7 +39,7 @@ public interface CommonService {
     //基础接口
     @FormUrlEncoded
     @POST(Api.sendSms)
-    Observable<CommonResponse<Void>> sendSms(@Field("phone") String phone);
+    Observable<CommonResponse<Void>> sendSms(@Field("phone") String phone, @Field("type") int type);
 
     @FormUrlEncoded
     @POST(Api.registByPhone)
