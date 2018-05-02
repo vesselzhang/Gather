@@ -1,12 +1,12 @@
 package com.vessel.gather.module.home.di;
 
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
@@ -44,8 +44,6 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
     private List<TypeListResponse.TypesBean> mPopList = new ArrayList<>();
     private int index = 1;
     private int mTypeId = -1;
-
-    private PopupWindow popupWindow;
 
     @Inject
     public SellerListPresenter(SellerListContract.Model model, SellerListContract.View rootView) {
@@ -104,11 +102,6 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
     }
 
     public void showPop(View view) {
-        if (popupWindow != null) {
-            popupWindow.dismiss();
-            popupWindow = null;
-            return;
-        }
         if (mPopAdapter == null) {
             mPopAdapter = new SellerTypeAdapter(mAppManager.getCurrentActivity());
         }
@@ -118,20 +111,15 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
         mLv.setAdapter(mPopAdapter);
         mPopAdapter.setList(mPopList);
         //自适应大小
-        popupWindow = new PopupWindow();
-        popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-        popupWindow.setContentView(contentView);
-        //点击外部消失
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
-        //点击外部消失
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.setOutsideTouchable(true);
+        popupWindow.setTouchable(true);
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         //在控件上方显示
-        popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, location[1] + view.getHeight());
+        popupWindow.showAsDropDown(view, 0, 0);
+//        popupWindow.showAtLocation(view, Gravity.RIGHT, 0, location[1] + view.getHeight());
         mLv.setOnItemClickListener((adapterView, view1, i, l) -> {
             mTypeId = mPopList.get(i).getTypeId();
             mRootView.updatePop(mPopList, i);

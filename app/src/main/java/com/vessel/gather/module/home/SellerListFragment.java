@@ -28,14 +28,18 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SellerListFragment extends MySupportFragment<SellerListPresenter> implements SellerListContract.View {
-    @BindView(R.id.shop_list)
-    ListView mShopList;
+
     @BindView(R.id.tv_title)
     TextView mTitle;
     @BindView(R.id.tv_right)
     TextView mTitleRight;
     @BindView(R.id.iv_right)
     ImageView mImageRight;
+
+    @BindView(R.id.shop_list_type)
+    TextView mShopListType;
+    @BindView(R.id.shop_list)
+    ListView mShopList;
 
     public static SellerListFragment newInstance() {
         Bundle args = new Bundle();
@@ -63,7 +67,7 @@ public class SellerListFragment extends MySupportFragment<SellerListPresenter> i
     @Override
     public void initData(Bundle savedInstanceState) {
         mTitle.setText("优质材料");
-        mTitleRight.setText("全部");
+        mTitleRight.setText("分类");
         mTitleRight.setVisibility(View.VISIBLE);
         mImageRight.setVisibility(View.VISIBLE);
         mPresenter.queryTypeList();
@@ -83,14 +87,14 @@ public class SellerListFragment extends MySupportFragment<SellerListPresenter> i
 
     @Override
     public void updatePop(List<TypeListResponse.TypesBean> list, int index) {
-        mTitleRight.setText(list.get(index).getTypeName());
+        mShopListType.setText(list.get(index).getTypeName());
         mPresenter.getShopList(true);
     }
 
-    @OnClick({R.id.tv_right, R.id.iv_left})
+    @OnClick({R.id.ll_right, R.id.iv_left})
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_right:
+            case R.id.ll_right:
                 mPresenter.showPop(view);
                 break;
             case R.id.iv_left:

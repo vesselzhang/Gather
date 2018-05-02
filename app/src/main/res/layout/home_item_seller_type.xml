@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFFFFF">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="100px"
+        android:layout_height="32dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:text="装修设计"
-        android:textColor="#808080"
-        android:textSize="16sp" />
-
+        android:textColor="#FFFFFF"
+        android:textSize="11sp" />
 </com.zhy.autolayout.AutoLinearLayout>

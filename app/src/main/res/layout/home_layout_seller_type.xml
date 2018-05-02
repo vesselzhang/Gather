@@ -1,14 +1,16 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="#C4C4C4"
     android:orientation="vertical">
 
     <ListView
         android:id="@+id/pop_shop_lv"
-        android:layout_width="match_parent"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:divider="#DDDDDD"
+        android:divider="#FFFFFF"
         android:dividerHeight="2px"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:scrollbars="none" />
 </com.zhy.autolayout.AutoLinearLayout>
