@@ -32,6 +32,15 @@ android {
 
     aaptOptions { cruncherEnabled = false }
 
+    signingConfigs {
+        release {
+            keyAlias 'juji'
+            keyPassword 'juji2018'
+            storeFile file('../juji.jks')
+            storePassword 'juji2018'
+        }
+    }
+
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
@@ -43,6 +52,7 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

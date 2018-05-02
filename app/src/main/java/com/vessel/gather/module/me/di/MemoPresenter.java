@@ -37,6 +37,9 @@ public class MemoPresenter extends BasePresenter<MemoContract.Model, MemoContrac
                 new ErrorHandleSubscriber<NotePadResponse>(mErrorHandler) {
                     @Override
                     public void onNext(NotePadResponse notePadResponse) {
+                        if (notePadResponse.getNotes() == null) {
+                            return;
+                        }
                         mList.clear();
                         mList.addAll(notePadResponse.getNotes());
                         mAdapter.notifyDataSetChanged();

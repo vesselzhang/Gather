@@ -10,8 +10,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.jess.arms.utils.DataHelper;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
+import com.vessel.gather.app.constant.SPConstant;
+import com.vessel.gather.app.data.entity.UserInfoResponse;
 import com.vessel.gather.module.login.di.DaggerPasswordComponent;
 import com.vessel.gather.module.login.di.PasswordContract;
 import com.vessel.gather.module.login.di.PasswordModule;
@@ -45,6 +48,7 @@ public class PasswordActivity extends MySupportActivity<PasswordPresenter> imple
     @BindView(R.id.et_password_repeat)
     EditText et_password_repeat;
 
+    private UserInfoResponse userInfo;
     private String REGEX_MOBILE = "^((1[3,4,5,7,8,9]))\\d{9}$";
 
     @Override
@@ -68,6 +72,14 @@ public class PasswordActivity extends MySupportActivity<PasswordPresenter> imple
         mLeftTV.setVisibility(View.VISIBLE);
         mRightTV.setText("登录");
         mRightTV.setVisibility(View.VISIBLE);
+
+        userInfo = DataHelper.getDeviceData(this, SPConstant.SP_USERINFO);
+        if (userInfo != null) {
+            et_phone.setText(userInfo.getPhone());
+            et_phone.setEnabled(false);
+        } else {
+            et_phone.setEnabled(true);
+        }
     }
 
     @OnClick({R.id.iv_left, R.id.tv_right, R.id.password_btn_sendmsg, R.id.password_btn_submit})
