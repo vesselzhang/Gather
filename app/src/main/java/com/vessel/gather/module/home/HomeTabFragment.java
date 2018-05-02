@@ -147,10 +147,9 @@ public class HomeTabFragment extends MySupportFragment {
                 break;
             case R.id.layout_shifu:
             case R.id.tuijianshifu:
-                ArmsUtils.makeText(getActivity(), "开发中");
-//                ARouter.getInstance().build("/app/container")
-//                        .withSerializable(Constants.PAGE, Constants.PAGE_WORKER_LIST)
-//                        .navigation();
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_WORKER_LIST)
+                        .navigation();
                 break;
             case R.id.layout_shangjia_apply:
                 if (TextUtils.isEmpty(token)) {
