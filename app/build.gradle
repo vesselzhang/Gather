@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     def APP_DOMAIN = "APP_DOMAIN"
+    def today = new Date().format('yyyyMMdd')
     def CONFIG = { k -> "\"${project.properties.get(k)}\"" }
 
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -64,7 +65,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "Juji_${variant.productFlavors[0].name}_v${variant.versionName}_${variant.buildType.name}.apk"
+            outputFileName = "Juji_${variant.productFlavors[0].name}_v${variant.versionName}_${today}_${variant.buildType.name}.apk"
         }
     }
 
