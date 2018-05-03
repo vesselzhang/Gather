@@ -54,7 +54,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
                 );
     }
 
-    public void submit(String phone, String code, String password, String repeat) {
+    public void submit(String phone, String code, String nickName, String password, String repeat) {
         if (TextUtils.isEmpty(phone)) {
             mRootView.showMessage("电话不可为空");
             return;
@@ -71,9 +71,14 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
             mRootView.showMessage("两次密码不一致");
             return;
         }
+        if (TextUtils.isEmpty(nickName)) {
+            mRootView.showMessage("请填写昵称");
+            return;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         map.put("code", code);
+        map.put("nickName", nickName);
         map.put("password", password);
         mModel.registByPhone(map)
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))

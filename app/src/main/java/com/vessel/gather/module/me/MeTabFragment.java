@@ -209,7 +209,7 @@ public class MeTabFragment extends MySupportFragment {
                 PermissionUtil.callPhone(new PermissionUtil.RequestPermission() {
                     @Override
                     public void onRequestPermissionSuccess() {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13182716780"));
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "18344601590"));
                         startActivity(intent);
                     }
 

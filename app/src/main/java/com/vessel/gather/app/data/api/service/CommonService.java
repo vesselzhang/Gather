@@ -63,7 +63,7 @@ public interface CommonService {
 
     @FormUrlEncoded
     @POST(Api.submitAdvice)
-    Observable<CommonResponse<Void>> submitAdvice(@Field("content") String content);
+    Observable<CommonResponse<Void>> submitAdvice(@FieldMap Map<String, Object> map);
 
 
 

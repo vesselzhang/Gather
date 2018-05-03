@@ -9,6 +9,7 @@ import com.vessel.gather.app.utils.HttpResultFunc;
 import com.vessel.gather.app.utils.HttpResultVoidFunc;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -32,9 +33,9 @@ public class SuggestModel extends BaseModel implements SuggestContract.Model {
     }
 
     @Override
-    public Observable<Boolean> submitAdvice(String content) {
+    public Observable<Boolean> submitAdvice(Map<String, Object> map) {
         return mRepositoryManager.obtainRetrofitService(CommonService.class)
-                .submitAdvice(content)
+                .submitAdvice(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpResultVoidFunc());

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
@@ -16,6 +17,10 @@ import com.vessel.gather.app.data.entity.VariableResponse;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -47,12 +52,22 @@ public class SuggestPresenter extends BasePresenter<SuggestContract.Model, Sugge
         super(model, rootView);
     }
 
-    public void submit(String str) {
+    public void submit(String str, String phone) {
         if (TextUtils.isEmpty(str)) {
             mRootView.showMessage("请先输入内容");
             return;
         }
-        mModel.submitAdvice(str)
+        Map<String, Object> map = new HashMap<>();
+        map.put("content", str);
+        if (!TextUtils.isEmpty(phone)) {
+            map.put("phone", phone);
+        }
+        if (!TextUtils.isEmpty(avatarUri)) {
+            List<String> jsonList = new ArrayList<>();
+            jsonList.add(avatarUri);
+            map.put("pics", new Gson().toJson(jsonList));
+        }
+        mModel.submitAdvice(map)
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
                     @Override

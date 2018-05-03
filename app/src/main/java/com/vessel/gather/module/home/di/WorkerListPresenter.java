@@ -71,11 +71,17 @@ public class WorkerListPresenter extends BasePresenter<WorkerListContract.Model,
                     public void onNext(ServiceListResponse serviceListResponse) {
                         index += 1;
                         if (pullToRefresh) {
+                            if (serviceListResponse.getArtisans() == null) {
+                                return;
+                            }
                             mShopList.clear();
                             mShopList.addAll(serviceListResponse.getArtisans());
                             mAdapter.setList(serviceListResponse.getArtisans());
                             mAdapter.notifyDataSetChanged();
                         } else {
+                            if (serviceListResponse.getArtisans() == null) {
+                                return;
+                            }
                             mShopList.addAll(serviceListResponse.getArtisans());
                             mAdapter.addList(serviceListResponse.getArtisans());
                             mAdapter.notifyDataSetChanged();

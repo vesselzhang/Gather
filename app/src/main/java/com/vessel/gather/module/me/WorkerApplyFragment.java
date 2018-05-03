@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.data.api.service.CommonService;
 import com.vessel.gather.app.data.entity.TypeListResponse;
 import com.vessel.gather.app.utils.HttpResultFunc;
 import com.vessel.gather.app.utils.HttpResultVoidFunc;
+import com.vessel.gather.app.utils.progress.ProgressSubscriber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,11 +44,11 @@ public class WorkerApplyFragment extends MySupportFragment {
     @BindView(R.id.et_worker_apply_name)
     EditText etName;
     @BindView(R.id.et_worker_apply_sex)
-    EditText etSex;
-    @BindView(R.id.et_worker_apply_id_card)
-    EditText etIdCard;
-    @BindView(R.id.et_worker_apply_id_card_address)
-    EditText etIdCardAddress;
+    Spinner spSex;
+//    @BindView(R.id.et_worker_apply_id_card)
+//    EditText etIdCard;
+//    @BindView(R.id.et_worker_apply_id_card_address)
+//    EditText etIdCardAddress;
     @BindView(R.id.et_worker_apply_service_city)
     EditText etServiceCity;
     @BindView(R.id.et_worker_apply_type)
@@ -56,6 +58,7 @@ public class WorkerApplyFragment extends MySupportFragment {
     private AppComponent appComponent;
     private List<TypeListResponse.TypesBean> typesBeanList = new ArrayList<>();
     private List<String> types = new ArrayList<>();
+    private List<String> sex = new ArrayList<>();
 
     public static WorkerApplyFragment newInstance() {
         Bundle args = new Bundle();
@@ -78,6 +81,14 @@ public class WorkerApplyFragment extends MySupportFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         mTitleTV.setText("师傅入驻");
+
+        sex.clear();
+        sex.add("男");
+        sex.add("女");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, sex);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spSex.setAdapter(adapter);
+
         appComponent.repositoryManager().obtainRetrofitService(CommonService.class)
                 .queryTypeList(0)
                 .subscribeOn(Schedulers.io())
@@ -118,31 +129,36 @@ public class WorkerApplyFragment extends MySupportFragment {
                     ArmsUtils.makeText(getActivity(), "姓名必填");
                     return;
                 }
-                if (TextUtils.isEmpty(etIdCard.getText().toString())) {
-                    ArmsUtils.makeText(getActivity(), "身份证号必填");
-                    return;
-                }
-                if (TextUtils.isEmpty(etIdCardAddress.getText().toString())) {
-                    ArmsUtils.makeText(getActivity(), "身份证证件地址必填");
-                    return;
-                }
+//                if (TextUtils.isEmpty(etIdCard.getText().toString())) {
+//                    ArmsUtils.makeText(getActivity(), "身份证号必填");
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(etIdCardAddress.getText().toString())) {
+//                    ArmsUtils.makeText(getActivity(), "身份证证件地址必填");
+//                    return;
+//                }
                 if (TextUtils.isEmpty(etServiceCity.getText().toString())) {
                     ArmsUtils.makeText(getActivity(), "服务城市必填");
                     return;
                 }
                 Map<String, Object> map = new HashMap<>();
                 map.put("type", 0);
-//                map.put("typeId", type);
                 map.put("name", etName.getText().toString());
-                map.put("idNumber", etIdCard.getText().toString());
+                map.put("sex", spSex.getSelectedItem());
+                map.put("idNumber", 0);
+                map.put("address", 0);
+                map.put("city", etServiceCity.getText().toString());
+                map.put("typeId", typesBeanList.get(spType.getSelectedItemPosition()).getTypeId());
                 appComponent.repositoryManager().obtainRetrofitService(CommonService.class)
                         .authorityApply(map)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .map(new HttpResultVoidFunc())
-                        .subscribe(new ErrorHandleSubscriber<Boolean>(appComponent.rxErrorHandler()) {
+                        .compose(RxLifecycleUtils.bindToLifecycle(this))
+                        .subscribe(new ProgressSubscriber<Boolean>(getActivity(), appComponent.rxErrorHandler()) {
                             @Override
                             public void onNext(Boolean aBoolean) {
+                                super.onNext(aBoolean);
                                 ArmsUtils.makeText(getActivity(), "已提交申请");
                                 pop();
                             }

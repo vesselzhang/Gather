@@ -71,11 +71,17 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
                     public void onNext(ServiceListResponse serviceListResponse) {
                         index += 1;
                         if (pullToRefresh) {
+                            if (serviceListResponse.getShops() == null) {
+                                return;
+                            }
                             mShopList.clear();
                             mShopList.addAll(serviceListResponse.getShops());
                             mAdapter.setList(serviceListResponse.getShops());
                             mAdapter.notifyDataSetChanged();
                         } else {
+                            if (serviceListResponse.getShops() == null) {
+                                return;
+                            }
                             mShopList.addAll(serviceListResponse.getShops());
                             mAdapter.addList(serviceListResponse.getShops());
                             mAdapter.notifyDataSetChanged();

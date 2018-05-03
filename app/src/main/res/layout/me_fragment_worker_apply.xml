@@ -70,12 +70,12 @@
             android:textSize="15sp"
             android:visibility="invisible" />
 
-        <EditText
+        <Spinner
             android:id="@+id/et_worker_apply_sex"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
-            android:hint="请输入性别"
+            android:gravity="right"
             android:maxLines="1"
             android:padding="5dp"
             android:textColor="#AAAAAA"
@@ -89,7 +89,8 @@
         android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingRight="15dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,7 +126,8 @@
         android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingRight="15dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -216,6 +218,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
+            android:gravity="right"
             android:maxLines="1"
             android:padding="5dp"
             android:textColor="#AAAAAA"

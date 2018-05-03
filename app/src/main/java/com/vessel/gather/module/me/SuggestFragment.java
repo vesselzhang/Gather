@@ -85,7 +85,7 @@ public class SuggestFragment extends MySupportFragment<SuggestPresenter> impleme
                 mPresenter.pickAvatar();
                 break;
             case R.id.suggest_submit:
-                mPresenter.submit(content.getText().toString());
+                mPresenter.submit(content.getText().toString(), phone.getText().toString());
                 break;
         }
     }

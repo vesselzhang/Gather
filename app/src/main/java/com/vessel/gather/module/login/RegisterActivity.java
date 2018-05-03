@@ -92,6 +92,7 @@ public class RegisterActivity extends MySupportActivity<RegisterPresenter> imple
                 break;
             case R.id.btn_submit:
                 mPresenter.submit(et_phone.getText().toString(), et_code.getText().toString(),
+                        et_nick_name.getText().toString(),
                         et_password.getText().toString(), et_password_repeat.getText().toString());
                 break;
         }
