@@ -7,19 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jess.arms.http.imageloader.glide.GlideArms;
+import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportAdapter;
-import com.vessel.gather.app.data.entity.ServiceListResponse;
+import com.vessel.gather.app.data.entity.ServiceListResponse.ArtisansBean;
+import com.vessel.gather.app.utils.UiHelper;
 
-public class WorkerListAdapter extends MySupportAdapter<ServiceListResponse.ArtisansBean> {
+public class WorkerListAdapter extends MySupportAdapter<ArtisansBean> {
 
     public WorkerListAdapter(Context context) {
         super(context);
-    }
-
-    @Override
-    public int getCount() {
-        return 3;
     }
 
     @Override
@@ -28,15 +26,17 @@ public class WorkerListAdapter extends MySupportAdapter<ServiceListResponse.Arti
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item_worker, null);
-//            viewHolder.chaptersPic = UiHelper.find(convertView, R.id.shop_ic);
-//            viewHolder.name = UiHelper.find(convertView, R.id.shop_name);
+            viewHolder.chaptersPic = UiHelper.find(convertView, R.id.worker_ic);
+            viewHolder.name = UiHelper.find(convertView, R.id.worker_name);
 //            viewHolder.score = UiHelper.find(convertView, R.id.score);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        Glide.with(parent.getContext()).load(BuildConfig.APP_DOMAIN + getItem(0).getShopPic()).into(viewHolder.chaptersPic);
-//        viewHolder.name.setText(getItem(0).getShopName());
+        ArtisansBean artisansBean = getItem(position);
+
+        GlideArms.with(parent.getContext()).load(BuildConfig.APP_DOMAIN + artisansBean.getRealPhoto()).placeholder(R.drawable.ic_avatar_default).into(viewHolder.chaptersPic);
+        viewHolder.name.setText(artisansBean.getRealName());
 //        viewHolder.score.setRating(getItem(position).getScore());
         return convertView;
     }

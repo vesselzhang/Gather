@@ -16,10 +16,12 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.R;
+import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.data.entity.ServiceListResponse;
+import com.vessel.gather.app.data.entity.ServiceListResponse.ShopsBean;
 import com.vessel.gather.app.data.entity.TypeListResponse;
 import com.vessel.gather.module.home.adapter.SellerListAdapter;
-import com.vessel.gather.module.home.adapter.SellerTypeAdapter;
+import com.vessel.gather.module.home.adapter.TypeAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,8 +41,8 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
     AppManager mAppManager;
 
     private SellerListAdapter mAdapter;
-    private SellerTypeAdapter mPopAdapter;
-    private List<ServiceListResponse.ShopsBean> mShopList;
+    private TypeAdapter mPopAdapter;
+    private List<ShopsBean> mShopList;
     private List<TypeListResponse.TypesBean> mPopList = new ArrayList<>();
     private int index = 1;
     private int mTypeId = -1;
@@ -109,7 +111,7 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
 
     public void showPop(View view) {
         if (mPopAdapter == null) {
-            mPopAdapter = new SellerTypeAdapter(mAppManager.getCurrentActivity());
+            mPopAdapter = new TypeAdapter(mAppManager.getCurrentActivity());
         }
 
         View contentView = LayoutInflater.from(mAppManager.getCurrentActivity()).inflate(R.layout.home_layout_seller_type, null);
@@ -142,7 +144,11 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ARouter.getInstance().build("/app/web").navigation();
+        ShopsBean shopsBean = (ShopsBean) adapterView.getAdapter().getItem(i);
+        ARouter.getInstance().build("/app/web")
+                .withSerializable(Constants.WEB_TYPE, 1)
+                .withSerializable(Constants.WEB_ID, shopsBean.getShopId())
+                .navigation();
     }
 
     @Override

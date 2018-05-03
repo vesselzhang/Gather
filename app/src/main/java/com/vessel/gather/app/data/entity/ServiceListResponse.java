@@ -44,7 +44,8 @@ public class ServiceListResponse implements Serializable {
         private int userId;
         private String realPhoto;
         private String realName;
-        private int score;
+        private double score;
+        private int saleNum;
         private List<String> skills;
 
         public int getArtisanId() {
@@ -79,12 +80,20 @@ public class ServiceListResponse implements Serializable {
             this.realName = realName;
         }
 
-        public int getScore() {
+        public double getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(double score) {
             this.score = score;
+        }
+
+        public int getSaleNum() {
+            return saleNum;
+        }
+
+        public void setSaleNum(int saleNum) {
+            this.saleNum = saleNum;
         }
 
         public List<String> getSkills() {
@@ -109,7 +118,8 @@ public class ServiceListResponse implements Serializable {
         private int userId;
         private String shopName;
         private String shopPic;
-        private int score;
+        private double score;
+        private int saleNum;
 
         public int getShopId() {
             return shopId;
@@ -143,12 +153,20 @@ public class ServiceListResponse implements Serializable {
             this.shopPic = shopPic;
         }
 
-        public int getScore() {
+        public double getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(double score) {
             this.score = score;
+        }
+
+        public int getSaleNum() {
+            return saleNum;
+        }
+
+        public void setSaleNum(int saleNum) {
+            this.saleNum = saleNum;
         }
     }
 }

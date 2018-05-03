@@ -11,9 +11,9 @@ import com.vessel.gather.app.base.MySupportAdapter;
 import com.vessel.gather.app.data.entity.TypeListResponse;
 import com.vessel.gather.app.utils.UiHelper;
 
-public class SellerTypeAdapter extends MySupportAdapter<TypeListResponse.TypesBean> {
+public class TypeAdapter extends MySupportAdapter<TypeListResponse.TypesBean> {
 
-    public SellerTypeAdapter(Context context) {
+    public TypeAdapter(Context context) {
         super(context);
     }
 
@@ -22,7 +22,7 @@ public class SellerTypeAdapter extends MySupportAdapter<TypeListResponse.TypesBe
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item_seller_type, null);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item_type, null);
             viewHolder.mListItem = UiHelper.find(convertView, R.id.list_item);
             convertView.setTag(viewHolder);
         } else {

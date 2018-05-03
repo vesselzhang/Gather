@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.DataHelper;
 import com.tencent.smtt.export.external.extension.interfaces.IX5WebViewExtension;
 import com.tencent.smtt.sdk.CookieSyncManager;
@@ -26,7 +27,9 @@ import com.vessel.gather.app.utils.X5WebView;
 
 import butterknife.BindView;
 
-import static com.vessel.gather.app.constant.Constants.WEBSITE;
+import static com.vessel.gather.app.constant.Constants.WEB_ID;
+import static com.vessel.gather.app.constant.Constants.WEB_SITE;
+import static com.vessel.gather.app.constant.Constants.WEB_TYPE;
 
 /**
  * @author vesselzhang
@@ -41,6 +44,8 @@ public class WebActivity extends MySupportActivity {
     X5WebView mWebView;
 
     private String webUrl;
+    private int id;
+    private int type;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -54,17 +59,27 @@ public class WebActivity extends MySupportActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        webUrl = getIntent().getStringExtra(WEBSITE);
-//        if (TextUtils.isEmpty(webUrl)) {
-//            ArmsUtils.makeText(this, "错误的请求地址");
-//            return;
-//        }
+        webUrl = getIntent().getStringExtra(WEB_SITE);
+        id = getIntent().getIntExtra(WEB_ID, -1);
+        type = getIntent().getIntExtra(WEB_TYPE, -1);
+        if (id == -1 || type == -1) {
+            ArmsUtils.makeText(this, "错误的请求地址");
+            return;
+        }
 
         String token = DataHelper.getStringSF(this, SPConstant.SP_TOKEN);
         if (TextUtils.isEmpty(token)) {
-            webUrl = "http://120.78.63.213/assemble/resources/product.html?&type=1&id=10";
+            if (id == -1 || type == -1) {
+                webUrl = "http://120.78.63.213/assemble/resources/product.html?type=1&id=10";
+            } else {
+                webUrl = "http://120.78.63.213/assemble/resources/product.html?type=" + type + "&id=" + id;
+            }
         } else {
-            webUrl = "http://120.78.63.213/assemble/resources/product.html?token=" + token +"&type=1&id=10";
+            if (id == -1 || type == -1) {
+                webUrl = "http://120.78.63.213/assemble/resources/product.html?token=" + token + "&type=1&id=10";
+            } else {
+                webUrl = "http://120.78.63.213/assemble/resources/product.html?token=" + token + "&type=" + type + "&id=" + id;
+            }
         }
 
         progressBar.setMax(100);

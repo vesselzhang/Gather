@@ -7,20 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jess.arms.http.imageloader.glide.GlideArms;
+import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportAdapter;
-import com.vessel.gather.app.data.entity.ServiceListResponse;
+import com.vessel.gather.app.data.entity.ServiceListResponse.ShopsBean;
 import com.vessel.gather.app.utils.UiHelper;
 
-public class SellerListAdapter extends MySupportAdapter<ServiceListResponse.ShopsBean> {
+public class SellerListAdapter extends MySupportAdapter<ShopsBean> {
 
     public SellerListAdapter(Context context) {
         super(context);
-    }
-
-    @Override
-    public int getCount() {
-        return 3;
     }
 
     @Override
@@ -36,8 +33,10 @@ public class SellerListAdapter extends MySupportAdapter<ServiceListResponse.Shop
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        Glide.with(parent.getContext()).load(BuildConfig.APP_DOMAIN + getItem(0).getShopPic()).into(viewHolder.chaptersPic);
-//        viewHolder.name.setText(getItem(0).getShopName());
+        ShopsBean shopsBean = getItem(position);
+
+        GlideArms.with(parent.getContext()).load(BuildConfig.APP_DOMAIN + shopsBean.getShopPic()).placeholder(R.drawable.ic_temp).into(viewHolder.chaptersPic);
+        viewHolder.name.setText(shopsBean.getShopName());
 //        viewHolder.score.setRating(getItem(position).getScore());
         return convertView;
     }

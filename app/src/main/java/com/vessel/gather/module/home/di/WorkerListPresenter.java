@@ -16,9 +16,11 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.R;
+import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.data.entity.ServiceListResponse;
+import com.vessel.gather.app.data.entity.ServiceListResponse.ArtisansBean;
 import com.vessel.gather.app.data.entity.TypeListResponse;
-import com.vessel.gather.module.home.adapter.SellerTypeAdapter;
+import com.vessel.gather.module.home.adapter.TypeAdapter;
 import com.vessel.gather.module.home.adapter.WorkerListAdapter;
 
 import java.util.ArrayList;
@@ -39,8 +41,8 @@ public class WorkerListPresenter extends BasePresenter<WorkerListContract.Model,
     AppManager mAppManager;
 
     private WorkerListAdapter mAdapter;
-    private SellerTypeAdapter mPopAdapter;
-    private List<ServiceListResponse.ArtisansBean> mShopList;
+    private TypeAdapter mPopAdapter;
+    private List<ArtisansBean> mShopList;
     private List<TypeListResponse.TypesBean> mPopList = new ArrayList<>();
     private int index = 1;
     private int mTypeId = -1;
@@ -109,7 +111,7 @@ public class WorkerListPresenter extends BasePresenter<WorkerListContract.Model,
 
     public void showPop(View view) {
         if (mPopAdapter == null) {
-            mPopAdapter = new SellerTypeAdapter(mAppManager.getCurrentActivity());
+            mPopAdapter = new TypeAdapter(mAppManager.getCurrentActivity());
         }
 
         View contentView = LayoutInflater.from(mAppManager.getCurrentActivity()).inflate(R.layout.home_layout_seller_type, null);
@@ -142,7 +144,11 @@ public class WorkerListPresenter extends BasePresenter<WorkerListContract.Model,
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ARouter.getInstance().build("/app/web").navigation();
+        ArtisansBean artisansBean = (ArtisansBean) adapterView.getAdapter().getItem(i);
+        ARouter.getInstance().build("/app/web")
+                .withSerializable(Constants.WEB_TYPE, 0)
+                .withSerializable(Constants.WEB_ID, artisansBean.getArtisanId())
+                .navigation();
     }
 
     @Override

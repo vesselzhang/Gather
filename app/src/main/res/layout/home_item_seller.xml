@@ -16,8 +16,7 @@
             android:id="@+id/shop_ic"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/ic_temp" />
+            android:layout_alignParentLeft="true" />
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"

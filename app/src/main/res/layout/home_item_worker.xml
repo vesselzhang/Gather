@@ -10,10 +10,9 @@
     android:paddingTop="12dp">
 
     <ImageView
-        android:id="@+id/shop_ic"
+        android:id="@+id/worker_ic"
         android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_avatar_default" />
+        android:layout_height="40dp" />
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
@@ -27,6 +26,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/worker_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

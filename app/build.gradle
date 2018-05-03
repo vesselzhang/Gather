@@ -27,7 +27,7 @@ android {
 
         ndk { abiFilters "armeabi" }
 
-        buildConfigField "String", "APP_DOMAIN", "\"http://111.231.100.235/\""
+        buildConfigField "String", "APP_DOMAIN", "\"http://120.78.63.213/\""   //120.78.63.213    111.231.100.235
     }
 
     aaptOptions { cruncherEnabled = false }
