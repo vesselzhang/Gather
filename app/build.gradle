@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+    def APP_DOMAIN = "APP_DOMAIN"
+    def CONFIG = { k -> "\"${project.properties.get(k)}\"" }
+
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     useLibrary 'org.apache.http.legacy'
@@ -16,6 +19,7 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
+        flavorDimensions "versionCode"
         testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
         vectorDrawables.useSupportLibrary = true
 
@@ -27,7 +31,7 @@ android {
 
         ndk { abiFilters "armeabi" }
 
-        buildConfigField "String", "APP_DOMAIN", "\"http://120.78.63.213/\""   //120.78.63.213    111.231.100.235
+        buildConfigField "String", APP_DOMAIN, CONFIG("debug.server.url")
     }
 
     aaptOptions { cruncherEnabled = false }
@@ -47,6 +51,7 @@ android {
             buildConfigField "boolean", "USE_CANARY", "true"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", APP_DOMAIN, CONFIG("debug.server.url")
         }
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
@@ -54,6 +59,21 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Juji_${variant.productFlavors[0].name}_v${variant.versionName}_${variant.buildType.name}.apk"
+        }
+    }
+
+    productFlavors {
+        external {  //外部正式
+            buildConfigField "String", APP_DOMAIN, CONFIG("release.external.server.url")
+        }
+        internal {  //内部正式
+            buildConfigField "String", APP_DOMAIN, CONFIG("release.internal.server.url")
         }
     }
 
