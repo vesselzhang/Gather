@@ -15,6 +15,7 @@
         android:id="@+id/tl_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="100px"
+        android:background="#FFFFFF"
         android:paddingTop="4px"
         app:tl_iconHeight="60px"
         app:tl_iconWidth="60px"
