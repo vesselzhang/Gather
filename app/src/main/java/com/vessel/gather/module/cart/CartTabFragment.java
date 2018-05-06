@@ -1,6 +1,7 @@
 package com.vessel.gather.module.cart;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +43,10 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
 
     @BindView(R.id.tv_title)
     TextView mTitleTV;
+    @BindView(R.id.tv_right)
+    TextView mTitleRight;
+    @BindView(R.id.cart_manage)
+    View mManageLayout;
     @BindView(R.id.cart_list)
     RecyclerView mRecyclerView;
     @BindView(R.id.cart_select_all)
@@ -56,6 +61,7 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
     @Inject
     List<CartsBean> mList;
 
+    boolean manageMode;
     int count, money;
 
     public static CartTabFragment newInstance() {
@@ -84,6 +90,8 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
     @Override
     public void initData(Bundle savedInstanceState) {
         mTitleTV.setText("购物车");
+        mTitleRight.setVisibility(View.VISIBLE);
+        mTitleRight.setText("管理");
         selectAll.setOnCheckedChangeListener(this);
         initRecycleView();
 
@@ -103,10 +111,28 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
 
     }
 
-    @OnClick(R.id.cart_pay)
-    void OnClick() {
-        if (count > 0) {
-            ARouter.getInstance().build("/app/order/pay").navigation();
+    @OnClick({R.id.cart_pay, R.id.tv_right, R.id.cart_delete})
+    void OnClick(View view) {
+        switch (view.getId()) {
+            case R.id.cart_pay:
+                if (manageMode) {
+                    return;
+                }
+                if (count > 0) {
+                    ARouter.getInstance().build("/app/order/pay").navigation();
+                } else {
+                    showMessage("您还没有选择宝贝哦！");
+                }
+                break;
+            case R.id.tv_right:
+                manageMode = !manageMode;
+                submit.setTextColor(manageMode ? Color.parseColor("#CCCCCC") : Color.parseColor("#FFFFFF"));
+                mTitleRight.setText(manageMode ? "完成" : "管理");
+                mManageLayout.setVisibility(manageMode ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.cart_delete:
+                mPresenter.deleteCart();
+                break;
         }
     }
 
@@ -122,7 +148,7 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
 
     @Override
     public void showMessage(@NonNull String s) {
-
+        ArmsUtils.makeText(getActivity(), s);
     }
 
     @Override
@@ -139,12 +165,15 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
     void updateList(Event event) {
         count = 0;
         money = 0;
+        boolean selectAllFlag = true;
         for (CartsBean cartsBean : mList) {
             if (cartsBean.isTitle()) {
                 for (CartsBean detail : cartsBean.getCartDetail()) {
                     if (detail.isSelected()) {
                         count++;
                         money += detail.getNum() * detail.getPrice();
+                    } else {
+                        selectAllFlag = false;
                     }
                 }
             }
@@ -152,6 +181,11 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
         cost.setText(money + "");
         submit.setText("结算 " + count);
         mAdapter.notifyDataSetChanged();
+        if (!selectAllFlag) {
+            selectAll.setOnCheckedChangeListener(null);
+            selectAll.setChecked(false);
+            selectAll.setOnCheckedChangeListener(this);
+        }
     }
 
     @Override

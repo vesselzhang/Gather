@@ -15,5 +15,7 @@ public interface CartContract {
 
     interface Model extends IModel {
         Observable<List<CartsBean>> cartList();
+
+        Observable<Boolean> delCartById(long cartId);
     }
 }

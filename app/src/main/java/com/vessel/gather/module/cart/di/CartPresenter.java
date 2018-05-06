@@ -10,6 +10,7 @@ import com.vessel.gather.module.cart.adapter.CartAdapter;
 import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -130,6 +131,26 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
 
             }
         });
+    }
+
+    public void deleteCart() {
+        Iterator<CartsBean> iterator = mList.iterator();
+        while (iterator.hasNext()) {
+            CartsBean cartsBean = iterator.next();
+            Iterator<CartsBean> iterator1 = cartsBean.getCartDetail().iterator();
+            while (iterator1.hasNext()) {
+                CartsBean detail = iterator1.next();
+                if (detail.isSelected()) {
+                    iterator1.remove();
+                }
+            }
+            if (cartsBean.getCartDetail().size() == 0) {
+                iterator.remove();
+            }
+        }
+
+        mAdapter.notifyDataSetChanged();
+        EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
     }
 
     @Override

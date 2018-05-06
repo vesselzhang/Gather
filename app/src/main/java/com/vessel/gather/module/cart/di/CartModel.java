@@ -6,6 +6,7 @@ import com.jess.arms.mvp.BaseModel;
 import com.vessel.gather.app.data.api.service.CommonService;
 import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
 import com.vessel.gather.app.utils.HttpResultFunc;
+import com.vessel.gather.app.utils.HttpResultVoidFunc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,15 @@ public class CartModel extends BaseModel implements CartContract.Model {
                     }
                     return newList;
                 });
+    }
+
+    @Override
+    public Observable<Boolean> delCartById(long cartId) {
+        return mRepositoryManager.obtainRetrofitService(CommonService.class)
+                .delCartById(cartId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultVoidFunc());
     }
 
     @Override
