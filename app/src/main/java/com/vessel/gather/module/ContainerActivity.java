@@ -12,6 +12,7 @@ import com.vessel.gather.module.home.SellerListFragment;
 import com.vessel.gather.module.home.WorkerListFragment;
 import com.vessel.gather.module.me.AboutFragment;
 import com.vessel.gather.module.me.AddressFragment;
+import com.vessel.gather.module.me.CollectFragment;
 import com.vessel.gather.module.me.MemoFragment;
 import com.vessel.gather.module.me.OrderFragment;
 import com.vessel.gather.module.me.SellerApplyFragment;
@@ -24,6 +25,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
 import static com.vessel.gather.app.constant.Constants.PAGE;
 import static com.vessel.gather.app.constant.Constants.PAGE_ABOUT;
 import static com.vessel.gather.app.constant.Constants.PAGE_ADDRESS;
+import static com.vessel.gather.app.constant.Constants.PAGE_COLLECT;
 import static com.vessel.gather.app.constant.Constants.PAGE_MEMO;
 import static com.vessel.gather.app.constant.Constants.PAGE_ORDER;
 import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_APPLY;
@@ -64,6 +66,9 @@ public class ContainerActivity extends MySupportActivity {
                 break;
             case PAGE_ORDER:
                 targetFragment = OrderFragment.newInstance();
+                break;
+            case PAGE_COLLECT:
+                targetFragment = CollectFragment.newInstance();
                 break;
             case PAGE_ADDRESS:
                 targetFragment = AddressFragment.newInstance();
