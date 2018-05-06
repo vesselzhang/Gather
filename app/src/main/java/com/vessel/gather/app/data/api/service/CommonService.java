@@ -5,6 +5,7 @@ import com.vessel.gather.app.data.api.Api;
 import com.vessel.gather.app.data.entity.AddressResponse;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
 import com.vessel.gather.app.data.entity.CartListResponse;
+import com.vessel.gather.app.data.entity.CheckVersionResponse;
 import com.vessel.gather.app.data.entity.CollectResponse;
 import com.vessel.gather.app.data.entity.CommonResponse;
 import com.vessel.gather.app.data.entity.IndexResponse;
@@ -58,12 +59,8 @@ public interface CommonService {
     Observable<CommonResponse<VariableResponse>> uploadFile(@Part("file\"; filename=\"file_name.jpg\"") RequestBody body); //phone, code, newPassword
 
     @FormUrlEncoded
-    @POST(Api.authorityApply)
-    Observable<CommonResponse<Void>> authorityApply(@FieldMap Map<String, Object> map);
-
-    @FormUrlEncoded
-    @POST(Api.submitAdvice)
-    Observable<CommonResponse<Void>> submitAdvice(@FieldMap Map<String, Object> map);
+    @POST(Api.checkVersion)
+    Observable<CommonResponse<CheckVersionResponse>> checkVersion(@Field("type") String type);
 
 
 
@@ -78,6 +75,14 @@ public interface CommonService {
     @FormUrlEncoded
     @POST(Api.updatePassword)
     Observable<CommonResponse<Void>> updatePassword(@FieldMap Map<String, Object> map); //oldPassword, newPassword
+
+    @FormUrlEncoded
+    @POST(Api.authorityApply)
+    Observable<CommonResponse<Void>> authorityApply(@FieldMap Map<String, Object> map);
+
+    @FormUrlEncoded
+    @POST(Api.submitAdvice)
+    Observable<CommonResponse<Void>> submitAdvice(@FieldMap Map<String, Object> map);
 
 
     //地址相关

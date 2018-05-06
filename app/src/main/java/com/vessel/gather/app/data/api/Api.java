@@ -19,6 +19,7 @@ public interface Api {
     String loginByPhone               = basic + "loginByPhone";
     String resetPassword              = basic + "resetPassword";
     String uploadFile                 = basic + "uploadFile";
+    String checkVersion               = basic + "checkVersion";
 
 
     //个人模块

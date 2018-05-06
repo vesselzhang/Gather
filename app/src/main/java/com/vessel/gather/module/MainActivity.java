@@ -17,6 +17,7 @@ import com.jess.arms.utils.PermissionUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
+import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.module.cart.CartTabFragment;
 import com.vessel.gather.module.di.DaggerMainComponent;
 import com.vessel.gather.module.di.MainContract;
@@ -27,9 +28,14 @@ import com.vessel.gather.module.me.MeTabFragment;
 import com.vessel.gather.widght.TabEntity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import me.yokeyword.fragmentation.ISupportFragment;
 
 @Route(path = "/app/main")
@@ -81,6 +87,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
         }
         initFragmentation();
         initBottomBar();
+        checkVersion();
 
         mPresenter.getIndexInfo();
     }
@@ -118,6 +125,27 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
         });
     }
 
+    private void checkVersion() {
+        Observable.timer(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(integer -> {
+                    try {
+                        Date date = new Date(getSharedPreferences("config", 0).getLong(SPConstant.SP_VERSION_CHECK_TIME, 0));//获取取消时间点的第二天
+
+                        Calendar tempCalendarNext = Calendar.getInstance();
+                        tempCalendarNext.setTime(date);
+                        tempCalendarNext.add(Calendar.DATE, 1);
+
+                        if (tempCalendarNext.getTime().before(new Date())) {
+                            mPresenter.checkVersion();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -152,7 +180,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
 
     @Override
     public void launchActivity(Intent intent) {
-
+        startActivity(intent);
     }
 
     @Override

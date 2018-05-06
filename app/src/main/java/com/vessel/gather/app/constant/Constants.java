@@ -1,11 +1,33 @@
 package com.vessel.gather.app.constant;
 
+import android.os.Environment;
+
 /**
  * @author vesselzhang
  * @date 2017/11/30
  */
 
 public class Constants {
+    // SD卡路径
+    public static final String SD_DIR = Environment.getExternalStorageDirectory().getPath();
+    // 项目路径
+    public static final String SD_APP_DIR = SD_DIR + "/Juji";
+    // Log保存目录
+    public static final String SD_LOG_DIR = SD_APP_DIR + "/.log";
+    // 文件保存路径
+    public static final String SD_SAVE_DIR = SD_APP_DIR + "/.save";
+    // 异常日志路径
+    public static final String SD_CRASH_DIR = SD_APP_DIR + "/.crash";
+    // 缓存路径
+    public static final String SD_CACHE_DIR = SD_APP_DIR + "/.cache";
+    // 图片路径
+    public static final String SD_IMAGE_DIR = SD_APP_DIR + "/.image";
+    // 音频路径
+    public static final String SD_AUDIO_DIR = SD_APP_DIR + "/.audio";
+    // 下载APP路径
+    public static final String SD_APK_DIR = SD_APP_DIR + "/apk";
+
+
     public static final String WEB = "WEB";
     public static final String WEB_SITE   = WEB + "_Site";
     public static final String WEB_TYPE   = WEB + "_Type";
