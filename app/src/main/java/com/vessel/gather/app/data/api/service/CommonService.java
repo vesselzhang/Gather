@@ -213,7 +213,7 @@ public interface CommonService {
 
     @FormUrlEncoded
     @POST(Api.orderList)
-    Observable<CommonResponse<OrderListResponse>> orderList(@Field("orderId") String orderId);
+    Observable<CommonResponse<OrderListResponse>> orderList(@Field("page") int page, @Field("pageSize") int pageSize);
 
     @FormUrlEncoded
     @POST(Api.cancelOrder)

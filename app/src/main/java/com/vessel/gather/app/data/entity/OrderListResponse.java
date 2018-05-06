@@ -201,6 +201,9 @@ public class OrderListResponse {
             private String productName;
             private String productPic;
 
+            private boolean isTitle;
+            private List<OrderDetailBean> content;
+
             public int getType() {
                 return type;
             }
@@ -303,6 +306,22 @@ public class OrderListResponse {
 
             public void setProductPic(String productPic) {
                 this.productPic = productPic;
+            }
+
+            public boolean isTitle() {
+                return isTitle;
+            }
+
+            public void setTitle(boolean title) {
+                isTitle = title;
+            }
+
+            public List<OrderDetailBean> getContent() {
+                return content;
+            }
+
+            public void setContent(List<OrderDetailBean> content) {
+                this.content = content;
             }
         }
     }
