@@ -17,6 +17,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.DataHelper;
 import com.jess.arms.utils.DeviceUtils;
 import com.jess.arms.utils.PermissionUtil;
+import com.jess.arms.utils.RxLifecycleUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
@@ -119,6 +120,7 @@ public class MeTabFragment extends MySupportFragment {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map(new HttpResultFunc<>())
+                    .compose(RxLifecycleUtils.bindToLifecycle(this))
                     .subscribe(new Observer<UserInfoResponse>() {
                         @Override
                         public void onSubscribe(Disposable d) {

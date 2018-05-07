@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,11 +25,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> groupTitle;
     //子项是一个map，key是group的id，每一个group对应一个ChildItem的list
     private Map<Integer, List<ChildItem>> childMap;
+    private boolean showCheckbox;
 
     public ExpandableListAdapter(Context context, List<String> groupTitle, Map<Integer, List<ChildItem>> childMap) {
         this.mContext = context;
         this.groupTitle = groupTitle;
         this.childMap = childMap;
+    }
+
+    public void setShowCheckbox(boolean showCheckbox) {
+        this.showCheckbox = showCheckbox;
     }
 
     /*
@@ -54,16 +60,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
                              ViewGroup parent) {
-        ChildHolder childHolder = null;
+        ChildHolder childHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_me_collect_detail, null);
             childHolder = new ChildHolder();
-//            childHolder.childImg = (ImageView) convertView.findViewById(R.id.img_child);
+            childHolder.checkBox = convertView.findViewById(R.id.collect_item_detail_checkbox);
 //            childHolder.childText = (TextView) convertView.findViewById(R.id.tv_child_text);
             convertView.setTag(childHolder);
         } else {
             childHolder = (ChildHolder) convertView.getTag();
         }
+        childHolder.checkBox.setVisibility(showCheckbox ? View.VISIBLE : View.GONE);
 //        childHolder.childImg.setBackgroundResource(childMap.get(groupPosition).get(childPosition).getMarkerImgId());
 //        childHolder.childText.setText(childMap.get(groupPosition).get(childPosition).getTitle());
 
@@ -149,7 +156,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     private class ChildHolder {
-        ImageView childImg;
-        TextView childText;
+        CheckBox checkBox;
     }
 }

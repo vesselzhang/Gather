@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author vesselzhang
@@ -33,11 +34,11 @@ public class CollectFragment extends MySupportFragment<CollectPresenter> impleme
 
     @BindView(R.id.tv_title)
     TextView mTitleTV;
-    @BindView(R.id.tv_right)
-    TextView mRightTV;
 
     @BindView(R.id.collect_expand_list)
     ExpandableListView expandableListView;
+    @BindView(R.id.collect_manage)
+    TextView manage;
 
     private List<String> groupData;//group的数据源
     private Map<Integer, List<ChildItem>> childData;//child的数据源
@@ -64,8 +65,6 @@ public class CollectFragment extends MySupportFragment<CollectPresenter> impleme
     @Override
     public void initData(Bundle savedInstanceState) {
         mTitleTV.setText("我的收藏");
-        mRightTV.setVisibility(View.VISIBLE);
-        mRightTV.setText("编辑");
 
         setData(null);
         expandableListView.setAdapter(mAdapter);
@@ -107,6 +106,28 @@ public class CollectFragment extends MySupportFragment<CollectPresenter> impleme
         childData.put(3, childItems2);
 
         mAdapter = new ExpandableListAdapter(getContext(), groupData, childData);
+    }
+
+    @OnClick({R.id.iv_left, R.id.collect_manage, R.id.collect_cancel, R.id.collect_delete})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_left:
+                killMyself();
+                break;
+            case R.id.collect_manage:
+                manage.setVisibility(View.GONE);
+                mAdapter.setShowCheckbox(true);
+                mAdapter.notifyDataSetInvalidated();
+                break;
+            case R.id.collect_cancel:
+                manage.setVisibility(View.VISIBLE);
+                mAdapter.setShowCheckbox(false);
+                mAdapter.notifyDataSetInvalidated();
+                break;
+            case R.id.collect_delete:
+                showMessage("点击了删除按钮");
+                break;
+        }
     }
 
     @Override
