@@ -80,12 +80,12 @@
                     android:textSize="15sp"
                     android:visibility="invisible" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/et_seller_apply_sex"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#FFFFFF"
-                    android:hint="请输入性别"
+                    android:gravity="right"
                     android:maxLines="1"
                     android:padding="5dp"
                     android:textColor="#AAAAAA"
@@ -328,28 +328,44 @@
                     android:textColor="#FF6000"
                     android:textSize="15sp" />
 
-                <com.zhy.autolayout.AutoLinearLayout
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:id="@+id/seller_apply_zhengmian"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_square_round_stroke_grey"
                     android:gravity="center"
                     android:orientation="vertical">
 
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/seller_apply_zhengmian_temp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_pictrue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="照片正面"
+                            android:textColor="#AAAAAA"
+                            android:textSize="10sp" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_pictrue" />
+                        android:id="@+id/seller_apply_zhengmian_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.zhy.autolayout.AutoRelativeLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="照片正面"
-                        android:textColor="#AAAAAA"
-                        android:textSize="10sp" />
-                </com.zhy.autolayout.AutoLinearLayout>
-
-                <com.zhy.autolayout.AutoLinearLayout
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:id="@+id/seller_apply_beimian"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
@@ -357,19 +373,33 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_pictrue" />
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/seller_apply_beimian_temp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="照片反面"
-                        android:textColor="#AAAAAA"
-                        android:textSize="10sp" />
-                </com.zhy.autolayout.AutoLinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_pictrue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="照片反面"
+                            android:textColor="#AAAAAA"
+                            android:textSize="10sp" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <ImageView
+                        android:id="@+id/seller_apply_beimian_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.zhy.autolayout.AutoRelativeLayout>
             </com.zhy.autolayout.AutoLinearLayout>
 
             <com.zhy.autolayout.AutoLinearLayout
@@ -395,26 +425,41 @@
                     android:textColor="#FF6000"
                     android:textSize="15sp" />
 
-                <com.zhy.autolayout.AutoLinearLayout
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:id="@+id/seller_apply_zhizhao"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_square_round_stroke_grey"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_pictrue" />
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/seller_apply_zhizhao_temp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="营业执照"
-                        android:textColor="#AAAAAA"
-                        android:textSize="10sp" />
-                </com.zhy.autolayout.AutoLinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_pictrue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="营业执照"
+                            android:textColor="#AAAAAA"
+                            android:textSize="10sp" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <ImageView
+                        android:id="@+id/seller_apply_zhizhao_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.zhy.autolayout.AutoRelativeLayout>
             </com.zhy.autolayout.AutoLinearLayout>
 
             <TextView
