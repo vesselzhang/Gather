@@ -10,13 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.R;
-import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.data.entity.ServiceListResponse;
 import com.vessel.gather.app.data.entity.ServiceListResponse.ArtisansBean;
 import com.vessel.gather.app.data.entity.TypeListResponse;
@@ -145,10 +143,11 @@ public class WorkerListPresenter extends BasePresenter<WorkerListContract.Model,
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ArtisansBean artisansBean = (ArtisansBean) adapterView.getAdapter().getItem(i);
-        ARouter.getInstance().build("/app/web")
-                .withSerializable(Constants.WEB_TYPE, 0)
-                .withSerializable(Constants.WEB_ID, artisansBean.getArtisanId())
-                .navigation();
+//        ARouter.getInstance().build("/app/web")
+//                .withSerializable(Constants.WEB_TYPE, 0)
+//                .withSerializable(Constants.WEB_ID, artisansBean.getArtisanId())
+//                .navigation();
+        mRootView.jumpWorkerPage(artisansBean);
     }
 
     @Override

@@ -42,4 +42,10 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="RatingStyle" parent="@android:style/Widget.RatingBar">
+        <!-- 定义星星图片 -->
+        <item name="android:progressDrawable">@drawable/layer_live_rating_bar</item>
+        <!-- 根据自定义星星图片的大小,设置相应的值,否则可能显示不全 -->
+        <item name="android:numColumns">5</item>
+    </style>
 </resources>

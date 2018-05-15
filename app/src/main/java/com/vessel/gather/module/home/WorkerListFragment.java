@@ -16,6 +16,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportAdapter;
 import com.vessel.gather.app.base.MySupportFragment;
+import com.vessel.gather.app.data.entity.ServiceListResponse;
 import com.vessel.gather.app.data.entity.TypeListResponse;
 import com.vessel.gather.module.home.di.DaggerWorkerListComponent;
 import com.vessel.gather.module.home.di.WorkerListContract;
@@ -89,6 +90,11 @@ public class WorkerListFragment extends MySupportFragment<WorkerListPresenter> i
     public void updatePop(List<TypeListResponse.TypesBean> list, int index) {
         mWorkListType.setText(list.get(index).getTypeName());
         mPresenter.getShopList(true);
+    }
+
+    @Override
+    public void jumpWorkerPage(ServiceListResponse.ArtisansBean artisansBean) {
+        start(WorkerFragment.newInstance());
     }
 
     @OnClick({R.id.ll_right, R.id.iv_left})

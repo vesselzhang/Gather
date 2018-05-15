@@ -17,6 +17,8 @@ public interface WorkerListContract {
         void setAdapter(MySupportAdapter adapter);
 
         void updatePop(List<TypeListResponse.TypesBean> list, int index);
+
+        void jumpWorkerPage(ServiceListResponse.ArtisansBean artisansBean);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
