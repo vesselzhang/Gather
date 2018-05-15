@@ -116,4 +116,6 @@ dependencies {
     implementation rootProject.ext.dependencies["fragmentation-core"]
     implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
     implementation rootProject.ext.dependencies["FlycoSystemBar_Lib"]
+
+    implementation project(':crash')
 }

@@ -9,6 +9,7 @@ import com.jess.arms.base.delegate.AppLifecycles;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.tencent.bugly.Bugly;
 import com.tencent.smtt.sdk.QbSdk;
+import com.vessel.crash.CustomActivityOnCrash;
 import com.vessel.gather.BuildConfig;
 
 import me.yokeyword.fragmentation.Fragmentation;
@@ -41,6 +42,7 @@ public class MyAppLifecycle implements AppLifecycles {
         });
 
         Bugly.init(application, "9d51acb14d", BuildConfig.DEBUG);
+        CustomActivityOnCrash.install(application);
     }
 
     @Override
