@@ -11,22 +11,22 @@ import dagger.Provides;
  */
 
 @Module
-public class WorkerModule {
-    private WorkerContract.View view;
+public class WorkerSkillModule {
+    private WorkerSkillContract.View view;
 
-    public WorkerModule(WorkerContract.View view) {
+    public WorkerSkillModule(WorkerSkillContract.View view) {
         this.view = view;
     }
 
     @ActivityScope
     @Provides
-    WorkerContract.View provideView() {
+    WorkerSkillContract.View provideView() {
         return this.view;
     }
 
     @ActivityScope
     @Provides
-    WorkerContract.Model provideModel(WorkerModel model) {
+    WorkerSkillContract.Model provideModel(WorkerSkillModel model) {
         return model;
     }
 }

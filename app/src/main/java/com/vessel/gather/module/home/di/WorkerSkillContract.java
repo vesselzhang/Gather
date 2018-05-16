@@ -8,8 +8,7 @@ import com.jess.arms.mvp.IView;
  * @date 2017/11/25
  */
 
-public interface WorkerContract {
-
+public interface WorkerSkillContract {
     interface View extends IView {
 
     }

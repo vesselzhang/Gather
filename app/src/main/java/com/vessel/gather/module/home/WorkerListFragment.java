@@ -94,7 +94,7 @@ public class WorkerListFragment extends MySupportFragment<WorkerListPresenter> i
 
     @Override
     public void jumpWorkerPage(ServiceListResponse.ArtisansBean artisansBean) {
-        start(WorkerFragment.newInstance());
+        start(WorkerDetailFragment.newInstance());
     }
 
     @OnClick({R.id.ll_right, R.id.iv_left})

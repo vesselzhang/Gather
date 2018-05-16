@@ -14,14 +14,14 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  */
 
 @ActivityScope
-public class WorkerPresenter extends BasePresenter<WorkerContract.Model, WorkerContract.View> {
+public class WorkerDetailPresenter extends BasePresenter<WorkerDetailContract.Model, WorkerDetailContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
     AppManager mAppManager;
 
     @Inject
-    public WorkerPresenter(WorkerContract.Model model, WorkerContract.View rootView) {
+    public WorkerDetailPresenter(WorkerDetailContract.Model model, WorkerDetailContract.View rootView) {
         super(model, rootView);
     }
 

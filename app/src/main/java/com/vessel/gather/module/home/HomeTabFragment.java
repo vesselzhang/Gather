@@ -141,10 +141,12 @@ public class HomeTabFragment extends MySupportFragment {
         switch (view.getId()) {
             case R.id.tuijianshangjia:
             case R.id.layout_shangjia:
-                ARouter.getInstance().build("/app/container")
-                        .withSerializable(Constants.PAGE, Constants.PAGE_SELLER_LIST)
-                        .navigation();
-                break;
+                ArmsUtils.makeText(getActivity(), "敬请期待");
+                return;
+//                ARouter.getInstance().build("/app/container")
+//                        .withSerializable(Constants.PAGE, Constants.PAGE_SELLER_LIST)
+//                        .navigation();
+//                break;
             case R.id.layout_shifu:
             case R.id.tuijianshifu:
                 ARouter.getInstance().build("/app/container")
@@ -152,14 +154,16 @@ public class HomeTabFragment extends MySupportFragment {
                         .navigation();
                 break;
             case R.id.layout_shangjia_apply:
-                if (TextUtils.isEmpty(token)) {
-                    ARouter.getInstance().build("/app/login").navigation();
-                    return;
-                }
-                ARouter.getInstance().build("/app/container")
-                        .withSerializable(Constants.PAGE, Constants.PAGE_SELLER_APPLY)
-                        .navigation();
-                break;
+                ArmsUtils.makeText(getActivity(), "敬请期待");
+                return;
+//                if (TextUtils.isEmpty(token)) {
+//                    ARouter.getInstance().build("/app/login").navigation();
+//                    return;
+//                }
+//                ARouter.getInstance().build("/app/container")
+//                        .withSerializable(Constants.PAGE, Constants.PAGE_SELLER_APPLY)
+//                        .navigation();
+//                break;
             case R.id.layout_shifu_apply:
                 if (TextUtils.isEmpty(token)) {
                     ARouter.getInstance().build("/app/login").navigation();

@@ -2,7 +2,7 @@ package com.vessel.gather.module.home.di;
 
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.di.scope.ActivityScope;
-import com.vessel.gather.module.home.WorkerFragment;
+import com.vessel.gather.module.home.WorkerDetailFragment;
 
 import dagger.Component;
 
@@ -12,7 +12,7 @@ import dagger.Component;
  */
 
 @ActivityScope
-@Component(modules = WorkerModule.class, dependencies = AppComponent.class)
-public interface WorkerComponent {
-    void inject(WorkerFragment activity);
+@Component(modules = WorkerDetailModule.class, dependencies = AppComponent.class)
+public interface WorkerDetailComponent {
+    void inject(WorkerDetailFragment activity);
 }

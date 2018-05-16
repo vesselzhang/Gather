@@ -12,10 +12,10 @@ import javax.inject.Inject;
  */
 
 @ActivityScope
-public class WorkerModel extends BaseModel implements WorkerContract.Model {
+public class WorkerSkillModel extends BaseModel implements WorkerSkillContract.Model {
 
     @Inject
-    public WorkerModel(IRepositoryManager repositoryManager) {
+    public WorkerSkillModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
     }
 

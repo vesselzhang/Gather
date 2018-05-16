@@ -13,38 +13,45 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
-import com.vessel.gather.module.home.di.WorkerContract;
-import com.vessel.gather.module.home.di.WorkerPresenter;
+import com.vessel.gather.module.home.di.DaggerWorkerSkillComponent;
+import com.vessel.gather.module.home.di.WorkerSkillContract;
+import com.vessel.gather.module.home.di.WorkerSkillModule;
+import com.vessel.gather.module.home.di.WorkerSkillPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class WorkerFragment extends MySupportFragment<WorkerPresenter> implements WorkerContract.View {
+public class WorkerSkillFragment extends MySupportFragment<WorkerSkillPresenter> implements WorkerSkillContract.View {
 
     @BindView(R.id.tv_title)
     TextView mTitle;
 
-    public static WorkerFragment newInstance() {
+    public static WorkerSkillFragment newInstance() {
         Bundle args = new Bundle();
 
-        WorkerFragment fragment = new WorkerFragment();
+        WorkerSkillFragment fragment = new WorkerSkillFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-
+        DaggerWorkerSkillComponent
+                .builder()
+                .appComponent(appComponent)
+                .workerSkillModule(new WorkerSkillModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
-        return inflater.inflate(R.layout.home_fragment_worker, container, false);
+        return inflater.inflate(R.layout.home_fragment_worker_skill, container, false);
     }
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        mTitle.setText("师傅详情");
+        mTitle.setText("我的技能");
     }
 
     @Override
@@ -83,8 +90,6 @@ public class WorkerFragment extends MySupportFragment<WorkerPresenter> implement
 
     @Override
     public void killMyself() {
-        if (getActivity() != null) {
-            getActivity().finish();
-        }
+        pop();
     }
 }
