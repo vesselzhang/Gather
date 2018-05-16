@@ -113,7 +113,8 @@
                 android:background="#FFFFFF"
                 android:gravity="center"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:paddingRight="15dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -50,6 +50,10 @@ public class MeTabFragment extends MySupportFragment {
     TextView name;
     @BindView(R.id.me_order)
     View orderView;
+    @BindView(R.id.me_seller)
+    View sellerView;
+    @BindView(R.id.me_worker)
+    View workerView;
 
     private String token;
     private AppComponent mAppComponent;
@@ -96,6 +100,8 @@ public class MeTabFragment extends MySupportFragment {
                     .load(BuildConfig.APP_DOMAIN)
                     .into(avatar);
             name.setText("");
+            workerView.setVisibility(View.GONE);
+            sellerView.setVisibility(View.GONE);
             return;
         } else {
             login.setVisibility(View.VISIBLE);
@@ -111,7 +117,8 @@ public class MeTabFragment extends MySupportFragment {
                                 .build());
                 name.setText(userInfo.getNickname());
                 if (DeviceUtils.getNetworkType(getContext()) != 0) {
-
+                    workerView.setVisibility(userInfo.getIsMerchant() == 1 ? View.VISIBLE : View.GONE);
+                    sellerView.setVisibility(userInfo.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
                 }
             }
             //再次获取UserInfo
@@ -138,11 +145,14 @@ public class MeTabFragment extends MySupportFragment {
                                             .build());
 
                             name.setText(userInfoResponse.getNickname());
+                            workerView.setVisibility(userInfoResponse.getIsMerchant() == 1 ? View.VISIBLE : View.GONE);
+                            sellerView.setVisibility(userInfoResponse.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-
+                            workerView.setVisibility(View.GONE);
+                            sellerView.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -153,7 +163,7 @@ public class MeTabFragment extends MySupportFragment {
         }
     }
 
-    @OnClick({R.id.me_order, R.id.me_collect, R.id.me_address, R.id.me_notepad,
+    @OnClick({R.id.me_order, R.id.me_seller, R.id.me_worker, R.id.me_collect, R.id.me_address, R.id.me_notepad,
             R.id.me_share, R.id.me_suggest, R.id.me_about, R.id.me_contact,
             R.id.me_logout_layout, R.id.me_login_layout})
     void onClick(View view) {
@@ -166,6 +176,10 @@ public class MeTabFragment extends MySupportFragment {
                 ARouter.getInstance().build("/app/container")
                         .withSerializable(Constants.PAGE, Constants.PAGE_ORDER)
                         .navigation();
+                break;
+            case R.id.me_seller:
+                break;
+            case R.id.me_worker:
                 break;
             case R.id.me_collect:
                 if (TextUtils.isEmpty(token)) {
