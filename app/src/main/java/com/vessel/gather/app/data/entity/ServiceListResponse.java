@@ -40,27 +40,27 @@ public class ServiceListResponse implements Serializable {
          * skills : ["门窗","瓷砖"]
          */
 
-        private int artisanId;
-        private int userId;
+        private long artisanId;
+        private long userId;
         private String realPhoto;
         private String realName;
         private double score;
         private int saleNum;
         private List<String> skills;
 
-        public int getArtisanId() {
+        public long getArtisanId() {
             return artisanId;
         }
 
-        public void setArtisanId(int artisanId) {
+        public void setArtisanId(long artisanId) {
             this.artisanId = artisanId;
         }
 
-        public int getUserId() {
+        public long getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(long userId) {
             this.userId = userId;
         }
 
@@ -114,26 +114,26 @@ public class ServiceListResponse implements Serializable {
          * score : 5
          */
 
-        private int shopId;
-        private int userId;
+        private long shopId;
+        private long userId;
         private String shopName;
         private String shopPic;
         private double score;
         private int saleNum;
 
-        public int getShopId() {
+        public long getShopId() {
             return shopId;
         }
 
-        public void setShopId(int shopId) {
+        public void setShopId(long shopId) {
             this.shopId = shopId;
         }
 
-        public int getUserId() {
+        public long getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(long userId) {
             this.userId = userId;
         }
 

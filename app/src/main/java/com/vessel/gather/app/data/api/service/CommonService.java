@@ -135,7 +135,7 @@ public interface CommonService {
 
     @FormUrlEncoded
     @POST(Api.queryArtisanInfo)
-    Observable<CommonResponse<ArtisanInfoResponse>> queryArtisanInfo(@Field("artisanId") int artisanId);
+    Observable<CommonResponse<ArtisanInfoResponse>> queryArtisanInfo(@Field("artisanId") long artisanId);
 
     @FormUrlEncoded
     @POST(Api.queryShopInfo)
@@ -167,9 +167,6 @@ public interface CommonService {
     Observable<CommonResponse<Void>> removeProduct(@Field("productId") int productId);
 
     //技工
-    @POST(Api.authorityArtisanInfo)
-    Observable<CommonResponse<ArtisanInfoResponse>> authorityArtisanInfo();
-
     @FormUrlEncoded
     @POST(Api.updateArtisan)
     Observable<CommonResponse<Void>> updateArtisan(@FieldMap Map<String, Object> map);

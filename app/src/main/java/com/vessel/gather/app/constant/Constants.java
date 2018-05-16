@@ -27,6 +27,10 @@ public class Constants {
     // 下载APP路径
     public static final String SD_APK_DIR = SD_APP_DIR + "/apk";
 
+    public static final long   DEFAULT_LONG    = -1L;
+    public static final int    DEFAULT_INT     = -1;
+    public static final String DEFAULT_STRING  = "";
+
 
     public static final String WEB = "WEB";
     public static final String WEB_SITE   = WEB + "_Site";

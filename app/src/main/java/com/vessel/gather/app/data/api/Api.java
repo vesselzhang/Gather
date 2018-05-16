@@ -53,7 +53,6 @@ public interface Api {
     String saveProduct                = authority + "saveProduct";
     String removeProduct              = authority + "removeProduct";
 //    String removeProduct = authority + "removeProduct";
-    String authorityArtisanInfo       = authority + "queryArtisanInfo";
     String updateArtisan              = authority + "updateArtisan";
     String saveSkill                  = authority + "saveSkill";
     String removeSkill                = authority + "removeSkill";

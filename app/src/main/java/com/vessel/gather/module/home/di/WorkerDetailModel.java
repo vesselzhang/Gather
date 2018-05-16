@@ -3,8 +3,15 @@ package com.vessel.gather.module.home.di;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
+import com.vessel.gather.app.data.api.service.CommonService;
+import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
+import com.vessel.gather.app.utils.HttpResultFunc;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author vesselzhang
@@ -17,6 +24,15 @@ public class WorkerDetailModel extends BaseModel implements WorkerDetailContract
     @Inject
     public WorkerDetailModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
+    }
+
+    @Override
+    public Observable<ArtisanInfoResponse> queryArtisanInfo(long artisanId) {
+        return mRepositoryManager.obtainRetrofitService(CommonService.class)
+                .queryArtisanInfo(artisanId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultFunc());
     }
 
     @Override

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <com.vessel.gather.widght.RoundImage
+            android:id="@+id/worker_skill_pic"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="42dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/worker_skill_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="木工"
+                android:textColor="#353535"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/worker_skill_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="木工材料安装（按平方计价）"
+                android:textColor="#AAAAAA"
+                android:textSize="10sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <TextView
+            android:id="@+id/worker_skill_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="￥546.00"
+            android:textColor="#FF6600"
+            android:textSize="13sp" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>
