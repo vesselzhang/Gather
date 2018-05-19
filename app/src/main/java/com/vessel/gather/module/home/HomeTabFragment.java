@@ -1,5 +1,6 @@
 package com.vessel.gather.module.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,9 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.addresspicker.huichao.addresspickerlibrary.CityPickerDialog;
-import com.addresspicker.huichao.addresspickerlibrary.InitAreaTask;
-import com.addresspicker.huichao.addresspickerlibrary.address.Province;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
@@ -23,6 +21,7 @@ import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.data.entity.IndexResponse;
 import com.vessel.gather.widght.AutoScrollViewPager;
 import com.vessel.gather.widght.BaseViewPagerAdapter;
+import com.zaaach.citypicker.CityPickerActivity;
 
 import org.simple.eventbus.Subscriber;
 
@@ -38,12 +37,13 @@ import butterknife.OnClick;
  */
 
 public class HomeTabFragment extends MySupportFragment {
+    private static final int REQUEST_CODE_PICK_CITY = 0;
+
     @BindView(R.id.city)
     TextView cityTV;
     @BindView(R.id.view_pager)
     AutoScrollViewPager mViewPager;
 
-    private ArrayList<Province> provinces = new ArrayList<>();
     private BaseViewPagerAdapter<String> mBaseViewPagerAdapter;
     private List<String> imageUrls = new ArrayList<>();
     private List<IndexResponse.BannersBean> banners = new ArrayList<>();
@@ -81,38 +81,12 @@ public class HomeTabFragment extends MySupportFragment {
             }
         };
         mViewPager.setAdapter(mBaseViewPagerAdapter);
-        InitAreaTask initAreaTask = new InitAreaTask(getActivity(), provinces);
-        initAreaTask.execute(0);
-        initAreaTask.setOnLoadingAddressListener(new InitAreaTask.onLoadingAddressListener() {
-            @Override
-            public void onLoadFinished() {
-
-            }
-
-            @Override
-            public void onLoading() {
-
-            }
-        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
         token = DataHelper.getStringSF(getActivity(), SPConstant.SP_TOKEN);
-    }
-
-    private void showAddressDialog() {
-        new CityPickerDialog(getActivity(), provinces,
-                null, null, null, (selectProvince, selectCity, selectCounty) -> {
-            StringBuilder address = new StringBuilder();
-            address.append(
-                    selectProvince != null ? selectProvince
-                            .getAreaName() : "")
-                    .append(selectCity != null ? selectCity
-                            .getAreaName() : "");
-            cityTV.setText(address.toString());
-        }).show();
     }
 
     @Override
@@ -174,7 +148,7 @@ public class HomeTabFragment extends MySupportFragment {
                         .navigation();
                 break;
             case R.id.location:
-                showAddressDialog();
+                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
                 break;
             case R.id.ll_search:
 //                Intent searchIntent = new Intent(getActivity(), SearchActivity.class);
@@ -187,6 +161,17 @@ public class HomeTabFragment extends MySupportFragment {
                 ArmsUtils.makeText(getActivity(), "敬请期待");
                 break;
 
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK){
+            if (data != null){
+                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+                cityTV.setText(city);
+            }
         }
     }
 }

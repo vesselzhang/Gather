@@ -81,6 +81,7 @@ android {
     lintOptions {
         disable 'InvalidPackage'
         disable "ResourceType"
+        checkReleaseBuilds false
         abortOnError false
     }
 }
@@ -111,6 +112,7 @@ dependencies {
     implementation "com.github.miguelbcr:RxPaparazzo:0.6.0-2.x"
     implementation 'com.tencent.bugly:crashreport_upgrade:1.2.0'
     implementation 'com.github.liuxiong1992:MyRatingBar:V1.0'
+    implementation 'com.zaaach:citypicker:1.1'
 
     // layout
     implementation rootProject.ext.dependencies["fragmentation"]

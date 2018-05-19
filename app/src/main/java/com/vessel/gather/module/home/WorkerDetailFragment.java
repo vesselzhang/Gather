@@ -66,6 +66,8 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
     RecyclerView mRecyclerView;
     @BindView(R.id.worker_add_skill)
     View mAddLayout;
+    @BindView(R.id.worker_manage)
+    View mManageLayout;
 
     @BindView(R.id.worker_call)
     Button mCall;
@@ -114,6 +116,8 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
         }
 
         mAddLayout.setVisibility(manage ? View.VISIBLE : View.GONE);
+        mManageLayout.setVisibility(manage ? View.VISIBLE : View.GONE);
+        mCollect.setVisibility(manage ? View.GONE : View.VISIBLE);
 
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -128,7 +132,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
 
     }
 
-    @OnClick({R.id.iv_left, R.id.worker_add_skill, R.id.worker_call, R.id.worker_collect})
+    @OnClick({R.id.iv_left, R.id.worker_add_skill, R.id.worker_call, R.id.worker_collect, R.id.worker_delete, R.id.worker_edit})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
@@ -161,6 +165,12 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
                 break;
             case R.id.worker_collect:
                 mPresenter.collectOrCancel(artisanInfoResponse.getArtisanId(), artisanInfoResponse.getIsCollect() == 1 ? 1 : 0);
+                break;
+            case R.id.worker_delete:
+                showMessage("点击注销技工");
+                break;
+            case R.id.worker_edit:
+                showMessage("点击编辑详情");
                 break;
         }
     }

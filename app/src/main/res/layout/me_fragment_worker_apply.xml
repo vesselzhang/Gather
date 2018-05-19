@@ -178,11 +178,12 @@
             android:textColor="#FF6000"
             android:textSize="15sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/et_worker_apply_service_city"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
+            android:gravity="center_vertical"
             android:hint="请输入服务城市"
             android:maxLines="1"
             android:padding="5dp"

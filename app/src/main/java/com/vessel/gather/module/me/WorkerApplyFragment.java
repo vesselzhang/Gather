@@ -1,5 +1,6 @@
 package com.vessel.gather.module.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.vessel.gather.app.data.entity.TypeListResponse;
 import com.vessel.gather.app.utils.HttpResultFunc;
 import com.vessel.gather.app.utils.HttpResultVoidFunc;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
+import com.zaaach.citypicker.CityPickerActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +40,7 @@ import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
  */
 
 public class WorkerApplyFragment extends MySupportFragment {
+    private static final int REQUEST_CODE_PICK_CITY = 0;
 
     @BindView(R.id.tv_title)
     TextView mTitleTV;
@@ -50,7 +53,7 @@ public class WorkerApplyFragment extends MySupportFragment {
 //    @BindView(R.id.et_worker_apply_id_card_address)
 //    EditText etIdCardAddress;
     @BindView(R.id.et_worker_apply_service_city)
-    EditText etServiceCity;
+    TextView etServiceCity;
     @BindView(R.id.et_worker_apply_type)
     Spinner spType;
 
@@ -118,11 +121,14 @@ public class WorkerApplyFragment extends MySupportFragment {
 
     }
 
-    @OnClick({R.id.et_worker_apply_submit, R.id.iv_left})
+    @OnClick({R.id.et_worker_apply_submit, R.id.iv_left, R.id.et_worker_apply_service_city})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
                 pop();
+                break;
+            case R.id.et_worker_apply_service_city:
+                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
                 break;
             case R.id.et_worker_apply_submit:
                 if (TextUtils.isEmpty(etName.getText().toString())) {
@@ -164,6 +170,17 @@ public class WorkerApplyFragment extends MySupportFragment {
                             }
                         });
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK){
+            if (data != null){
+                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+                etServiceCity.setText(city);
+            }
         }
     }
 }
