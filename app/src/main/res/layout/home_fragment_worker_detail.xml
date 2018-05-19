@@ -37,35 +37,47 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp" />
 
-                <com.zhy.autolayout.AutoLinearLayout
+                <com.zhy.autolayout.AutoRelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/worker_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#353535"
-                        android:textSize="15sp" />
+                    <ImageView
+                        android:id="@+id/worker_collect"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_soucang" />
 
-                    <TextView
-                        android:id="@+id/worker_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_weight="1"
-                        android:textColor="#353535"
-                        android:textSize="12sp" />
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/worker_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#353535"
-                        android:textSize="12sp" />
-                </com.zhy.autolayout.AutoLinearLayout>
+                        <TextView
+                            android:id="@+id/worker_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#353535"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/worker_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="1"
+                            android:textColor="#353535"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/worker_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#353535"
+                            android:textSize="12sp" />
+                    </com.zhy.autolayout.AutoLinearLayout>
+                </com.zhy.autolayout.AutoRelativeLayout>
             </com.zhy.autolayout.AutoLinearLayout>
 
             <com.zhy.autolayout.AutoRelativeLayout

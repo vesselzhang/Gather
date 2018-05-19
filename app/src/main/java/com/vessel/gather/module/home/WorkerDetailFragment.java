@@ -52,6 +52,8 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
     TextView mTitle;
     @BindView(R.id.worker_pic)
     ImageView mPic;
+    @BindView(R.id.worker_collect)
+    ImageView mCollect;
     @BindView(R.id.worker_name)
     TextView mName;
     @BindView(R.id.worker_address)
@@ -126,7 +128,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
 
     }
 
-    @OnClick({R.id.iv_left, R.id.worker_add_skill, R.id.worker_call})
+    @OnClick({R.id.iv_left, R.id.worker_add_skill, R.id.worker_call, R.id.worker_collect})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
@@ -156,6 +158,9 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
 
                     }
                 }, new RxPermissions(getActivity()), ArmsUtils.obtainAppComponentFromContext(getActivity()).rxErrorHandler());
+                break;
+            case R.id.worker_collect:
+                mPresenter.collectOrCancel(artisanInfoResponse.getArtisanId(), artisanInfoResponse.getIsCollect() == 1 ? 1 : 0);
                 break;
         }
     }
@@ -212,6 +217,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
             mPhone.setText("电话：暂无");
         }
 
+        GlideArms.with(getActivity()).load(artisanInfoResponse.getIsCollect() == 1 ? R.drawable.ic_soucang_a : R.drawable.ic_soucang).into(mCollect);
         GlideArms.with(getActivity()).load(BuildConfig.APP_DOMAIN + artisanInfoResponse.getRealPhoto()).into(mPic);
 
         if (artisanInfoResponse.getScore() == 0) {

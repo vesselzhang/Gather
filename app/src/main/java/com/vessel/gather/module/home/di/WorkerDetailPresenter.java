@@ -5,9 +5,12 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse.SkillsBean;
+import com.vessel.gather.app.utils.progress.ProgressSubscriber;
 import com.vessel.gather.module.home.adapter.WorkerSkillAdapter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -49,6 +52,21 @@ public class WorkerDetailPresenter extends BasePresenter<WorkerDetailContract.Mo
                         mRootView.setData2View(artisanInfoResponse);
                     }
                 });
+    }
+
+    public void collectOrCancel(long artisanIds, int type) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("artisanIds", artisanIds);
+        map.put("type", type);
+        mModel.collectOrCancel(map).subscribe(
+                new ProgressSubscriber<Boolean>(mAppManager.getCurrentActivity(), mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        super.onNext(aBoolean);
+                        getArtisanDetail(artisanIds);
+                    }
+                }
+        );
     }
 
     @Override

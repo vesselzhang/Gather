@@ -4,6 +4,8 @@ import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 
 /**
@@ -19,5 +21,6 @@ public interface WorkerDetailContract {
 
     interface Model extends IModel {
         Observable<ArtisanInfoResponse> queryArtisanInfo(long artisanId);
+        Observable<Boolean> collectOrCancel(Map<String, Object> map);
     }
 }

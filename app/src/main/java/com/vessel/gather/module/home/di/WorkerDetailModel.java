@@ -6,6 +6,9 @@ import com.jess.arms.mvp.BaseModel;
 import com.vessel.gather.app.data.api.service.CommonService;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
 import com.vessel.gather.app.utils.HttpResultFunc;
+import com.vessel.gather.app.utils.HttpResultVoidFunc;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -33,6 +36,15 @@ public class WorkerDetailModel extends BaseModel implements WorkerDetailContract
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpResultFunc());
+    }
+
+    @Override
+    public Observable<Boolean> collectOrCancel(Map<String, Object> map) {
+        return mRepositoryManager.obtainRetrofitService(CommonService.class)
+                .collectOrCancel(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultVoidFunc());
     }
 
     @Override
