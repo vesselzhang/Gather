@@ -27,9 +27,10 @@ public class Constants {
     // 下载APP路径
     public static final String SD_APK_DIR = SD_APP_DIR + "/apk";
 
-    public static final long   DEFAULT_LONG    = -1L;
-    public static final int    DEFAULT_INT     = -1;
-    public static final String DEFAULT_STRING  = "";
+    public static final long    DEFAULT_LONG     = -1L;
+    public static final int     DEFAULT_INT      = -1;
+    public static final String  DEFAULT_STRING   = "";
+    public static final boolean DEFAULT_BOOLEAN  = false;
 
 
     public static final String WEB = "WEB";
@@ -51,7 +52,13 @@ public class Constants {
     public static final String PAGE_WORKER_APPLY = PAGE + "_Worker_apply";
     public static final String PAGE_SELLER_LIST  = PAGE + "_Seller_list";
     public static final String PAGE_WORKER_LIST  = PAGE + "_Worker_list";
+    public static final String PAGE_SELLER       = PAGE + "_Seller";
+    public static final String PAGE_WORKER       = PAGE + "_Worker";
 
+
+    //Key
+    public static final String KEY = "KEY";
+    public static final String KEY_WORKER_ID = KEY + "_Worker_Id";
 
     //EventTAG
     public static final String TAG = "TAG";

@@ -101,7 +101,7 @@ public class MeTabFragment extends MySupportFragment {
                     .into(avatar);
             name.setText("");
             workerView.setVisibility(View.GONE);
-            sellerView.setVisibility(View.GONE);
+//            sellerView.setVisibility(View.GONE);
             return;
         } else {
             login.setVisibility(View.VISIBLE);
@@ -118,7 +118,7 @@ public class MeTabFragment extends MySupportFragment {
                 name.setText(userInfo.getNickname());
                 if (DeviceUtils.getNetworkType(getContext()) != 0) {
                     workerView.setVisibility(userInfo.getIsMerchant() == 1 ? View.VISIBLE : View.GONE);
-                    sellerView.setVisibility(userInfo.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
+//                    sellerView.setVisibility(userInfo.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
                 }
             }
             //再次获取UserInfo
@@ -146,13 +146,13 @@ public class MeTabFragment extends MySupportFragment {
 
                             name.setText(userInfoResponse.getNickname());
                             workerView.setVisibility(userInfoResponse.getIsMerchant() == 1 ? View.VISIBLE : View.GONE);
-                            sellerView.setVisibility(userInfoResponse.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
+//                            sellerView.setVisibility(userInfoResponse.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
                         }
 
                         @Override
                         public void onError(Throwable e) {
                             workerView.setVisibility(View.GONE);
-                            sellerView.setVisibility(View.GONE);
+//                            sellerView.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -178,8 +178,23 @@ public class MeTabFragment extends MySupportFragment {
                         .navigation();
                 break;
             case R.id.me_seller:
+//                if (TextUtils.isEmpty(token)) {
+//                    ARouter.getInstance().build("/app/login").navigation();
+//                    return;
+//                }
+//                ARouter.getInstance().build("/app/container")
+//                        .withSerializable(Constants.PAGE, Constants.PAGE_ORDER)
+//                        .navigation();
                 break;
             case R.id.me_worker:
+                if (TextUtils.isEmpty(token)) {
+                    ARouter.getInstance().build("/app/login").navigation();
+                    return;
+                }
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_WORKER)
+                        .withLong(Constants.KEY_WORKER_ID, 9)
+                        .navigation();
                 break;
             case R.id.me_collect:
                 if (TextUtils.isEmpty(token)) {

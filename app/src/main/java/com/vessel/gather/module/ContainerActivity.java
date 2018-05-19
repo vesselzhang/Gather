@@ -8,7 +8,9 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
+import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.module.home.SellerListFragment;
+import com.vessel.gather.module.home.WorkerDetailFragment;
 import com.vessel.gather.module.home.WorkerListFragment;
 import com.vessel.gather.module.me.AboutFragment;
 import com.vessel.gather.module.me.AddressFragment;
@@ -22,16 +24,19 @@ import com.vessel.gather.module.me.WorkerApplyFragment;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
+import static com.vessel.gather.app.constant.Constants.DEFAULT_LONG;
 import static com.vessel.gather.app.constant.Constants.PAGE;
 import static com.vessel.gather.app.constant.Constants.PAGE_ABOUT;
 import static com.vessel.gather.app.constant.Constants.PAGE_ADDRESS;
 import static com.vessel.gather.app.constant.Constants.PAGE_COLLECT;
 import static com.vessel.gather.app.constant.Constants.PAGE_MEMO;
 import static com.vessel.gather.app.constant.Constants.PAGE_ORDER;
+import static com.vessel.gather.app.constant.Constants.PAGE_SELLER;
 import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_APPLY;
 import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_LIST;
 import static com.vessel.gather.app.constant.Constants.PAGE_SETTING;
 import static com.vessel.gather.app.constant.Constants.PAGE_SUGGEST;
+import static com.vessel.gather.app.constant.Constants.PAGE_WORKER;
 import static com.vessel.gather.app.constant.Constants.PAGE_WORKER_APPLY;
 import static com.vessel.gather.app.constant.Constants.PAGE_WORKER_LIST;
 
@@ -93,6 +98,16 @@ public class ContainerActivity extends MySupportActivity {
                 break;
             case PAGE_WORKER_LIST:
                 targetFragment = WorkerListFragment.newInstance();
+                break;
+            case PAGE_WORKER:
+                long workerId = getIntent().getLongExtra(Constants.KEY_WORKER_ID, DEFAULT_LONG);
+                if (workerId == DEFAULT_LONG) {
+                    return;
+                }
+                targetFragment = WorkerDetailFragment.newInstance(true, workerId);
+                break;
+            case PAGE_SELLER:
+//                targetFragment = WorkerDetailFragment.newInstance();
                 break;
         }
         loadRootFragment(R.id.fl_content, targetFragment);

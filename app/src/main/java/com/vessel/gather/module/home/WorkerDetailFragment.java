@@ -40,6 +40,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.vessel.gather.app.constant.Constants.DEFAULT_BOOLEAN;
 import static com.vessel.gather.app.constant.Constants.DEFAULT_LONG;
 
 public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresenter> implements WorkerDetailContract.View {
@@ -58,6 +59,8 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
     RatingBar mScore;
     @BindView(R.id.worker_skill_list)
     RecyclerView mRecyclerView;
+    @BindView(R.id.worker_add_skill)
+    View mAddLayout;
 
     @BindView(R.id.worker_call)
     Button mCall;
@@ -66,11 +69,13 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
     WorkerSkillAdapter mAdapter;
 
     private long artisanId;
+    private boolean manage;
     private ArtisanInfoResponse artisanInfoResponse;
 
-    public static WorkerDetailFragment newInstance(long artisanId) {
+    public static WorkerDetailFragment newInstance(boolean manage, long artisanId) {
         Bundle args = new Bundle();
         args.putLong("artisanId", artisanId);
+        args.putBoolean("manage", manage);
 
         WorkerDetailFragment fragment = new WorkerDetailFragment();
         fragment.setArguments(args);
@@ -95,12 +100,15 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
     @Override
     public void initData(Bundle savedInstanceState) {
         artisanId = getArguments().getLong("artisanId", DEFAULT_LONG);
+        manage = getArguments().getBoolean("manage", DEFAULT_BOOLEAN);
         mTitle.setText("师傅详情");
         if (artisanId == DEFAULT_LONG) {
             showMessage("错误的参数");
             killMyself();
             return;
         }
+
+        mAddLayout.setVisibility(manage ? View.VISIBLE : View.GONE);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
@@ -209,7 +217,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
             mScore.setRating(artisanInfoResponse.getScore());
         }
 
-        if (TextUtils.isEmpty(artisanInfoResponse.getPhone())) {
+        if (TextUtils.isEmpty(artisanInfoResponse.getPhone()) || manage) {
             mCall.setVisibility(View.GONE);
         } else {
             mCall.setVisibility(View.VISIBLE);
