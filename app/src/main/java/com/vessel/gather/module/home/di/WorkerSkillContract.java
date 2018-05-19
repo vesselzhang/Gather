@@ -25,6 +25,7 @@ public interface WorkerSkillContract {
 
     interface Model extends IModel {
         Observable<Boolean> saveSkill(Map<String, Object> map);
+        Observable<Boolean> removeSkill(long skillId);
         Observable<TypeListResponse> queryTypeList(int parentType);
         Observable<VariableResponse> uploadFile(File file);
     }

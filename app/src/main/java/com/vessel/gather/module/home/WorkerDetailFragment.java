@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
@@ -25,6 +26,7 @@ import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
+import com.vessel.gather.app.data.entity.ArtisanInfoResponse.SkillsBean;
 import com.vessel.gather.app.utils.CommonUtils;
 import com.vessel.gather.app.utils.RecycleViewDivider;
 import com.vessel.gather.module.home.adapter.WorkerSkillAdapter;
@@ -43,7 +45,8 @@ import butterknife.OnClick;
 import static com.vessel.gather.app.constant.Constants.DEFAULT_BOOLEAN;
 import static com.vessel.gather.app.constant.Constants.DEFAULT_LONG;
 
-public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresenter> implements WorkerDetailContract.View {
+public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresenter>
+        implements WorkerDetailContract.View, BaseQuickAdapter.OnItemClickListener {
 
     @BindView(R.id.tv_title)
     TextView mTitle;
@@ -110,6 +113,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
 
         mAddLayout.setVisibility(manage ? View.VISIBLE : View.GONE);
 
+        mAdapter.setOnItemClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL
@@ -129,7 +133,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
                 killMyself();
                 break;
             case R.id.worker_add_skill:
-                start(WorkerSkillFragment.newInstance());
+                start(WorkerSkillFragment.newInstance(null));
                 break;
             case R.id.worker_call:
                 if (TextUtils.isEmpty(artisanInfoResponse.getPhone())) {
@@ -221,6 +225,14 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
             mCall.setVisibility(View.GONE);
         } else {
             mCall.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        if (manage) {
+            SkillsBean skill = (SkillsBean) adapter.getData().get(position);
+            start(WorkerSkillFragment.newInstance(skill));
         }
     }
 }

@@ -43,6 +43,15 @@ public class WorkerSkillModel extends BaseModel implements WorkerSkillContract.M
     }
 
     @Override
+    public Observable<Boolean> removeSkill(long skillId) {
+        return mRepositoryManager.obtainRetrofitService(CommonService.class)
+                .removeSkill(skillId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultVoidFunc());
+    }
+
+    @Override
     public Observable<TypeListResponse> queryTypeList(int parentType) {
         return mRepositoryManager.obtainRetrofitService(CommonService.class)
                 .queryTypeList(parentType)

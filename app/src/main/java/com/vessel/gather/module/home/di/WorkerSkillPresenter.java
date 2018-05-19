@@ -76,13 +76,35 @@ public class WorkerSkillPresenter extends BasePresenter<WorkerSkillContract.Mode
                 .create().show();
     }
 
-    public void saveSkill() {
+    public void saveSkill(long skillId, String name, int typePosition, String describe, String price, String unit) {
         Map<String, Object> map = new HashMap<>();
+        map.put("skillName", name);
+        map.put("price", price);
+        if (!TextUtils.isEmpty(avatarUri)) {
+            map.put("skillPic", avatarUri);
+        }
+        if (skillId != -1) {
+            map.put("skillId", skillId);
+        }
+        map.put("remark", describe);
         mModel.saveSkill(map).subscribe(
                 new ProgressSubscriber<Boolean>(mAppManager.getCurrentActivity(), mErrorHandler) {
                     @Override
                     public void onNext(Boolean aBoolean) {
                         super.onNext(aBoolean);
+                    }
+                }
+        );
+    }
+
+    public void deleteSkill(long skillId) {
+        mModel.removeSkill(skillId).subscribe(
+                new ProgressSubscriber<Boolean>(mAppManager.getCurrentActivity(), mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        super.onNext(aBoolean);
+                        mRootView.showMessage("删除成功");
+                        mRootView.killMyself();
                     }
                 }
         );

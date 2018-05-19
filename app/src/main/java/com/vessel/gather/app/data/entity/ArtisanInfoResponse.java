@@ -131,17 +131,17 @@ public class ArtisanInfoResponse implements Serializable {
          * remark : 备注
          */
 
-        private int skillId;
+        private long skillId;
         private String skillName;
         private String skillPic;
         private int price;
         private String remark;
 
-        public int getSkillId() {
+        public long getSkillId() {
             return skillId;
         }
 
-        public void setSkillId(int skillId) {
+        public void setSkillId(long skillId) {
             this.skillId = skillId;
         }
 

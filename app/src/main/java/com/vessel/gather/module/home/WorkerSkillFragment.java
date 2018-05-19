@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
+import com.vessel.gather.app.data.entity.ArtisanInfoResponse.SkillsBean;
 import com.vessel.gather.module.home.di.DaggerWorkerSkillComponent;
 import com.vessel.gather.module.home.di.WorkerSkillContract;
 import com.vessel.gather.module.home.di.WorkerSkillModule;
@@ -32,6 +34,8 @@ public class WorkerSkillFragment extends MySupportFragment<WorkerSkillPresenter>
     @BindView(R.id.tv_title)
     TextView mTitle;
 
+    @BindView(R.id.worker_skill_name)
+    EditText mName;
     @BindView(R.id.worker_skill_type)
     Spinner spType;
     @BindView(R.id.worker_skill_pic)
@@ -40,9 +44,22 @@ public class WorkerSkillFragment extends MySupportFragment<WorkerSkillPresenter>
     EditText mDescribe;
     @BindView(R.id.worker_skill_price)
     EditText mPrice;
+    @BindView(R.id.worker_skill_unit)
+    EditText mUnit;
 
-    public static WorkerSkillFragment newInstance() {
+    @BindView(R.id.worker_skill_cancel)
+    TextView mCancel;
+    @BindView(R.id.worker_skill_complete)
+    TextView mComplete;
+
+    private SkillsBean skill;
+    private boolean editModel;
+
+    public static WorkerSkillFragment newInstance(SkillsBean skill) {
         Bundle args = new Bundle();
+        if (skill != null) {
+            args.putSerializable("skill", skill);
+        }
 
         WorkerSkillFragment fragment = new WorkerSkillFragment();
         fragment.setArguments(args);
@@ -66,7 +83,36 @@ public class WorkerSkillFragment extends MySupportFragment<WorkerSkillPresenter>
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        skill = (SkillsBean) getArguments().getSerializable("skill");
         mTitle.setText("我的技能");
+
+        if (skill == null) {
+            mCancel.setText("取消");
+            mComplete.setText("完成");
+            mName.setEnabled(true);
+            spType.setEnabled(true);
+            mPic.setEnabled(true);
+            mDescribe.setEnabled(true);
+            mPrice.setEnabled(true);
+            mUnit.setEnabled(true);
+            editModel = true;
+        } else {
+            mCancel.setText("删除技能");
+            mComplete.setText("开始编辑");
+
+            mName.setText(skill.getSkillName());
+            GlideArms.with(getActivity()).load(BuildConfig.APP_DOMAIN + skill.getSkillPic()).into(mPic);
+            mDescribe.setText(skill.getRemark());
+            mPrice.setText(skill.getPrice() + "");
+
+            mName.setEnabled(false);
+            spType.setEnabled(false);
+            mPic.setEnabled(false);
+            mDescribe.setEnabled(false);
+            mPrice.setEnabled(false);
+            mUnit.setEnabled(false);
+            editModel = false;
+        }
 
         mPresenter.queryTypeList();
     }
@@ -86,9 +132,39 @@ public class WorkerSkillFragment extends MySupportFragment<WorkerSkillPresenter>
                 mPresenter.pickImage();
                 break;
             case R.id.worker_skill_cancel:
-                killMyself();
+                if (!editModel) {
+                    mPresenter.deleteSkill(skill.getSkillId());
+                } else {
+                    killMyself();
+                }
                 break;
             case R.id.worker_skill_complete:
+                if (!editModel) {
+                    editModel = true;
+                    mCancel.setText("取消");
+                    mComplete.setText("完成");
+                    mName.setEnabled(true);
+                    spType.setEnabled(true);
+                    mPic.setEnabled(true);
+                    mDescribe.setEnabled(true);
+                    mPrice.setEnabled(true);
+                    mUnit.setEnabled(true);
+                } else {
+                    if (TextUtils.isEmpty(mName.getText().toString())) {
+                        showMessage("请添加技能名称");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(mDescribe.getText().toString())) {
+                        showMessage("请添加技能描述");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(mPrice.getText().toString())) {
+                        showMessage("请添加价格");
+                        return;
+                    }
+                    mPresenter.saveSkill(skill == null ? -1 : skill.getSkillId(), mName.getText().toString(), spType.getSelectedItemPosition(),
+                            mDescribe.getText().toString(), mPrice.getText().toString(), mUnit.getText().toString());
+                }
                 break;
         }
     }
