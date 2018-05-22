@@ -227,7 +227,6 @@
             android:layout_marginTop="10dp"
             android:background="@color/def_bg"
             android:hint="请输入单位"
-            android:inputType="number"
             android:maxLines="1"
             android:padding="5dp"
             android:textSize="12sp" />

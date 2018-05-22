@@ -45,9 +45,11 @@
 
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
-            android:theme="@style/CityPicker.NoActionBar"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:theme="@style/CityPicker.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <service android:name=".app.base.BackService" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -59,8 +61,9 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <meta-data android:name="com.amap.api.v2.apikey"
-            android:value="a5c917675d2c525b0826560d6960bd0b"/>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="a5c917675d2c525b0826560d6960bd0b" />
 
         <meta-data
             android:name="design_width"

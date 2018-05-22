@@ -69,8 +69,6 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
         mTitleTV.setText("设置");
         userInfo = DataHelper.getDeviceData(getActivity(), SPConstant.SP_USERINFO);
         if (userInfo == null) {
-            showMessage("错误的传参");
-            killMyself();
             return;
         }
         Glide.with(getActivity())

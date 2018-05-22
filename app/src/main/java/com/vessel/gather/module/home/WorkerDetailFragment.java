@@ -167,7 +167,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
                 mPresenter.collectOrCancel(artisanInfoResponse.getArtisanId(), artisanInfoResponse.getIsCollect() == 1 ? 1 : 0);
                 break;
             case R.id.worker_delete:
-                showMessage("点击注销技工");
+                mPresenter.logoff();
                 break;
             case R.id.worker_edit:
                 showMessage("点击编辑详情");

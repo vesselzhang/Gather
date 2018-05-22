@@ -69,6 +69,19 @@ public class WorkerDetailPresenter extends BasePresenter<WorkerDetailContract.Mo
         );
     }
 
+    public void logoff() {
+        mModel.logoff(2).subscribe(
+                new ProgressSubscriber<Boolean>(mAppManager.getCurrentActivity(), mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        super.onNext(aBoolean);
+                        mRootView.showMessage("注销成功");
+                        mRootView.killMyself();
+                    }
+                }
+        );
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

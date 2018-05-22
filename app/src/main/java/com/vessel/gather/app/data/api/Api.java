@@ -56,6 +56,7 @@ public interface Api {
     String updateArtisan              = authority + "updateArtisan";
     String saveSkill                  = authority + "saveSkill";
     String removeSkill                = authority + "removeSkill";
+    String logoff                     = authority + "logoff";
 
     //商品模块
     String joinCart                   = product + "joinCart";

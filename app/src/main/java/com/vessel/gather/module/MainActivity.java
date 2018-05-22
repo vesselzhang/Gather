@@ -16,6 +16,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.PermissionUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vessel.gather.R;
+import com.vessel.gather.app.base.BackService;
 import com.vessel.gather.app.base.MySupportActivity;
 import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.module.cart.CartTabFragment;
@@ -85,6 +86,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
                     new RxPermissions(this), ArmsUtils.obtainAppComponentFromContext(this).rxErrorHandler(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE);
         }
+        startService(new Intent(this, BackService.class));
         initFragmentation();
         initBottomBar();
         checkVersion();

@@ -22,5 +22,6 @@ public interface WorkerDetailContract {
     interface Model extends IModel {
         Observable<ArtisanInfoResponse> queryArtisanInfo(long artisanId);
         Observable<Boolean> collectOrCancel(Map<String, Object> map);
+        Observable<Boolean> logoff(int type);
     }
 }

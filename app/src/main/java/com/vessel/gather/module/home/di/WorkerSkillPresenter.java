@@ -87,6 +87,7 @@ public class WorkerSkillPresenter extends BasePresenter<WorkerSkillContract.Mode
             map.put("skillId", skillId);
         }
         map.put("remark", describe);
+        map.put("unit", unit);
         mModel.saveSkill(map).subscribe(
                 new ProgressSubscriber<Boolean>(mAppManager.getCurrentActivity(), mErrorHandler) {
                     @Override

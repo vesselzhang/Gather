@@ -48,6 +48,15 @@ public class WorkerDetailModel extends BaseModel implements WorkerDetailContract
     }
 
     @Override
+    public Observable<Boolean> logoff(int type) {
+        return mRepositoryManager.obtainRetrofitService(CommonService.class)
+                .logoff(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultVoidFunc());
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }

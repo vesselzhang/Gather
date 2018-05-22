@@ -179,6 +179,10 @@ public interface CommonService {
     @POST(Api.removeSkill)
     Observable<CommonResponse<Void>> removeSkill(@Field("skillId") long skillId);
 
+    @FormUrlEncoded
+    @POST(Api.logoff)
+    Observable<CommonResponse<Void>> logoff(@Field("type") int type);
+
 
     //商品模块
     @FormUrlEncoded

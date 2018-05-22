@@ -20,7 +20,7 @@ public class UserInfoResponse implements Serializable {
      * phone : 13312341234
      */
 
-    private int userId;
+    private long userId;
     private String icon;
     private String nickname;
     private int sex;
@@ -28,12 +28,14 @@ public class UserInfoResponse implements Serializable {
     private int isMerchant;
     private int isArtisan;
     private String phone;
+    private long shopId;
+    private long artisanId;
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -91,5 +93,21 @@ public class UserInfoResponse implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(long shopId) {
+        this.shopId = shopId;
+    }
+
+    public long getArtisanId() {
+        return artisanId;
+    }
+
+    public void setArtisanId(long artisanId) {
+        this.artisanId = artisanId;
     }
 }

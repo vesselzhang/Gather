@@ -1,6 +1,9 @@
 package com.vessel.gather.module.me;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,9 +28,15 @@ import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.data.api.service.CommonService;
+import com.vessel.gather.app.data.entity.CheckVersionResponse;
 import com.vessel.gather.app.data.entity.UserInfoResponse;
 import com.vessel.gather.app.utils.HttpResultFunc;
+import com.vessel.gather.app.utils.progress.ProgressSubscriber;
+import com.vessel.gather.event.Event;
+import com.vessel.gather.widght.CustomDialog;
 import com.vessel.gather.widght.RoundImage;
+
+import org.simple.eventbus.EventBus;
 
 import java.util.List;
 
@@ -37,6 +46,8 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.vessel.gather.event.Event.EVENT_DOWNLOAD_APK;
 
 public class MeTabFragment extends MySupportFragment {
 
@@ -56,6 +67,7 @@ public class MeTabFragment extends MySupportFragment {
     View workerView;
 
     private String token;
+    private UserInfoResponse userInfo;
     private AppComponent mAppComponent;
 
     public static MeTabFragment newInstance() {
@@ -107,7 +119,7 @@ public class MeTabFragment extends MySupportFragment {
             login.setVisibility(View.VISIBLE);
             logout.setVisibility(View.GONE);
             orderView.setVisibility(View.VISIBLE);
-            UserInfoResponse userInfo = DataHelper.getDeviceData(getActivity(), SPConstant.SP_USERINFO);
+            userInfo = DataHelper.getDeviceData(getActivity(), SPConstant.SP_USERINFO);
             if (userInfo != null) {
                 mAppComponent.imageLoader()
                         .loadImage(getActivity(), ImageConfigImpl
@@ -117,7 +129,7 @@ public class MeTabFragment extends MySupportFragment {
                                 .build());
                 name.setText(userInfo.getNickname());
                 if (DeviceUtils.getNetworkType(getContext()) != 0) {
-                    workerView.setVisibility(userInfo.getIsMerchant() == 1 ? View.VISIBLE : View.GONE);
+                    workerView.setVisibility(userInfo.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
 //                    sellerView.setVisibility(userInfo.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
                 }
             }
@@ -136,6 +148,7 @@ public class MeTabFragment extends MySupportFragment {
 
                         @Override
                         public void onNext(UserInfoResponse userInfoResponse) {
+                            userInfo = userInfoResponse;
                             DataHelper.saveDeviceData(getActivity(), SPConstant.SP_USERINFO, userInfoResponse);
                             mAppComponent.imageLoader()
                                     .loadImage(getActivity(), ImageConfigImpl
@@ -145,7 +158,7 @@ public class MeTabFragment extends MySupportFragment {
                                             .build());
 
                             name.setText(userInfoResponse.getNickname());
-                            workerView.setVisibility(userInfoResponse.getIsMerchant() == 1 ? View.VISIBLE : View.GONE);
+                            workerView.setVisibility(userInfoResponse.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
 //                            sellerView.setVisibility(userInfoResponse.getIsArtisan() == 1 ? View.VISIBLE : View.GONE);
                         }
 
@@ -164,7 +177,7 @@ public class MeTabFragment extends MySupportFragment {
     }
 
     @OnClick({R.id.me_order, R.id.me_seller, R.id.me_worker, R.id.me_collect, R.id.me_address, R.id.me_notepad,
-            R.id.me_share, R.id.me_suggest, R.id.me_about, R.id.me_contact,
+            R.id.me_share, R.id.me_suggest, R.id.me_about, R.id.me_contact, R.id.me_update,
             R.id.me_logout_layout, R.id.me_login_layout})
     void onClick(View view) {
         switch (view.getId()) {
@@ -193,7 +206,7 @@ public class MeTabFragment extends MySupportFragment {
                 }
                 ARouter.getInstance().build("/app/container")
                         .withSerializable(Constants.PAGE, Constants.PAGE_WORKER)
-                        .withLong(Constants.KEY_WORKER_ID, 9)
+                        .withLong(Constants.KEY_WORKER_ID, userInfo.getArtisanId())
                         .navigation();
                 break;
             case R.id.me_collect:
@@ -258,6 +271,9 @@ public class MeTabFragment extends MySupportFragment {
                     }
                 }, new RxPermissions(getActivity()), mAppComponent.rxErrorHandler());
                 break;
+            case R.id.me_update:
+                updateVersion();
+                break;
             case R.id.me_logout_layout:
                 ARouter.getInstance().build("/app/login").navigation();
                 break;
@@ -267,5 +283,43 @@ public class MeTabFragment extends MySupportFragment {
                         .navigation();
                 break;
         }
+    }
+
+    private void updateVersion() {
+        mAppComponent.repositoryManager().obtainRetrofitService(CommonService.class)
+                .checkVersion("Android")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultFunc<>())
+                .compose(RxLifecycleUtils.bindToLifecycle(this))
+                .subscribe(new ProgressSubscriber<CheckVersionResponse>(getActivity(), mAppComponent.rxErrorHandler()) {
+                    @Override
+                    public void onNext(CheckVersionResponse checkVersionResponse) {
+                        super.onNext(checkVersionResponse);
+                        try {
+                            PackageManager manager = getActivity().getPackageManager();
+                            PackageInfo info = manager.getPackageInfo(getActivity().getPackageName(), 0);
+//                            if (info.versionCode < checkVersionResponse.getVersionCode()) {
+                                CustomDialog selfDialog = new CustomDialog(getActivity());
+                                selfDialog.setTitle("系统提示");
+                                selfDialog.setMessage("检查到新版本" + checkVersionResponse.getVersionName() + "，立即更新？");
+                                selfDialog.setYesOnclickListener("确定", () -> {
+                                    EventBus.getDefault().post(new Event(checkVersionResponse.getDownloadUrl()), EVENT_DOWNLOAD_APK);
+                                    ArmsUtils.makeText(getActivity(), "版本下载中, 请稍候...");
+                                    selfDialog.dismiss();
+                                });
+                                selfDialog.setNoOnclickListener("取消", () -> {
+                                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("config", 0).edit();
+                                    editor.putLong(SPConstant.SP_VERSION_CHECK_TIME, System.currentTimeMillis());
+                                    editor.commit();
+                                    selfDialog.dismiss();
+                                });
+                                selfDialog.show();
+//                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 }
