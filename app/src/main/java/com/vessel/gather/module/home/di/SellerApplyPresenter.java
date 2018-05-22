@@ -1,4 +1,4 @@
-package com.vessel.gather.module.me.di;
+package com.vessel.gather.module.home.di;
 
 import android.app.Activity;
 import android.app.AlertDialog;

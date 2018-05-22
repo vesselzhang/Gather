@@ -1,4 +1,4 @@
-package com.vessel.gather.module.me.di;
+package com.vessel.gather.module.home.di;
 
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;

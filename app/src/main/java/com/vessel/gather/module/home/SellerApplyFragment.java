@@ -1,4 +1,4 @@
-package com.vessel.gather.module.me;
+package com.vessel.gather.module.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.module.me.di.DaggerSellerApplyComponent;
-import com.vessel.gather.module.me.di.SellerApplyContract;
-import com.vessel.gather.module.me.di.SellerApplyModule;
-import com.vessel.gather.module.me.di.SellerApplyPresenter;
+import com.vessel.gather.module.home.di.SellerApplyContract;
+import com.vessel.gather.module.home.di.SellerApplyModule;
+import com.vessel.gather.module.home.di.SellerApplyPresenter;
 
 import java.io.File;
 import java.util.ArrayList;

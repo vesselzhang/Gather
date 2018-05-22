@@ -1,4 +1,4 @@
-package com.vessel.gather.module.me;
+package com.vessel.gather.module.home;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -17,10 +17,10 @@ import com.vessel.gather.module.me.AddressFragment;
 import com.vessel.gather.module.me.CollectFragment;
 import com.vessel.gather.module.me.MemoFragment;
 import com.vessel.gather.module.me.OrderFragment;
-import com.vessel.gather.module.me.SellerApplyFragment;
+import com.vessel.gather.module.home.SellerApplyFragment;
 import com.vessel.gather.module.me.SettingFragment;
 import com.vessel.gather.module.me.SuggestFragment;
-import com.vessel.gather.module.me.WorkerApplyFragment;
+import com.vessel.gather.module.home.WorkerApplyFragment;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
