@@ -83,7 +83,7 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
     }
 
     @OnClick({R.id.iv_left, R.id.userinfo_avatar_layout, R.id.userinfo_nickname_layout, R.id.userinfo_safe_layout,
-            R.id.userinfo_logout, R.id.userinfo_seller_layout, R.id.userinfo_worker_layout})
+            R.id.userinfo_logout})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.userinfo_avatar_layout:
@@ -101,12 +101,6 @@ public class SettingFragment extends MySupportFragment<SettingPresenter> impleme
             case R.id.userinfo_logout:
                 DataHelper.clearShareprefrence(getActivity());
                 killMyself();
-                break;
-            case R.id.userinfo_seller_layout:
-                start(SellerApplyFragment.newInstance());
-                break;
-            case R.id.userinfo_worker_layout:
-                start(WorkerApplyFragment.newInstance());
                 break;
         }
     }

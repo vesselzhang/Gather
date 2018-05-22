@@ -80,6 +80,7 @@ public class WorkerSkillPresenter extends BasePresenter<WorkerSkillContract.Mode
         Map<String, Object> map = new HashMap<>();
         map.put("skillName", name);
         map.put("price", price);
+        map.put("type", types.get(typePosition));
         if (!TextUtils.isEmpty(avatarUri)) {
             map.put("skillPic", avatarUri);
         }

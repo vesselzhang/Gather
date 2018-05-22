@@ -166,7 +166,9 @@ public class WorkerApplyFragment extends MySupportFragment {
                             public void onNext(Boolean aBoolean) {
                                 super.onNext(aBoolean);
                                 ArmsUtils.makeText(getActivity(), "已提交申请");
-                                pop();
+                                if (getActivity() != null) {
+                                    getActivity().finish();
+                                }
                             }
                         });
                 break;
