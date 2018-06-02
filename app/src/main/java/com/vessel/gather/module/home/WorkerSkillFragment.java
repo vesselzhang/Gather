@@ -104,6 +104,7 @@ public class WorkerSkillFragment extends MySupportFragment<WorkerSkillPresenter>
             GlideArms.with(getActivity()).load(BuildConfig.APP_DOMAIN + skill.getSkillPic()).into(mPic);
             mDescribe.setText(skill.getRemark());
             mPrice.setText(skill.getPrice() + "");
+            mUnit.setText(skill.getUnit());
 
             mName.setEnabled(false);
             spType.setEnabled(false);

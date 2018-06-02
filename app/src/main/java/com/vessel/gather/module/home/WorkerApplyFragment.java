@@ -78,7 +78,7 @@ public class WorkerApplyFragment extends MySupportFragment {
 
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.me_fragment_worker_apply, container, false);
+        return inflater.inflate(R.layout.home_fragment_worker_apply, container, false);
     }
 
     @Override

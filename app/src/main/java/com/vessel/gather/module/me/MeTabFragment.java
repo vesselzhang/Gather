@@ -299,7 +299,7 @@ public class MeTabFragment extends MySupportFragment {
                         try {
                             PackageManager manager = getActivity().getPackageManager();
                             PackageInfo info = manager.getPackageInfo(getActivity().getPackageName(), 0);
-//                            if (info.versionCode < checkVersionResponse.getVersionCode()) {
+                            if (info.versionCode < checkVersionResponse.getVersionCode()) {
                                 CustomDialog selfDialog = new CustomDialog(getActivity());
                                 selfDialog.setTitle("系统提示");
                                 selfDialog.setMessage("检查到新版本" + checkVersionResponse.getVersionName() + "，立即更新？");
@@ -315,7 +315,9 @@ public class MeTabFragment extends MySupportFragment {
                                     selfDialog.dismiss();
                                 });
                                 selfDialog.show();
-//                            }
+                            } else {
+                                ArmsUtils.makeText(getActivity(), "已经是最新版本");
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

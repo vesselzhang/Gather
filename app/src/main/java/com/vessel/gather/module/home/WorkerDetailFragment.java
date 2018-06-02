@@ -34,6 +34,7 @@ import com.vessel.gather.module.home.di.DaggerWorkerDetailComponent;
 import com.vessel.gather.module.home.di.WorkerDetailContract;
 import com.vessel.gather.module.home.di.WorkerDetailModule;
 import com.vessel.gather.module.home.di.WorkerDetailPresenter;
+import com.vessel.gather.module.me.WorkerEditFragment;
 
 import java.util.List;
 
@@ -170,7 +171,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
                 mPresenter.logoff();
                 break;
             case R.id.worker_edit:
-                showMessage("点击编辑详情");
+                start(WorkerEditFragment.newInstance(artisanInfoResponse));
                 break;
         }
     }
@@ -210,7 +211,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
         if (artisanInfoResponse.getAddress() == null || artisanInfoResponse.getAddress().equals("null") || artisanInfoResponse.getAddress().equals("")) {
             mAddress.setText("地址：暂无");
         } else {
-            mAddress.setText("地址：" + artisanInfoResponse.getAddress());
+            mAddress.setText("地址：" + artisanInfoResponse.getCity() + "  " + artisanInfoResponse.getAddress());
         }
 
         if (artisanInfoResponse.getPhone() == null || artisanInfoResponse.getPhone().equals("null") || artisanInfoResponse.getPhone().equals("")) {

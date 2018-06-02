@@ -94,6 +94,8 @@ public class WorkerSkillPresenter extends BasePresenter<WorkerSkillContract.Mode
                     @Override
                     public void onNext(Boolean aBoolean) {
                         super.onNext(aBoolean);
+                        mRootView.showMessage("成功！");
+                        mRootView.killMyself();
                     }
                 }
         );

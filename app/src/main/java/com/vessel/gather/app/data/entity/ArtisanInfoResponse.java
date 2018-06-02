@@ -132,10 +132,16 @@ public class ArtisanInfoResponse implements Serializable {
          */
 
         private long skillId;
+        private long artisanId;
         private String skillName;
+        private String type;
         private String skillPic;
         private int price;
+        private String unit;
         private String remark;
+        private int status;
+        private String createTime;
+        private String updateTime;
 
         public long getSkillId() {
             return skillId;
@@ -175,6 +181,54 @@ public class ArtisanInfoResponse implements Serializable {
 
         public void setRemark(String remark) {
             this.remark = remark;
+        }
+
+        public long getArtisanId() {
+            return artisanId;
+        }
+
+        public void setArtisanId(long artisanId) {
+            this.artisanId = artisanId;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(String updateTime) {
+            this.updateTime = updateTime;
         }
     }
 }

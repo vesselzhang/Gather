@@ -18,7 +18,7 @@ import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
-import com.vessel.gather.module.me.di.DaggerSellerApplyComponent;
+import com.vessel.gather.module.home.di.DaggerSellerApplyComponent;
 import com.vessel.gather.module.home.di.SellerApplyContract;
 import com.vessel.gather.module.home.di.SellerApplyModule;
 import com.vessel.gather.module.home.di.SellerApplyPresenter;
