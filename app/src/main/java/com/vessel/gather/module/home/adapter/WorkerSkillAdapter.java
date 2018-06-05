@@ -26,7 +26,7 @@ public class WorkerSkillAdapter extends BaseQuickAdapter<SkillsBean, BaseViewHol
             GlideArms.with(mContext).load(BuildConfig.APP_DOMAIN + address.getSkillPic()).into(image);
             helper.setText(R.id.worker_skill_name, address.getSkillName());
             helper.setText(R.id.worker_skill_tip, address.getRemark());
-            helper.setText(R.id.worker_skill_price, "￥" + address.getPrice());
+            helper.setText(R.id.worker_skill_price, "¥" + address.getPrice());
         });
     }
 }

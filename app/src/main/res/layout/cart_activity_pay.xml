@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="￥546.00"
+            android:text="¥546.00"
             android:textColor="#353535"
             android:textSize="14sp" />
     </com.zhy.autolayout.AutoRelativeLayout>
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="￥5.00"
+            android:text="¥5.00"
             android:textColor="#FF6600"
             android:textSize="14sp" />
     </com.zhy.autolayout.AutoRelativeLayout>
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="￥0.00"
+            android:text="¥0.00"
             android:textColor="#FF6600"
             android:textSize="14sp" />
     </com.zhy.autolayout.AutoRelativeLayout>
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="实际支付：￥541.00"
+            android:text="实际支付：¥541.00"
             android:textColor="#353535"
             android:textSize="14sp" />
     </com.zhy.autolayout.AutoRelativeLayout>

@@ -159,14 +159,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="￥256"
+                            android:text="¥256"
                             android:textColor="#353535"
                             android:textSize="10sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="￥356"
+                            android:text="¥356"
                             android:textColor="#AAAAAA"
                             android:textSize="10sp" />
 
