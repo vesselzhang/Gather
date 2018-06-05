@@ -47,7 +47,7 @@ public class BackService extends BaseService {
         String path = Constants.SD_APK_DIR + "/";
         File file = new File(path);
         if (!file.exists()) {
-            file.mkdir();
+            file.mkdirs();
         }
         String fileName = "Juji.apk";
         String filepath = path + fileName;
@@ -128,7 +128,7 @@ public class BackService extends BaseService {
         }
     }
 
-    private void setPermission(String filePath)  {
+    private void setPermission(String filePath) {
         String command = "chmod " + "777" + " " + filePath;
         Runtime runtime = Runtime.getRuntime();
         try {

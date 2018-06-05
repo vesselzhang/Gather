@@ -44,7 +44,7 @@ public class WebActivity extends MySupportActivity {
     X5WebView mWebView;
 
     private String webUrl;
-    private int id;
+    private long id;
     private int type;
 
     @Override
@@ -60,7 +60,7 @@ public class WebActivity extends MySupportActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         webUrl = getIntent().getStringExtra(WEB_SITE);
-        id = getIntent().getIntExtra(WEB_ID, -1);
+        id = getIntent().getLongExtra(WEB_ID, -1);
         type = getIntent().getIntExtra(WEB_TYPE, -1);
         if (id == -1 || type == -1) {
             ArmsUtils.makeText(this, "错误的请求地址");

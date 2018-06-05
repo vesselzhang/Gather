@@ -1,7 +1,5 @@
 package com.vessel.gather.app.constant;
 
-import android.os.Environment;
-
 /**
  * @author vesselzhang
  * @date 2017/11/30
@@ -9,7 +7,7 @@ import android.os.Environment;
 
 public class Constants {
     // SD卡路径
-    public static final String SD_DIR = Environment.getExternalStorageDirectory().getPath();
+    public static final String SD_DIR = "/sdcard";
     // 项目路径
     public static final String SD_APP_DIR = SD_DIR + "/Juji";
     // Log保存目录
