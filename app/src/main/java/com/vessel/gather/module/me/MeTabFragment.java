@@ -1,9 +1,12 @@
 package com.vessel.gather.module.me;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +25,11 @@ import com.jess.arms.utils.DeviceUtils;
 import com.jess.arms.utils.PermissionUtil;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
@@ -38,6 +46,7 @@ import com.vessel.gather.widght.RoundImage;
 
 import org.simple.eventbus.EventBus;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,6 +56,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneSession;
 import static com.vessel.gather.event.Event.EVENT_DOWNLOAD_APK;
 
 public class MeTabFragment extends MySupportFragment {
@@ -69,6 +79,8 @@ public class MeTabFragment extends MySupportFragment {
     private String token;
     private UserInfoResponse userInfo;
     private AppComponent mAppComponent;
+    private static final String APP_ID = "wxd060871bdf1eb854";
+    private IWXAPI api;
 
     public static MeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -93,6 +105,7 @@ public class MeTabFragment extends MySupportFragment {
         if (TextUtils.isEmpty(token)) {
             token = DataHelper.getStringSF(getActivity(), SPConstant.SP_TOKEN);
         }
+        regToWx(getContext());
     }
 
     @Override
@@ -237,6 +250,7 @@ public class MeTabFragment extends MySupportFragment {
                         .navigation();
                 break;
             case R.id.me_share:
+                shareToWx();
                 break;
             case R.id.me_suggest:
                 if (TextUtils.isEmpty(token)) {
@@ -323,5 +337,34 @@ public class MeTabFragment extends MySupportFragment {
                         }
                     }
                 });
+    }
+
+    private void regToWx(Context context) {
+        api = WXAPIFactory.createWXAPI(context, APP_ID, true);
+        api.registerApp(APP_ID);
+    }
+
+    private void shareToWx() {
+        WXWebpageObject webPage = new WXWebpageObject();
+        webPage.webpageUrl = "http://www.baidu.com";
+
+        WXMediaMessage msg = new WXMediaMessage(webPage);
+        msg.title = "聚集title";
+        msg.description = "网页描述";
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        msg.thumbData = bitmap2Bytes(thumb);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = "transaction";
+        req.message = msg;
+        req.scene = WXSceneSession;
+
+        api.sendReq(req);
+    }
+
+    private byte[] bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 }
