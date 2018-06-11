@@ -1,6 +1,5 @@
 package com.vessel.gather.module.me;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.addresspicker.huichao.addresspickerlibrary.CityPickerDialog;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
@@ -21,8 +21,8 @@ import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
 import com.vessel.gather.app.data.entity.TypeListResponse;
 import com.vessel.gather.app.utils.HttpResultFunc;
 import com.vessel.gather.app.utils.HttpResultVoidFunc;
+import com.vessel.gather.app.utils.ProvinceUtils;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
-import com.zaaach.citypicker.CityPickerActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,7 +130,8 @@ public class WorkerEditFragment extends MySupportFragment {
                 pop();
                 break;
             case R.id.et_worker_edit_service_city:
-                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
+                showAddressDialog();
+//                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
                 break;
             case R.id.et_worker_edit_submit:
                 if (TextUtils.isEmpty(etName.getText().toString())) {
@@ -168,14 +169,27 @@ public class WorkerEditFragment extends MySupportFragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK){
-            if (data != null){
-                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
-                etServiceCity.setText(city);
-            }
-        }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK){
+//            if (data != null){
+//                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+//                etServiceCity.setText(city);
+//            }
+//        }
+//    }
+
+    private void showAddressDialog() {
+        new CityPickerDialog(getActivity(), ProvinceUtils.getInstance().getProvinces(),
+                null, null, null, (selectProvince, selectCity, selectCounty) -> {
+            StringBuilder address = new StringBuilder();
+            address
+//                    .append(selectProvince != null ? selectProvince
+//                            .getAreaName() : "")
+                    .append(selectCity != null ? selectCity
+                            .getAreaName() : "");
+            etServiceCity.setText(address.toString());
+        }).show();
     }
 }

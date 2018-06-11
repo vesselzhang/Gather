@@ -11,6 +11,7 @@ import com.tencent.bugly.Bugly;
 import com.tencent.smtt.sdk.QbSdk;
 import com.vessel.crash.CustomActivityOnCrash;
 import com.vessel.gather.BuildConfig;
+import com.vessel.gather.app.utils.ProvinceUtils;
 
 import me.yokeyword.fragmentation.Fragmentation;
 import timber.log.Timber;
@@ -28,6 +29,7 @@ public class MyAppLifecycle implements AppLifecycles {
 //        initLeakCanary(application);
 //        initFragmentation();
         initARouter(application);
+        ProvinceUtils.init(application);
         RxPaparazzo.register(application);
         QbSdk.initX5Environment(application, new QbSdk.PreInitCallback() {
             @Override
