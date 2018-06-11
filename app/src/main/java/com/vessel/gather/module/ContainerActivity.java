@@ -9,7 +9,10 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
 import com.vessel.gather.app.constant.Constants;
+import com.vessel.gather.module.home.SearchFragment;
+import com.vessel.gather.module.home.SellerApplyFragment;
 import com.vessel.gather.module.home.SellerListFragment;
+import com.vessel.gather.module.home.WorkerApplyFragment;
 import com.vessel.gather.module.home.WorkerDetailFragment;
 import com.vessel.gather.module.home.WorkerListFragment;
 import com.vessel.gather.module.me.AboutFragment;
@@ -17,10 +20,8 @@ import com.vessel.gather.module.me.AddressFragment;
 import com.vessel.gather.module.me.CollectFragment;
 import com.vessel.gather.module.me.MemoFragment;
 import com.vessel.gather.module.me.OrderFragment;
-import com.vessel.gather.module.home.SellerApplyFragment;
 import com.vessel.gather.module.me.SettingFragment;
 import com.vessel.gather.module.me.SuggestFragment;
-import com.vessel.gather.module.home.WorkerApplyFragment;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
@@ -31,6 +32,7 @@ import static com.vessel.gather.app.constant.Constants.PAGE_ADDRESS;
 import static com.vessel.gather.app.constant.Constants.PAGE_COLLECT;
 import static com.vessel.gather.app.constant.Constants.PAGE_MEMO;
 import static com.vessel.gather.app.constant.Constants.PAGE_ORDER;
+import static com.vessel.gather.app.constant.Constants.PAGE_SEARCH;
 import static com.vessel.gather.app.constant.Constants.PAGE_SELLER;
 import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_APPLY;
 import static com.vessel.gather.app.constant.Constants.PAGE_SELLER_LIST;
@@ -108,6 +110,9 @@ public class ContainerActivity extends MySupportActivity {
                 break;
             case PAGE_SELLER:
 //                targetFragment = WorkerDetailFragment.newInstance();
+                break;
+            case PAGE_SEARCH:
+                targetFragment = SearchFragment.newInstance();
                 break;
         }
         loadRootFragment(R.id.fl_content, targetFragment);

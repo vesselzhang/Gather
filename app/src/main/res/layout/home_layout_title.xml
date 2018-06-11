@@ -25,6 +25,7 @@
         android:layout_weight="1"
         android:background="@drawable/bg_round_grey"
         android:drawableLeft="@drawable/ic_search"
+        android:focusable="false"
         android:hint="寻找材料、师傅"
         android:paddingLeft="10dp"
         android:textColor="#AAAAAA"

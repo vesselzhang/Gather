@@ -52,6 +52,7 @@ public class Constants {
     public static final String PAGE_WORKER_LIST  = PAGE + "_Worker_list";
     public static final String PAGE_SELLER       = PAGE + "_Seller";
     public static final String PAGE_WORKER       = PAGE + "_Worker";
+    public static final String PAGE_SEARCH       = PAGE + "_Search";
 
 
     //Key

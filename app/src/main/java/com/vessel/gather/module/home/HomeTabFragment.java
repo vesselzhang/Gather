@@ -147,8 +147,9 @@ public class HomeTabFragment extends MySupportFragment {
                 startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
                 break;
             case R.id.ll_search:
-//                Intent searchIntent = new Intent(getActivity(), SearchActivity.class);
-//                ArmsUtils.startActivity(searchIntent);
+                ARouter.getInstance().build("/app/container")
+                        .withSerializable(Constants.PAGE, Constants.PAGE_SEARCH)
+                        .navigation();
                 break;
             case R.id.ll_agj:
                 ArmsUtils.makeText(getActivity(), "敬请期待");
@@ -163,8 +164,8 @@ public class HomeTabFragment extends MySupportFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK){
-            if (data != null){
+        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
+            if (data != null) {
                 String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
                 cityTV.setText(city);
             }
