@@ -198,7 +198,7 @@ public interface CommonService {
 
     @FormUrlEncoded
     @POST(Api.delCartById)
-    Observable<CommonResponse<Void>> delCartById(@Field("cartId") long cartId);
+    Observable<CommonResponse<Void>> delCartById(@Field("cartIds") String cartIds);
 
     @FormUrlEncoded
     @POST(Api.submitOrder)

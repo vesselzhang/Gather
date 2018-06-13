@@ -34,17 +34,17 @@
             android:paddingRight="15dp">
 
             <TextView
+                android:id="@+id/cart_detail_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="撒开了的感觉哦玩儿里卡多肌肤来看我看森林狼队看看风景阿哥"
                 android:textColor="#353535"
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/cart_detail_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="撒开了的感觉哦玩儿里卡多肌"
                 android:textColor="#AAAAAA"
                 android:textSize="10sp" />
         </com.zhy.autolayout.AutoLinearLayout>
@@ -56,6 +56,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/cart_detail_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="¥256"

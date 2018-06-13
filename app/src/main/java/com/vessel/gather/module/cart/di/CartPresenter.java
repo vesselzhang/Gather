@@ -1,23 +1,24 @@
 package com.vessel.gather.module.cart.di;
 
+import com.google.gson.Gson;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
+import com.vessel.gather.app.utils.progress.ProgressSubscriber;
 import com.vessel.gather.event.Event;
 import com.vessel.gather.module.cart.adapter.CartAdapter;
 
 import org.simple.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import static com.vessel.gather.event.Event.EVENT_CART_UPDATE;
 
@@ -27,6 +28,8 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
     RxErrorHandler mErrorHandler;
     @Inject
     AppManager mAppManager;
+    @Inject
+    Gson gson;
     @Inject
     CartAdapter mAdapter;
     @Inject
@@ -38,102 +41,22 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
     }
 
     public void cartList() {
-        mModel.cartList().subscribe(new Observer<List<CartsBean>>() {
-            @Override
-            public void onSubscribe(Disposable disposable) {
+        mModel.cartList()
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<List<CartsBean>>(mErrorHandler) {
+                    @Override
+                    public void onNext(List<CartsBean> cartsBeans) {
+                        mList.clear();
+                        mList.addAll(cartsBeans);
+                        mAdapter.notifyDataSetChanged();
 
-            }
-
-            @Override
-            public void onNext(List<CartsBean> cartsBeans) {
-//                mList.clear();
-//                mList.addAll(cartsBeans);
-//                mAdapter.notifyDataSetChanged();
-
-                List<CartsBean> newList = new ArrayList<>();
-                CartsBean title1 = new CartsBean();
-                title1.setTitle(true);
-                title1.setShopName("店铺名");
-
-                CartsBean title1Detail = new CartsBean();
-                title1Detail.setNum(1);
-                title1Detail.setPrice(40.5f);
-                title1Detail.setProductName("商品名");
-                title1.getCartDetail().add(title1Detail);
-
-                CartsBean title1Detail2 = new CartsBean();
-                title1Detail2.setNum(1);
-                title1Detail2.setPrice(40.5f);
-                title1Detail2.setProductName("商品名");
-                title1.getCartDetail().add(title1Detail2);
-                newList.add(title1);
-
-
-                CartsBean title2 = new CartsBean();
-                title2.setTitle(true);
-                title2.setShopName("店铺名");
-
-                CartsBean title2Detail = new CartsBean();
-                title2Detail.setNum(1);
-                title2Detail.setPrice(40.5f);
-                title2Detail.setProductName("商品名");
-                title2.getCartDetail().add(title2Detail);
-                newList.add(title2);
-
-                mList.clear();
-                mList.addAll(newList);
-                mAdapter.notifyDataSetChanged();
-
-                EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                List<CartsBean> newList = new ArrayList<>();
-                CartsBean title1 = new CartsBean();
-                title1.setTitle(true);
-                title1.setShopName("店铺名");
-
-                CartsBean title1Detail = new CartsBean();
-                title1Detail.setNum(1);
-                title1Detail.setPrice(40.5f);
-                title1Detail.setProductName("商品名");
-                title1.getCartDetail().add(title1Detail);
-
-                CartsBean title1Detail2 = new CartsBean();
-                title1Detail2.setNum(1);
-                title1Detail2.setPrice(40.5f);
-                title1Detail2.setProductName("商品名");
-                title1.getCartDetail().add(title1Detail2);
-                newList.add(title1);
-
-
-                CartsBean title2 = new CartsBean();
-                title2.setTitle(true);
-                title2.setShopName("店铺名");
-
-                CartsBean title2Detail = new CartsBean();
-                title2Detail.setNum(1);
-                title2Detail.setPrice(40.5f);
-                title2Detail.setProductName("商品名");
-                title2.getCartDetail().add(title2Detail);
-                newList.add(title2);
-
-                mList.clear();
-                mList.addAll(newList);
-                mAdapter.notifyDataSetChanged();
-
-                EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+                        EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
+                    }
+                });
     }
 
     public void deleteCart() {
+        StringBuilder cartIds = new StringBuilder();
         Iterator<CartsBean> iterator = mList.iterator();
         while (iterator.hasNext()) {
             CartsBean cartsBean = iterator.next();
@@ -141,16 +64,24 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
             while (iterator1.hasNext()) {
                 CartsBean detail = iterator1.next();
                 if (detail.isSelected()) {
-                    iterator1.remove();
+                    cartIds.append(detail.getCartId() + ",");
                 }
             }
-            if (cartsBean.getCartDetail().size() == 0) {
-                iterator.remove();
-            }
         }
-
-        mAdapter.notifyDataSetChanged();
-        EventBus.getDefault().post(new Event(), EVENT_CART_UPDATE);
+        if (cartIds.length() == 0) {
+            return;
+        } else {
+            cartIds.delete(cartIds.length() - 1, cartIds.length());
+        }
+        mModel.delCartById(cartIds.toString())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ProgressSubscriber<Boolean>(mAppManager.getCurrentActivity(), mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        mRootView.showMessage("删除成功");
+                        cartList();
+                    }
+                });
     }
 
     @Override

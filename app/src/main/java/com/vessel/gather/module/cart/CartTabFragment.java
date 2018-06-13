@@ -94,8 +94,11 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
         mTitleRight.setText("管理");
         selectAll.setOnCheckedChangeListener(this);
         initRecycleView();
+    }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
         mPresenter.cartList();
     }
 

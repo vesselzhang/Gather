@@ -2,6 +2,7 @@ package com.vessel.gather.module.cart.adapter;
 
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.jess.arms.base.BaseHolder;
 import com.jess.arms.base.DefaultAdapter;
@@ -116,6 +117,7 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
                     break;
                 }
             }
+            checkBox.setText(data.getShopName());
             checkBox.setOnCheckedChangeListener(null);
             checkBox.setChecked(select);
             checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -131,6 +133,12 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
 
         @BindView(R.id.cart_detail_checkbox)
         CheckBox checkBox;
+        @BindView(R.id.cart_detail_name)
+        TextView name;
+        @BindView(R.id.cart_detail_describe)
+        TextView describe;
+        @BindView(R.id.cart_detail_price)
+        TextView price;
 
         public MyContent_ViewHolder(View itemView) {
             super(itemView);
@@ -138,6 +146,8 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
 
         @Override
         public void setData(CartsBean data, int position) {
+            name.setText(data.getProductName());
+            price.setText("¥" + data.getPrice());
             checkBox.setOnCheckedChangeListener(null);
             checkBox.setChecked(data.isSelected());
             checkBox.setOnCheckedChangeListener((compoundButton, b) -> {

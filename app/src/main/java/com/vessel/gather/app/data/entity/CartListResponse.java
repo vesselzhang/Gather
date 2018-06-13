@@ -34,29 +34,29 @@ public class CartListResponse implements Serializable {
          * productPic : 商品图片地址
          */
 
-        private long cartId;
+        private String cartId;
         private int type;
         private int num;
         private float price;
-        private long artisanId;
+        private String artisanId;
         private String realName;
-        private long skillId;
+        private String skillId;
         private String skillName;
         private String skillPic;
-        private long shopId;
+        private String shopId;
         private String shopName;
-        private long productId;
+        private String productId;
         private String productName;
         private String productPic;
         private boolean isTitle;
         private boolean selected;
         private List<CartsBean> cartDetail = new ArrayList<>();
 
-        public long getCartId() {
+        public String getCartId() {
             return cartId;
         }
 
-        public void setCartId(long cartId) {
+        public void setCartId(String cartId) {
             this.cartId = cartId;
         }
 
@@ -84,11 +84,11 @@ public class CartListResponse implements Serializable {
             this.price = price;
         }
 
-        public long getArtisanId() {
+        public String getArtisanId() {
             return artisanId;
         }
 
-        public void setArtisanId(long artisanId) {
+        public void setArtisanId(String artisanId) {
             this.artisanId = artisanId;
         }
 
@@ -100,11 +100,11 @@ public class CartListResponse implements Serializable {
             this.realName = realName;
         }
 
-        public long getSkillId() {
+        public String getSkillId() {
             return skillId;
         }
 
-        public void setSkillId(long skillId) {
+        public void setSkillId(String skillId) {
             this.skillId = skillId;
         }
 
@@ -124,11 +124,11 @@ public class CartListResponse implements Serializable {
             this.skillPic = skillPic;
         }
 
-        public long getShopId() {
+        public String getShopId() {
             return shopId;
         }
 
-        public void setShopId(long shopId) {
+        public void setShopId(String shopId) {
             this.shopId = shopId;
         }
 
@@ -140,11 +140,11 @@ public class CartListResponse implements Serializable {
             this.shopName = shopName;
         }
 
-        public long getProductId() {
+        public String getProductId() {
             return productId;
         }
 
-        public void setProductId(long productId) {
+        public void setProductId(String productId) {
             this.productId = productId;
         }
 

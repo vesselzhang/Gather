@@ -55,9 +55,9 @@ public class CartModel extends BaseModel implements CartContract.Model {
     }
 
     @Override
-    public Observable<Boolean> delCartById(long cartId) {
+    public Observable<Boolean> delCartById(String cartIds) {
         return mRepositoryManager.obtainRetrofitService(CommonService.class)
-                .delCartById(cartId)
+                .delCartById(cartIds)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpResultVoidFunc());
