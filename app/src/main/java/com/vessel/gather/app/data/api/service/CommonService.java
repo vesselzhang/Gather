@@ -13,6 +13,7 @@ import com.vessel.gather.app.data.entity.NotePadResponse;
 import com.vessel.gather.app.data.entity.OrderDetailResponse;
 import com.vessel.gather.app.data.entity.OrderListResponse;
 import com.vessel.gather.app.data.entity.ProductListResponse;
+import com.vessel.gather.app.data.entity.SearchResponse;
 import com.vessel.gather.app.data.entity.ServiceListResponse;
 import com.vessel.gather.app.data.entity.ShopInfoResponse;
 import com.vessel.gather.app.data.entity.TypeListResponse;
@@ -144,6 +145,10 @@ public interface CommonService {
     @FormUrlEncoded
     @POST(Api.queryTypeList)
     Observable<CommonResponse<TypeListResponse>> queryTypeList(@Field("parentType") int parentType);
+
+    @FormUrlEncoded
+    @POST(Api.searchInfo)
+    Observable<CommonResponse<SearchResponse>> searchInfo(@FieldMap Map<String, Object> map);
 
     //管理
     //店铺

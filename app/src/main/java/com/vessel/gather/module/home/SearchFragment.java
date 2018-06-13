@@ -13,11 +13,14 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
+import com.vessel.gather.app.constant.SearchType;
+import com.vessel.gather.module.home.di.DaggerSearchComponent;
 import com.vessel.gather.module.home.di.SearchContract;
+import com.vessel.gather.module.home.di.SearchModule;
 import com.vessel.gather.module.home.di.SearchPresenter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,7 +49,8 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
     @BindView(R.id.search_result)
     RecyclerView result;
 
-    private List<View> views = new ArrayList<>();
+    private @SearchType
+    int searchType = SearchType.TYPE_PRODUCT;
 
     public static SearchFragment newInstance() {
         Bundle args = new Bundle();
@@ -58,7 +62,12 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
 
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
-
+        DaggerSearchComponent
+                .builder()
+                .appComponent(appComponent)
+                .searchModule(new SearchModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -68,12 +77,7 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        views.clear();
-        views.add(bottom_cailiao);
-        views.add(bottom_dianpu);
-        views.add(bottom_jineng);
-        views.add(bottom_jigong);
-        updateView(R.id.search_cailiao_bottom);
+        updateView();
     }
 
     @Override
@@ -110,32 +114,53 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
 
     @OnClick({R.id.search_btn, R.id.search_cailiao, R.id.search_dianpu, R.id.search_jineng, R.id.search_jigong})
     public void onClick(View view) {
+        Map<String, Object> map = new HashMap<>();
         switch (view.getId()) {
             case R.id.search_btn:
                 historyLayout.setVisibility(View.GONE);
+                map.put("type", searchType);
+                map.put("keyword", edit.getText().toString());
+                map.put("page", 1);
+                map.put("pageSize", 100);
+                mPresenter.searchInfo(map, searchType);
                 break;
             case R.id.search_cailiao:
-                updateView(R.id.search_cailiao_bottom);
+                searchType = SearchType.TYPE_PRODUCT;
+                updateView();
                 break;
             case R.id.search_dianpu:
-                updateView(R.id.search_dianpu_bottom);
+                searchType = SearchType.TYPE_SHOP;
+                updateView();
                 break;
             case R.id.search_jineng:
-                updateView(R.id.search_jineng_bottom);
+                searchType = SearchType.TYPE_SKILL;
+                updateView();
                 break;
             case R.id.search_jigong:
-                updateView(R.id.search_jigong_bottom);
+                searchType = SearchType.TYPE_ARTISAN;
+                updateView();
                 break;
         }
     }
 
-    private void updateView(int viewId) {
-        for (View view : views) {
-            if (view.getId() == viewId) {
-                view.setVisibility(View.VISIBLE);
-            } else {
-                view.setVisibility(View.INVISIBLE);
-            }
+    private void updateView() {
+        bottom_cailiao.setVisibility(View.INVISIBLE);
+        bottom_dianpu.setVisibility(View.INVISIBLE);
+        bottom_jineng.setVisibility(View.INVISIBLE);
+        bottom_jigong.setVisibility(View.INVISIBLE);
+        switch (searchType) {
+            case SearchType.TYPE_ARTISAN:
+                bottom_jigong.setVisibility(View.VISIBLE);
+                break;
+            case SearchType.TYPE_SHOP:
+                bottom_dianpu.setVisibility(View.VISIBLE);
+                break;
+            case SearchType.TYPE_SKILL:
+                bottom_jineng.setVisibility(View.VISIBLE);
+                break;
+            case SearchType.TYPE_PRODUCT:
+                bottom_cailiao.setVisibility(View.VISIBLE);
+                break;
         }
     }
 }

@@ -45,6 +45,7 @@ public interface Api {
     String queryArtisanInfo            = index + "queryArtisanInfo";
     String queryShopInfo               = index + "queryShopInfo";
     String queryTypeList               = index + "queryTypeList";
+    String searchInfo                  = index + "searchInfo";
 
     //权限模块
     String authorityShopInfo          = authority + "queryShopInfo";
