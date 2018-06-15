@@ -1,10 +1,14 @@
 package com.vessel.gather.module.cart.di;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.DataHelper;
 import com.jess.arms.utils.RxLifecycleUtils;
+import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
 import com.vessel.gather.event.Event;
@@ -41,6 +45,10 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
     }
 
     public void cartList() {
+        String token = DataHelper.getStringSF(mAppManager.getCurrentActivity(), SPConstant.SP_TOKEN);
+        if (TextUtils.isEmpty(token)) {
+            return;
+        }
         mModel.cartList()
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(new ErrorHandleSubscriber<List<CartsBean>>(mErrorHandler) {

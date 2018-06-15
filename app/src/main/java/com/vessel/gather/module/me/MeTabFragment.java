@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -56,7 +55,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneSession;
 import static com.vessel.gather.event.Event.EVENT_DOWNLOAD_APK;
 
 public class MeTabFragment extends MySupportFragment {
@@ -349,15 +347,13 @@ public class MeTabFragment extends MySupportFragment {
         webPage.webpageUrl = "http://www.baidu.com";
 
         WXMediaMessage msg = new WXMediaMessage(webPage);
-        msg.title = "聚集title";
-        msg.description = "网页描述";
-        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        msg.thumbData = bitmap2Bytes(thumb);
+        msg.title = "我在使用聚集App，快来使用吧！";
+        msg.description = "这是一款神奇的软件，聚集装潢信息服务力图将各类各品牌装潢用材聚集于一平台。";
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = "transaction";
+        req.transaction = "transactionasdfwer";
         req.message = msg;
-        req.scene = WXSceneSession;
+        req.scene = SendMessageToWX.Req.WXSceneSession;
 
         api.sendReq(req);
     }
