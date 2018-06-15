@@ -3,7 +3,9 @@ package com.vessel.gather.module.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.constant.SearchType;
+import com.vessel.gather.module.home.adapter.SearchAdapter;
 import com.vessel.gather.module.home.di.DaggerSearchComponent;
 import com.vessel.gather.module.home.di.SearchContract;
 import com.vessel.gather.module.home.di.SearchModule;
@@ -21,6 +24,8 @@ import com.vessel.gather.module.home.di.SearchPresenter;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,6 +53,9 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
     View historyLayout;
     @BindView(R.id.search_result)
     RecyclerView result;
+
+    @Inject
+    SearchAdapter mAdatper;
 
     private @SearchType
     int searchType = SearchType.TYPE_PRODUCT;
@@ -77,6 +85,7 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        initRecycler();
         updateView();
     }
 
@@ -127,20 +136,55 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
             case R.id.search_cailiao:
                 searchType = SearchType.TYPE_PRODUCT;
                 updateView();
+                if (!TextUtils.isEmpty(edit.getText().toString())) {
+                    map.put("type", searchType);
+                    map.put("keyword", edit.getText().toString());
+                    map.put("page", 1);
+                    map.put("pageSize", 100);
+                    mPresenter.searchInfo(map, searchType);
+                }
                 break;
             case R.id.search_dianpu:
                 searchType = SearchType.TYPE_SHOP;
                 updateView();
+                if (!TextUtils.isEmpty(edit.getText().toString())) {
+                    map.put("type", searchType);
+                    map.put("keyword", edit.getText().toString());
+                    map.put("page", 1);
+                    map.put("pageSize", 100);
+                    mPresenter.searchInfo(map, searchType);
+                }
                 break;
             case R.id.search_jineng:
                 searchType = SearchType.TYPE_SKILL;
                 updateView();
+                if (!TextUtils.isEmpty(edit.getText().toString())) {
+                    map.put("type", searchType);
+                    map.put("keyword", edit.getText().toString());
+                    map.put("page", 1);
+                    map.put("pageSize", 100);
+                    mPresenter.searchInfo(map, searchType);
+                }
                 break;
             case R.id.search_jigong:
                 searchType = SearchType.TYPE_ARTISAN;
                 updateView();
+                if (!TextUtils.isEmpty(edit.getText().toString())) {
+                    map.put("type", searchType);
+                    map.put("keyword", edit.getText().toString());
+                    map.put("page", 1);
+                    map.put("pageSize", 100);
+                    mPresenter.searchInfo(map, searchType);
+                }
                 break;
         }
+    }
+
+    private void initRecycler() {
+        result.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdatper.setOnItemClickListener(mPresenter);
+        mAdatper.bindToRecyclerView(result);
+        mAdatper.setEmptyView(R.layout.home_fragment_search_null);
     }
 
     private void updateView() {
@@ -162,5 +206,10 @@ public class SearchFragment extends MySupportFragment<SearchPresenter> implement
                 bottom_cailiao.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    @Override
+    public void jump2Worker(long artisanId) {
+        start(WorkerDetailFragment.newInstance(false, artisanId));
     }
 }

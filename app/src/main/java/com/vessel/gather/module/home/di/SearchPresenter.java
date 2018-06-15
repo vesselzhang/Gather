@@ -1,10 +1,15 @@
 package com.vessel.gather.module.home.di;
 
+import android.view.View;
+
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
+import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SearchType;
 import com.vessel.gather.app.data.entity.SearchResponse;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
@@ -23,7 +28,8 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  */
 
 @ActivityScope
-public class SearchPresenter extends BasePresenter<SearchContract.Model, SearchContract.View> {
+public class SearchPresenter extends BasePresenter<SearchContract.Model, SearchContract.View>
+        implements BaseQuickAdapter.OnItemClickListener {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -74,6 +80,34 @@ public class SearchPresenter extends BasePresenter<SearchContract.Model, SearchC
                                }
                            }
                 );
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        MultiItemEntity entity = (MultiItemEntity) adapter.getData().get(position);
+        switch (entity.getItemType()) {
+            case SearchType.TYPE_PRODUCT:
+                if (entity instanceof SearchResponse.ProductsBean) {
+                }
+                break;
+            case SearchType.TYPE_ARTISAN:
+                if (entity instanceof SearchResponse.ArtisansBean) {
+                    mRootView.jump2Worker(((SearchResponse.ArtisansBean)entity).getArtisanId());
+                }
+                break;
+            case SearchType.TYPE_SHOP:
+                if (entity instanceof SearchResponse.ShopsBean) {
+                    ARouter.getInstance().build("/app/web")
+                            .withSerializable(Constants.WEB_TYPE, 1)
+                            .withSerializable(Constants.WEB_ID, ((SearchResponse.ShopsBean)entity).getShopId())
+                            .navigation();
+                }
+                break;
+            case SearchType.TYPE_SKILL:
+                if (entity instanceof SearchResponse.SkillsBean) {
+                }
+                break;
+        }
     }
 
     @Override

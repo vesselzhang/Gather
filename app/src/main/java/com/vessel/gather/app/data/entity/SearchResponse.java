@@ -121,7 +121,7 @@ public class SearchResponse implements Serializable {
         private long userId;
         private String realPhoto;
         private String realName;
-        private int score;
+        private double score;
         private int saleNum;
         private List<String> skills;
 
@@ -157,11 +157,11 @@ public class SearchResponse implements Serializable {
             this.realName = realName;
         }
 
-        public int getScore() {
+        public double getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(double score) {
             this.score = score;
         }
 

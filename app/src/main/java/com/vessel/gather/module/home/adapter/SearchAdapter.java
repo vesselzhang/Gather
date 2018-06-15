@@ -5,7 +5,6 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
@@ -21,18 +20,10 @@ public class SearchAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Ba
 
     public SearchAdapter(List<MultiItemEntity> data) {
         super(data);
-        setMultiTypeDelegate(new MultiTypeDelegate<MultiItemEntity>() {
-            @Override
-            protected int getItemType(MultiItemEntity multiItemEntity) {
-                return multiItemEntity.getItemType();
-            }
-        });
-
-        getMultiTypeDelegate()
-                .registerItemType(SearchType.TYPE_PRODUCT, R.layout.home_item_seller)
-                .registerItemType(SearchType.TYPE_ARTISAN, R.layout.home_item_worker)
-                .registerItemType(SearchType.TYPE_SHOP, R.layout.home_item_seller)
-                .registerItemType(SearchType.TYPE_SKILL, R.layout.home_item_worker);
+        addItemType(SearchType.TYPE_PRODUCT, R.layout.home_item_seller);
+        addItemType(SearchType.TYPE_ARTISAN, R.layout.home_item_worker);
+        addItemType(SearchType.TYPE_SHOP, R.layout.home_item_seller);
+        addItemType(SearchType.TYPE_SKILL, R.layout.home_item_worker);
     }
 
     @Override

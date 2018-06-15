@@ -235,7 +235,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
             mScore.setVisibility(View.GONE);
         } else {
             mScore.setVisibility(View.VISIBLE);
-            mScore.setRating(artisanInfoResponse.getScore());
+            mScore.setRating((int)artisanInfoResponse.getScore());
         }
 
         if (TextUtils.isEmpty(artisanInfoResponse.getPhone()) || manage) {

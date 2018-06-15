@@ -26,7 +26,7 @@ public class ArtisanInfoResponse implements Serializable {
     private int userId;
     private String realPhoto;
     private String realName;
-    private int score;
+    private double score;
     private String address;
     private String phone;
     private int isCollect;
@@ -66,11 +66,11 @@ public class ArtisanInfoResponse implements Serializable {
         this.realName = realName;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
