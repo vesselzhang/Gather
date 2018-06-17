@@ -29,12 +29,15 @@ import com.vessel.gather.app.data.entity.ArtisanInfoResponse;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse.SkillsBean;
 import com.vessel.gather.app.utils.CommonUtils;
 import com.vessel.gather.app.utils.RecycleViewDivider;
+import com.vessel.gather.event.Event;
 import com.vessel.gather.module.home.adapter.WorkerSkillAdapter;
 import com.vessel.gather.module.home.di.DaggerWorkerDetailComponent;
 import com.vessel.gather.module.home.di.WorkerDetailContract;
 import com.vessel.gather.module.home.di.WorkerDetailModule;
 import com.vessel.gather.module.home.di.WorkerDetailPresenter;
 import com.vessel.gather.module.me.WorkerEditFragment;
+
+import org.simple.eventbus.Subscriber;
 
 import java.util.List;
 
@@ -251,5 +254,10 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
             SkillsBean skill = (SkillsBean) adapter.getData().get(position);
             start(WorkerSkillFragment.newInstance(skill));
         }
+    }
+
+    @Subscriber(tag = Event.EVENT_UPDATE_WORKER)
+    public void updateWorker(Event event) {
+        mPresenter.getArtisanDetail(artisanId);
     }
 }

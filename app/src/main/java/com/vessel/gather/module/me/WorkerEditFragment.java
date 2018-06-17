@@ -23,6 +23,9 @@ import com.vessel.gather.app.utils.HttpResultFunc;
 import com.vessel.gather.app.utils.HttpResultVoidFunc;
 import com.vessel.gather.app.utils.ProvinceUtils;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
+import com.vessel.gather.event.Event;
+
+import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -162,6 +165,7 @@ public class WorkerEditFragment extends MySupportFragment {
                             public void onNext(Boolean aBoolean) {
                                 super.onNext(aBoolean);
                                 ArmsUtils.makeText(getActivity(), "修改成功");
+                                EventBus.getDefault().post(new Event(), Event.EVENT_UPDATE_WORKER);
                                 pop();
                             }
                         });

@@ -19,6 +19,7 @@ import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.data.entity.IndexResponse;
+import com.vessel.gather.app.data.entity.UserInfoResponse;
 import com.vessel.gather.app.utils.ProvinceUtils;
 import com.vessel.gather.widght.AutoScrollViewPager;
 import com.vessel.gather.widght.BaseViewPagerAdapter;
@@ -49,6 +50,7 @@ public class HomeTabFragment extends MySupportFragment {
     private List<IndexResponse.BannersBean> banners = new ArrayList<>();
 
     private String token;
+    private UserInfoResponse userInfo;
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -87,6 +89,7 @@ public class HomeTabFragment extends MySupportFragment {
     public void onResume() {
         super.onResume();
         token = DataHelper.getStringSF(getActivity(), SPConstant.SP_TOKEN);
+        userInfo = DataHelper.getDeviceData(getActivity(), SPConstant.SP_USERINFO);
     }
 
     @Override
@@ -139,9 +142,16 @@ public class HomeTabFragment extends MySupportFragment {
                     ARouter.getInstance().build("/app/login").navigation();
                     return;
                 }
-                ARouter.getInstance().build("/app/container")
-                        .withSerializable(Constants.PAGE, Constants.PAGE_WORKER_APPLY)
-                        .navigation();
+                if (userInfo != null && userInfo.getIsArtisan() == 1) {
+                    ARouter.getInstance().build("/app/container")
+                            .withSerializable(Constants.PAGE, Constants.PAGE_WORKER)
+                            .withLong(Constants.KEY_WORKER_ID, userInfo.getArtisanId())
+                            .navigation();
+                } else {
+                    ARouter.getInstance().build("/app/container")
+                            .withSerializable(Constants.PAGE, Constants.PAGE_WORKER_APPLY)
+                            .navigation();
+                }
                 break;
             case R.id.location:
                 showAddressDialog();

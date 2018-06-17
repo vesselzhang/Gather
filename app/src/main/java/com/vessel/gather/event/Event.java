@@ -10,6 +10,7 @@ public class Event {
     public static final String EVENT_ADDRESS_UPDATE = "event_address_update";
     public static final String EVENT_CART_UPDATE = "event_cart_update";
     public static final String EVENT_DOWNLOAD_APK = "event_download_apk";
+    public static final String EVENT_UPDATE_WORKER = "event_update_worker";
 
     private String downloadUrl;
 

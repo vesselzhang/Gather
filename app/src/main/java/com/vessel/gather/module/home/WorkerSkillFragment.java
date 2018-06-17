@@ -20,11 +20,14 @@ import com.vessel.gather.BuildConfig;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.data.entity.ArtisanInfoResponse.SkillsBean;
+import com.vessel.gather.event.Event;
 import com.vessel.gather.module.home.di.DaggerWorkerSkillComponent;
 import com.vessel.gather.module.home.di.WorkerSkillContract;
 import com.vessel.gather.module.home.di.WorkerSkillModule;
 import com.vessel.gather.module.home.di.WorkerSkillPresenter;
 import com.vessel.gather.widght.RoundImage;
+
+import org.simple.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -192,6 +195,7 @@ public class WorkerSkillFragment extends MySupportFragment<WorkerSkillPresenter>
 
     @Override
     public void killMyself() {
+        EventBus.getDefault().post(new Event(), Event.EVENT_UPDATE_WORKER);
         pop();
     }
 
