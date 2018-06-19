@@ -1,16 +1,18 @@
 package com.vessel.gather.app.base;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Message;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.widget.RemoteViews;
 
-import com.jess.arms.base.App;
 import com.jess.arms.base.BaseService;
-import com.jess.arms.integration.IRepositoryManager;
+import com.vessel.gather.R;
 import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.utils.FileDownloadThread;
 import com.vessel.gather.event.Event;
@@ -31,16 +33,107 @@ import static com.vessel.gather.event.Event.EVENT_DOWNLOAD_APK;
 
 public class BackService extends BaseService {
 
-    private IRepositoryManager mRepositoryManager;
+    private RemoteViews mRemoteViews;
+    private Notification notification;
+    private final int NOTIFICATION_ID = 1;
+    private NotificationManager notificationManager;
 
     @Override
     public void init() {
-        mRepositoryManager = ((App) getApplication()).getAppComponent().repositoryManager();
+        initNotification(BackService.this);
     }
 
-    @Subscriber(tag = EVENT_DOWNLOAD_APK)
-    public void updateEvent(Event event) {
-        doDownload(event.getDownloadUrl());
+    private void initNotification(Context context) {
+        notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(NOTIFICATION_ID);
+    }
+
+    /**
+     * 显示一个下载带进度条的通知
+     *
+     * @param context 上下文
+     */
+    private void showNotificationProgress(Context context) {
+        /**进度条通知构建**/
+        NotificationCompat.Builder builderProgress = new NotificationCompat.Builder(context);
+        /**设置为一个正在进行的通知**/
+        builderProgress.setOngoing(true);
+        /**设置小图标**/
+        builderProgress.setSmallIcon(R.drawable.ic_notification);
+        /**设置滚动提示**/
+        builderProgress.setTicker("聚集 开始下载...");
+
+        /**新建通知自定义布局**/
+        mRemoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
+        /**进度条ProgressBar**/
+        mRemoteViews.setProgressBar(R.id.pb, 100, 0, false);
+        /**提示信息的TextView**/
+        mRemoteViews.setTextViewText(R.id.tv_message, "下载中...");
+        /**设置左侧小图标*/
+        mRemoteViews.setImageViewResource(R.id.iv, R.drawable.ic_notification);
+        /**设置自定义布局**/
+        builderProgress.setContent(mRemoteViews);
+
+        notification = builderProgress.build();
+        /**设置不可手动清除**/
+        notification.flags = Notification.FLAG_NO_CLEAR;
+        /**发送一个通知**/
+        notificationManager.notify(NOTIFICATION_ID, notification);
+    }
+
+    /**
+     * 下载更改进度
+     *
+     * @param total   总大小
+     * @param current 当前已下载大小
+     */
+    private void updateNotification(long total, long current) {
+        mRemoteViews.setTextViewText(R.id.tv_size, formatSize(current) + "/" + formatSize(total));
+        int result = Math.round((float) current / (float) total * 100);
+        mRemoteViews.setTextViewText(R.id.tv_progress, result + "%");
+        mRemoteViews.setProgressBar(R.id.pb, 100, result, false);
+        notificationManager.notify(NOTIFICATION_ID, notification);
+    }
+
+    /**
+     * 格式化文件大小
+     *
+     * @param size
+     * @return
+     */
+    private String formatSize(long size) {
+        String format;
+        if (size >= 1024 * 1024) {
+            format = byteToMB(size) + "M";
+        } else if (size >= 1024) {
+            format = byteToKB(size) + "k";
+        } else {
+            format = size + "b";
+        }
+        return format;
+    }
+
+    /**
+     * byte转换为MB
+     *
+     * @param bt 大小
+     * @return MB
+     */
+    private float byteToMB(long bt) {
+        int mb = 1024 * 1024;
+        float f = (float) bt / (float) mb;
+        float temp = (float) Math.round(f * 100.0F);
+        return temp / 100.0F;
+    }
+
+    /**
+     * byte转换为KB
+     *
+     * @param bt 大小
+     * @return K
+     */
+    private int byteToKB(long bt) {
+        return Math.round((bt / 1024));
     }
 
     private void doDownload(String dowloadUrl) {
@@ -82,6 +175,7 @@ public class BackService extends BaseService {
                     return;
                 }
 
+                showNotificationProgress(BackService.this);
                 // 计算每条线程下载的数据长度
                 blockSize = (fileSize % threadNum) == 0 ? fileSize / threadNum
                         : fileSize / threadNum + 1;
@@ -113,16 +207,16 @@ public class BackService extends BaseService {
                         }
                     }
                     // 通知handler去更新视图组件
-                    Message msg = new Message();
-                    msg.getData().putInt("size", (downloadedAllSize * 100) / fileSize);
-//                    mHandler.sendMessage(msg);
+                    updateNotification(fileSize, downloadedAllSize);
                     Thread.sleep(1000);// 休息1秒后再读取下载进度
                 }
                 Log.d(TAG, "all of downloadSize:" + downloadedAllSize);
 
+                notificationManager.cancel(NOTIFICATION_ID);
                 setPermission(filePath);
                 installNormal(getApplicationContext(), filePath);
             } catch (Exception e) {
+                notificationManager.cancel(NOTIFICATION_ID);
                 e.printStackTrace();
             }
         }
@@ -155,4 +249,10 @@ public class BackService extends BaseService {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
+    @Subscriber(tag = EVENT_DOWNLOAD_APK)
+    public void updateEvent(Event event) {
+        doDownload(event.getDownloadUrl());
+    }
+
 }
