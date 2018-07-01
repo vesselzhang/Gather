@@ -62,22 +62,18 @@ public class WebActivity extends MySupportActivity {
         webUrl = getIntent().getStringExtra(WEB_SITE);
         id = getIntent().getLongExtra(WEB_ID, -1);
         type = getIntent().getIntExtra(WEB_TYPE, -1);
-        if (id == -1 || type == -1) {
+        if (id == -1 || type == -1 || TextUtils.isEmpty(webUrl)) {
             ArmsUtils.makeText(this, "错误的请求地址");
             return;
         }
 
         String token = DataHelper.getStringSF(this, SPConstant.SP_TOKEN);
         if (TextUtils.isEmpty(token)) {
-            if (id == -1 || type == -1) {
-                webUrl = "http://120.78.63.213/assemble/resources/product.html?type=1&id=10";
-            } else {
+            if (id != -1 && type != -1) {
                 webUrl = "http://120.78.63.213/assemble/resources/product.html?type=" + type + "&id=" + id;
             }
         } else {
-            if (id == -1 || type == -1) {
-                webUrl = "http://120.78.63.213/assemble/resources/product.html?token=" + token + "&type=1&id=10";
-            } else {
+            if (id != -1 && type != -1) {
                 webUrl = "http://120.78.63.213/assemble/resources/product.html?token=" + token + "&type=" + type + "&id=" + id;
             }
         }

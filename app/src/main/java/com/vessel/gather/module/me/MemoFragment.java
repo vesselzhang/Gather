@@ -21,6 +21,8 @@ import com.vessel.gather.module.me.di.MemoContract;
 import com.vessel.gather.module.me.di.MemoModule;
 import com.vessel.gather.module.me.di.MemoPresenter;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -53,6 +55,7 @@ public class MemoFragment extends MySupportFragment<MemoPresenter> implements Me
 
     @Inject
     MemoAdapter mAdapter;
+    private Calendar calendar;
 
     public static MemoFragment newInstance() {
         Bundle args = new Bundle();
@@ -87,6 +90,8 @@ public class MemoFragment extends MySupportFragment<MemoPresenter> implements Me
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
 
+        calendar = Calendar.getInstance();
+        time.setText(calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
         mPresenter.queryNotepad();
     }
 

@@ -62,8 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableRight="@drawable/icon_next"
-                android:gravity="right"
-                android:text="2018/01/22 " />
+                android:gravity="right" />
         </com.zhy.autolayout.AutoLinearLayout>
 
         <EditText

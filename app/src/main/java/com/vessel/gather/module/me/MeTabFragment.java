@@ -344,7 +344,7 @@ public class MeTabFragment extends MySupportFragment {
 
     private void shareToWx() {
         WXWebpageObject webPage = new WXWebpageObject();
-        webPage.webpageUrl = "http://www.baidu.com";
+        webPage.webpageUrl = "http://www.jujizh.com/share/index.html";
 
         WXMediaMessage msg = new WXMediaMessage(webPage);
         msg.title = "我在使用聚集App，快来使用吧！";

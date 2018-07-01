@@ -109,7 +109,19 @@ public class HomeTabFragment extends MySupportFragment {
 
     BaseViewPagerAdapter.OnAutoViewPagerItemClickListener listener = (position, o) -> {
         int type = banners.get(position).getLinkType();
-        ARouter.getInstance().build("/app/web").navigation();
+        switch (type) {
+            case 0://无
+                break;
+            case 1://外链接
+                ARouter.getInstance().build("/app/web")
+                        .withSerializable(Constants.WEB_SITE, banners.get(position).getLink())
+                        .navigation();
+                break;
+            case 2://商家
+                break;
+            case 3://商品
+                break;
+        }
     };
 
     @OnClick({R.id.layout_shangjia, R.id.layout_shifu, R.id.layout_shangjia_apply, R.id.layout_shifu_apply,
