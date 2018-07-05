@@ -34,6 +34,7 @@
 
         <activity android:name=".module.WebActivity" />
         <activity android:name=".module.ContainerActivity" />
+        <activity android:name=".module.PhotoViewActivity" />
         <activity android:name=".module.cart.PayActivity" />
         <activity android:name=".module.login.LoginActivity" />
         <activity android:name=".module.login.PasswordActivity" />

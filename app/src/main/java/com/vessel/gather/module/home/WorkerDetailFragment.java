@@ -30,6 +30,7 @@ import com.vessel.gather.app.data.entity.ArtisanInfoResponse.SkillsBean;
 import com.vessel.gather.app.utils.CommonUtils;
 import com.vessel.gather.app.utils.RecycleViewDivider;
 import com.vessel.gather.event.Event;
+import com.vessel.gather.module.PhotoViewActivity;
 import com.vessel.gather.module.home.adapter.WorkerSkillAdapter;
 import com.vessel.gather.module.home.di.DaggerWorkerDetailComponent;
 import com.vessel.gather.module.home.di.WorkerDetailContract;
@@ -39,6 +40,7 @@ import com.vessel.gather.module.me.WorkerEditFragment;
 
 import org.simple.eventbus.Subscriber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,7 +52,7 @@ import static com.vessel.gather.app.constant.Constants.DEFAULT_BOOLEAN;
 import static com.vessel.gather.app.constant.Constants.DEFAULT_LONG;
 
 public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresenter>
-        implements WorkerDetailContract.View, BaseQuickAdapter.OnItemClickListener {
+        implements WorkerDetailContract.View, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     @BindView(R.id.tv_title)
     TextView mTitle;
@@ -124,6 +126,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
         mCollect.setVisibility(manage ? View.GONE : View.VISIBLE);
 
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemChildClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL
@@ -238,7 +241,7 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
             mScore.setVisibility(View.GONE);
         } else {
             mScore.setVisibility(View.VISIBLE);
-            mScore.setRating((int)artisanInfoResponse.getScore());
+            mScore.setRating((int) artisanInfoResponse.getScore());
         }
 
         if (TextUtils.isEmpty(artisanInfoResponse.getPhone()) || manage) {
@@ -254,6 +257,30 @@ public class WorkerDetailFragment extends MySupportFragment<WorkerDetailPresente
             SkillsBean skill = (SkillsBean) adapter.getData().get(position);
             start(WorkerSkillFragment.newInstance(skill));
         }
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        switch (view.getId()) {
+            case R.id.worker_skill_pic:
+                SkillsBean bean = (SkillsBean) adapter.getItem(position);
+                statPhotoViewActivity(0, bean.getSkillPic());
+                break;
+        }
+    }
+
+    private void statPhotoViewActivity(int position, String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        ArrayList<String> list = new ArrayList<>();
+        list.add(url);
+        Intent intent = new Intent(getActivity(), PhotoViewActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("dataBean", list);
+        intent.putExtras(bundle);
+        intent.putExtra("currentPosition", position);
+        startActivity(intent);
     }
 
     @Subscriber(tag = Event.EVENT_UPDATE_WORKER)

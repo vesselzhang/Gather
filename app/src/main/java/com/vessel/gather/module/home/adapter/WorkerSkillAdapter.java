@@ -22,6 +22,7 @@ public class WorkerSkillAdapter extends BaseQuickAdapter<SkillsBean, BaseViewHol
     @Override
     protected void convert(BaseViewHolder helper, SkillsBean item) {
         Observable.just(item).subscribe(address -> {
+            helper.addOnClickListener(R.id.worker_skill_pic);
             ImageView image = helper.getView(R.id.worker_skill_pic);
             GlideArms.with(mContext).load(BuildConfig.APP_DOMAIN + address.getSkillPic()).into(image);
             helper.setText(R.id.worker_skill_name, address.getSkillName());
