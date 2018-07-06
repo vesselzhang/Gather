@@ -8,7 +8,7 @@
     <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/me_login_layout"
         android:layout_width="match_parent"
-        android:layout_height="136dp"
+        android:layout_height="170dp"
         android:background="@drawable/ic_me_bg"
         android:orientation="vertical"
         android:visibility="gone">
@@ -24,7 +24,8 @@
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -47,7 +48,7 @@
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/me_logout_layout"
         android:layout_width="match_parent"
-        android:layout_height="136dp"
+        android:layout_height="170dp"
         android:background="@color/base_color"
         android:gravity="center_vertical">
 

@@ -21,6 +21,7 @@ import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.data.entity.IndexResponse;
 import com.vessel.gather.app.data.entity.UserInfoResponse;
 import com.vessel.gather.app.utils.ProvinceUtils;
+import com.vessel.gather.app.utils.StatusBarUtils;
 import com.vessel.gather.widght.AutoScrollViewPager;
 import com.vessel.gather.widght.BaseViewPagerAdapter;
 
@@ -71,6 +72,9 @@ public class HomeTabFragment extends MySupportFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        StatusBarUtils.with(getActivity())
+                .setColor(getResources().getColor(R.color.base_color))
+                .init();
         mBaseViewPagerAdapter = new BaseViewPagerAdapter<String>(getActivity().getApplicationContext(), listener) {
             @Override
             public void loadImage(ImageView view, int position, String url) {

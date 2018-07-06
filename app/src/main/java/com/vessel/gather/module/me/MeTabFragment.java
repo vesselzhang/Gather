@@ -38,6 +38,7 @@ import com.vessel.gather.app.data.api.service.CommonService;
 import com.vessel.gather.app.data.entity.CheckVersionResponse;
 import com.vessel.gather.app.data.entity.UserInfoResponse;
 import com.vessel.gather.app.utils.HttpResultFunc;
+import com.vessel.gather.app.utils.StatusBarUtils;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
 import com.vessel.gather.event.Event;
 import com.vessel.gather.widght.CustomDialog;
@@ -103,12 +104,30 @@ public class MeTabFragment extends MySupportFragment {
         if (TextUtils.isEmpty(token)) {
             token = DataHelper.getStringSF(getActivity(), SPConstant.SP_TOKEN);
         }
+        login.setPadding(0, StatusBarUtils.getStatusBarHeight(getActivity()), 0, 0);
+        logout.setPadding(0, StatusBarUtils.getStatusBarHeight(getActivity()), 0, 0);
         regToWx(getContext());
     }
 
     @Override
     public void setData(Object data) {
 
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            StatusBarUtils.with(getActivity()).init();
+            if (login.getVisibility() == View.VISIBLE) {
+                StatusBarUtils.changeStatusBarTextColor(getActivity(), true);
+            }
+        } else {
+            StatusBarUtils.with(getActivity())
+                    .setColor(getResources().getColor(R.color.base_color))
+                    .init();
+            StatusBarUtils.changeStatusBarTextColor(getActivity(), false);
+        }
     }
 
     @Override
