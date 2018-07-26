@@ -11,6 +11,7 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SearchType;
+import com.vessel.gather.app.constant.WebType;
 import com.vessel.gather.app.data.entity.SearchResponse;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
 import com.vessel.gather.module.home.adapter.SearchAdapter;
@@ -98,7 +99,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.Model, SearchC
             case SearchType.TYPE_SHOP:
                 if (entity instanceof SearchResponse.ShopsBean) {
                     ARouter.getInstance().build("/app/web")
-                            .withSerializable(Constants.WEB_TYPE, 1)
+                            .withSerializable(Constants.WEB_TYPE, WebType.WEB_SHOP)
                             .withSerializable(Constants.WEB_ID, ((SearchResponse.ShopsBean)entity).getShopId())
                             .navigation();
                 }

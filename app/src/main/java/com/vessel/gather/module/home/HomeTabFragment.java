@@ -18,6 +18,7 @@ import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportFragment;
 import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SPConstant;
+import com.vessel.gather.app.constant.WebType;
 import com.vessel.gather.app.data.entity.IndexResponse;
 import com.vessel.gather.app.data.entity.UserInfoResponse;
 import com.vessel.gather.app.utils.ProvinceUtils;
@@ -118,6 +119,7 @@ public class HomeTabFragment extends MySupportFragment {
                 break;
             case 1://外链接
                 ARouter.getInstance().build("/app/web")
+                        .withSerializable(Constants.WEB_TYPE, WebType.WEB_URL)
                         .withSerializable(Constants.WEB_SITE, banners.get(position).getLink())
                         .navigation();
                 break;

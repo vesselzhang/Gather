@@ -9,6 +9,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
 import com.vessel.gather.app.constant.Constants;
+import com.vessel.gather.module.cart.CartTabFragment;
 import com.vessel.gather.module.home.SearchFragment;
 import com.vessel.gather.module.home.SellerApplyFragment;
 import com.vessel.gather.module.home.SellerListFragment;
@@ -29,6 +30,7 @@ import static com.vessel.gather.app.constant.Constants.DEFAULT_LONG;
 import static com.vessel.gather.app.constant.Constants.PAGE;
 import static com.vessel.gather.app.constant.Constants.PAGE_ABOUT;
 import static com.vessel.gather.app.constant.Constants.PAGE_ADDRESS;
+import static com.vessel.gather.app.constant.Constants.PAGE_CART;
 import static com.vessel.gather.app.constant.Constants.PAGE_COLLECT;
 import static com.vessel.gather.app.constant.Constants.PAGE_MEMO;
 import static com.vessel.gather.app.constant.Constants.PAGE_ORDER;
@@ -113,6 +115,9 @@ public class ContainerActivity extends MySupportActivity {
                 break;
             case PAGE_SEARCH:
                 targetFragment = SearchFragment.newInstance();
+                break;
+            case PAGE_CART:
+                targetFragment = CartTabFragment.newInstance();
                 break;
         }
         loadRootFragment(R.id.fl_content, targetFragment);

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">聚集</string>
+    <string name="h5_web">assemble/resources/shop.html?shopId=%1$d&amp;token=%2$s</string>
 </resources>

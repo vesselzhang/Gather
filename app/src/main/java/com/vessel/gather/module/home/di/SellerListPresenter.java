@@ -17,6 +17,7 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.constant.Constants;
+import com.vessel.gather.app.constant.WebType;
 import com.vessel.gather.app.data.entity.ServiceListResponse;
 import com.vessel.gather.app.data.entity.ServiceListResponse.ShopsBean;
 import com.vessel.gather.app.data.entity.TypeListResponse;
@@ -146,7 +147,7 @@ public class SellerListPresenter extends BasePresenter<SellerListContract.Model,
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ShopsBean shopsBean = (ShopsBean) adapterView.getAdapter().getItem(i);
         ARouter.getInstance().build("/app/web")
-                .withSerializable(Constants.WEB_TYPE, 1)
+                .withSerializable(Constants.WEB_TYPE, WebType.WEB_SHOP)
                 .withSerializable(Constants.WEB_ID, shopsBean.getShopId())
                 .navigation();
     }

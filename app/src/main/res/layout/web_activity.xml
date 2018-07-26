@@ -9,7 +9,8 @@
         android:id="@+id/progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="3dp" />
+        android:layout_height="3dp"
+        android:visibility="gone" />
 
     <com.vessel.gather.app.utils.X5WebView
         android:id="@+id/webview"
