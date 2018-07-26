@@ -28,6 +28,7 @@ import com.vessel.gather.app.base.MySupportActivity;
 import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.constant.WebType;
+import com.vessel.gather.app.utils.StatusBarUtils;
 import com.vessel.gather.app.utils.X5WebView;
 
 import butterknife.BindView;
@@ -65,6 +66,9 @@ public class WebActivity extends MySupportActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        StatusBarUtils.with(activity)
+                .setColor(getResources().getColor(R.color.base_color))
+                .init();
         type = getIntent().getIntExtra(WEB_TYPE, -1);
         String token = DataHelper.getStringSF(this, SPConstant.SP_TOKEN);
         switch (type) {

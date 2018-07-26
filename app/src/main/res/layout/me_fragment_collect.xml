@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/def_bg"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include

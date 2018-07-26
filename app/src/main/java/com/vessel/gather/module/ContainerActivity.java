@@ -9,6 +9,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
 import com.vessel.gather.app.base.MySupportActivity;
 import com.vessel.gather.app.constant.Constants;
+import com.vessel.gather.app.utils.StatusBarUtils;
 import com.vessel.gather.module.cart.CartTabFragment;
 import com.vessel.gather.module.home.SearchFragment;
 import com.vessel.gather.module.home.SellerApplyFragment;
@@ -63,6 +64,9 @@ public class ContainerActivity extends MySupportActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        StatusBarUtils.with(activity)
+                .setColor(getResources().getColor(R.color.base_color))
+                .init();
         ISupportFragment targetFragment = null;
         String pageIndex = getIntent().getStringExtra(PAGE);
         if (TextUtils.isEmpty(pageIndex)) {
