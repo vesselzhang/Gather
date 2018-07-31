@@ -1,5 +1,6 @@
 package com.vessel.gather.module.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.addresspicker.huichao.addresspickerlibrary.CityPickerDialog;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
@@ -21,10 +21,10 @@ import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.constant.WebType;
 import com.vessel.gather.app.data.entity.IndexResponse;
 import com.vessel.gather.app.data.entity.UserInfoResponse;
-import com.vessel.gather.app.utils.ProvinceUtils;
 import com.vessel.gather.app.utils.StatusBarUtils;
 import com.vessel.gather.widght.AutoScrollViewPager;
 import com.vessel.gather.widght.BaseViewPagerAdapter;
+import com.zaaach.citypicker.CityPickerActivity;
 
 import org.simple.eventbus.Subscriber;
 
@@ -76,6 +76,12 @@ public class HomeTabFragment extends MySupportFragment {
         StatusBarUtils.with(getActivity())
                 .setColor(getResources().getColor(R.color.base_color))
                 .init();
+        String location = DataHelper.getStringSF(getActivity(), SPConstant.SP_LOCATION);
+        if (TextUtils.isEmpty(location)) {
+            startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
+        } else {
+            cityTV.setText(location);
+        }
         mBaseViewPagerAdapter = new BaseViewPagerAdapter<String>(getActivity().getApplicationContext(), listener) {
             @Override
             public void loadImage(ImageView view, int position, String url) {
@@ -172,8 +178,7 @@ public class HomeTabFragment extends MySupportFragment {
                 }
                 break;
             case R.id.location:
-                showAddressDialog();
-//                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
+                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
                 break;
             case R.id.ll_search:
                 ARouter.getInstance().build("/app/container")
@@ -190,27 +195,15 @@ public class HomeTabFragment extends MySupportFragment {
         }
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
-//            if (data != null) {
-//                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
-//                cityTV.setText(city);
-//            }
-//        }
-//    }
-
-    private void showAddressDialog() {
-        new CityPickerDialog(getActivity(), ProvinceUtils.getInstance().getProvinces(),
-                null, null, null, (selectProvince, selectCity, selectCounty) -> {
-            StringBuilder address = new StringBuilder();
-            address
-//                    .append(selectProvince != null ? selectProvince
-//                            .getAreaName() : "")
-                    .append(selectCity != null ? selectCity
-                            .getAreaName() : "");
-            cityTV.setText(address.toString());
-        }).show();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
+            if (data != null) {
+                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+                DataHelper.setStringSF(getActivity(), SPConstant.SP_LOCATION, city);
+                cityTV.setText(city);
+            }
+        }
     }
 }
