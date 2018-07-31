@@ -74,7 +74,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
-            android:gravity="right"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#AAAAAA"
+            android:textSize="15sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20px"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="从业年限"
+            android:textColor="#353535"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#FF6000"
+            android:textSize="15sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/et_worker_year"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="请输入年限"
+            android:inputType="number"
             android:maxLines="1"
             android:padding="5dp"
             android:textColor="#AAAAAA"

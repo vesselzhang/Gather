@@ -45,6 +45,8 @@ public class ServiceListResponse implements Serializable {
         private String realPhoto;
         private String realName;
         private double score;
+        private Integer workYear;
+        private String type;
         private int saleNum;
         private List<String> skills;
 
@@ -86,6 +88,22 @@ public class ServiceListResponse implements Serializable {
 
         public void setScore(double score) {
             this.score = score;
+        }
+
+        public Integer getWorkYear() {
+            return workYear;
+        }
+
+        public void setWorkYear(Integer workYear) {
+            this.workYear = workYear;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
 
         public int getSaleNum() {

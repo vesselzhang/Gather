@@ -48,6 +48,8 @@ public class WorkerApplyFragment extends MySupportFragment {
     EditText etName;
     @BindView(R.id.et_worker_apply_sex)
     Spinner spSex;
+    @BindView(R.id.et_worker_year)
+    EditText etYear;
 //    @BindView(R.id.et_worker_apply_id_card)
 //    EditText etIdCard;
 //    @BindView(R.id.et_worker_apply_id_card_address)
@@ -148,10 +150,15 @@ public class WorkerApplyFragment extends MySupportFragment {
                     ArmsUtils.makeText(getActivity(), "服务城市必填");
                     return;
                 }
+                if (TextUtils.isEmpty(etYear.getText().toString())) {
+                    ArmsUtils.makeText(getActivity(), "从业年限必填");
+                    return;
+                }
                 Map<String, Object> map = new HashMap<>();
                 map.put("type", 0);
                 map.put("name", etName.getText().toString());
                 map.put("sex", spSex.getSelectedItem());
+                map.put("workYear", etYear.getText().toString());
                 map.put("idNumber", 0);
                 map.put("address", 0);
                 map.put("city", etServiceCity.getText().toString());
