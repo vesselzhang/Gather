@@ -59,6 +59,8 @@ public class Constants {
     //Key
     public static final String KEY = "KEY";
     public static final String KEY_WORKER_ID = KEY + "_Worker_Id";
+    public static final String KEY_ORDER_ID = KEY + "_Order_Id";
+    public static final String KEY_CART_LIST = KEY + "_Cart_List";
 
     //EventTAG
     public static final String TAG = "TAG";

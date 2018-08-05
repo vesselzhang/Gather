@@ -5,7 +5,6 @@ import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
 import com.vessel.gather.module.cart.adapter.CartAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,13 +31,13 @@ public class CartModule {
 
     @ActivityScope
     @Provides
-    List<CartsBean> provideList() {
+    ArrayList<CartsBean> provideList() {
         return new ArrayList<>();
     }
 
     @ActivityScope
     @Provides
-    CartAdapter provideAdapter(List<CartsBean> list) {
+    CartAdapter provideAdapter(ArrayList<CartsBean> list) {
         return new CartAdapter(list);
     }
 }

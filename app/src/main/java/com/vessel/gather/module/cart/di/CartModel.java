@@ -10,6 +10,7 @@ import com.vessel.gather.app.utils.HttpResultVoidFunc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -61,6 +62,15 @@ public class CartModel extends BaseModel implements CartContract.Model {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpResultVoidFunc());
+    }
+
+    @Override
+    public Observable<Map<String, Integer>> submitOrder(String ids, int addressId) {
+        return mRepositoryManager.obtainRetrofitService(CommonService.class)
+                .submitOrder(ids, addressId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new HttpResultFunc<>());
     }
 
     @Override

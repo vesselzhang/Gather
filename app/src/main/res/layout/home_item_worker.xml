@@ -65,6 +65,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_square_round_stroke_grey"
                 android:text="10年"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
                 android:textColor="#AAAAAA"
                 android:textSize="11sp"
                 android:visibility="gone" />

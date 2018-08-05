@@ -50,7 +50,7 @@ public class WorkerListAdapter extends MySupportAdapter<ArtisansBean> {
             viewHolder.year.setVisibility(View.GONE);
         } else {
             viewHolder.year.setVisibility(View.VISIBLE);
-            viewHolder.year.setText(artisansBean.getWorkYear());
+            viewHolder.year.setText(artisansBean.getWorkYear() + "年");
         }
 //        viewHolder.score.setRating(getItem(position).getScore());
         return convertView;

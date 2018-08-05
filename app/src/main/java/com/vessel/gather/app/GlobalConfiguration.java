@@ -12,6 +12,7 @@ import com.vessel.gather.BuildConfig;
 import com.vessel.gather.app.config.applyOptions.MyGlobalHttpHandler;
 import com.vessel.gather.app.config.applyOptions.MyGsonConfiguration;
 import com.vessel.gather.app.config.applyOptions.MyResponseErrorListener;
+import com.vessel.gather.app.config.applyOptions.MyRetrofitConfiguration;
 import com.vessel.gather.app.config.applyOptions.MyRxCacheConfiguration;
 import com.vessel.gather.app.config.lifecyclesOptioins.MyActivityLifecycle;
 import com.vessel.gather.app.config.lifecyclesOptioins.MyAppLifecycle;
@@ -30,7 +31,7 @@ public class GlobalConfiguration implements ConfigModule {
         //使用builder可以为框架配置一些配置信息
         builder
                 .baseurl(BuildConfig.APP_DOMAIN)
-//                .retrofitConfiguration(new MyRetrofitConfiguration())
+                .retrofitConfiguration(new MyRetrofitConfiguration())
                 .rxCacheConfiguration(new MyRxCacheConfiguration())
                 .globalHttpHandler(new MyGlobalHttpHandler(context))
                 .responseErrorListener(new MyResponseErrorListener())

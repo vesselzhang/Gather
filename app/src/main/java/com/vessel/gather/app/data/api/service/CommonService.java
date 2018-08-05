@@ -211,7 +211,7 @@ public interface CommonService {
 
     @FormUrlEncoded
     @POST(Api.payOrder)
-    Observable<CommonResponse<Map<String, String>>> payOrder(@Field("orderId") String orderId);//TODO
+    Observable<CommonResponse<Map<String, String>>> payOrder(@Field("orderId") int orderId, @Field("payMethod") int payMethod);
 
     @FormUrlEncoded
     @POST(Api.orderDetail)

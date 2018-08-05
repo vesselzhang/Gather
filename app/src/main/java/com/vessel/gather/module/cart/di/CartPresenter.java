@@ -2,12 +2,14 @@ package com.vessel.gather.module.cart.di;
 
 import android.text.TextUtils;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.DataHelper;
 import com.jess.arms.utils.RxLifecycleUtils;
+import com.vessel.gather.app.constant.Constants;
 import com.vessel.gather.app.constant.SPConstant;
 import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
 import com.vessel.gather.app.utils.progress.ProgressSubscriber;
@@ -16,8 +18,10 @@ import com.vessel.gather.module.cart.adapter.CartAdapter;
 
 import org.simple.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -37,7 +41,7 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
     @Inject
     CartAdapter mAdapter;
     @Inject
-    List<CartsBean> mList;
+    ArrayList<CartsBean> mList;
 
     @Inject
     public CartPresenter(CartContract.Model model, CartContract.View rootView) {
@@ -88,6 +92,23 @@ public class CartPresenter extends BasePresenter<CartContract.Model, CartContrac
                     public void onNext(Boolean aBoolean) {
                         mRootView.showMessage("删除成功");
                         cartList();
+                    }
+                });
+    }
+
+    public void submitOrder(String ids, int addressId) {
+        mModel.submitOrder(ids, addressId)
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ProgressSubscriber<Map<String, Integer>>(mAppManager.getCurrentActivity(), mErrorHandler) {
+                    @Override
+                    public void onNext(Map<String, Integer> map) {
+                        super.onNext(map);
+                        if (map.containsKey("orderId")) {
+                            ARouter.getInstance().build("/app/order/pay")
+                                    .withSerializable(Constants.KEY_ORDER_ID, map.get("orderId"))
+                                    .withSerializable(Constants.KEY_CART_LIST, mList)
+                                    .navigation();
+                        }
                     }
                 });
     }

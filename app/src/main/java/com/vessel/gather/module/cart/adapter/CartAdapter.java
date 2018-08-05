@@ -12,7 +12,7 @@ import com.vessel.gather.event.Event;
 
 import org.simple.eventbus.EventBus;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -23,7 +23,7 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
     private static final int TYPE_TITLE = 1;
     private static final int TYPE_NORMAL = 2;
 
-    public CartAdapter(List<CartsBean> infos) {
+    public CartAdapter(ArrayList<CartsBean> infos) {
         super(infos);
     }
 
@@ -139,6 +139,8 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
         TextView describe;
         @BindView(R.id.cart_detail_price)
         TextView price;
+        @BindView(R.id.cart_detail_count)
+        TextView count;
 
         public MyContent_ViewHolder(View itemView) {
             super(itemView);
@@ -148,6 +150,7 @@ public class CartAdapter extends DefaultAdapter<CartsBean> {
         public void setData(CartsBean data, int position) {
             name.setText(data.getProductName());
             price.setText("¥" + data.getPrice());
+            count.setText("X" + data.getNum());
             checkBox.setOnCheckedChangeListener(null);
             checkBox.setChecked(data.isSelected());
             checkBox.setOnCheckedChangeListener((compoundButton, b) -> {

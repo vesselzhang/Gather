@@ -14,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.vessel.gather.R;
@@ -30,7 +29,7 @@ import com.vessel.gather.module.cart.di.DaggerCartComponent;
 
 import org.simple.eventbus.Subscriber;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -59,7 +58,7 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
     @Inject
     CartAdapter mAdapter;
     @Inject
-    List<CartsBean> mList;
+    ArrayList<CartsBean> mList;
 
     boolean manageMode;
     int count, money;
@@ -122,7 +121,17 @@ public class CartTabFragment extends MySupportFragment<CartPresenter> implements
                     return;
                 }
                 if (count > 0) {
-                    ARouter.getInstance().build("/app/order/pay").navigation();
+                    String ids = "";
+                    for (CartsBean cartsBean : mList) {
+                        if (cartsBean.isTitle()) {
+                            for (CartsBean detail : cartsBean.getCartDetail()) {
+                                if (detail.isSelected()) {
+                                    ids += detail.getCartId() + ",";
+                                }
+                            }
+                        }
+                    }
+                    mPresenter.submitOrder(ids.substring(0, ids.length() - 1), 23);
                 } else {
                     showMessage("您还没有选择宝贝哦！");
                 }

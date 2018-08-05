@@ -5,6 +5,7 @@ import com.jess.arms.mvp.IView;
 import com.vessel.gather.app.data.entity.CartListResponse.CartsBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 
@@ -17,5 +18,7 @@ public interface CartContract {
         Observable<List<CartsBean>> cartList();
 
         Observable<Boolean> delCartById(String cartIds);
+
+        Observable<Map<String, Integer>> submitOrder(String ids, int addressId);
     }
 }
